@@ -23,3 +23,12 @@ body{
 	top: 15%;
 	width: auto;
 }
+.form table{
+	width: 100%;
+}
+.form table input{ /* Tamaño de los input en login Usuario*/
+	background-color:#FFFFFF;
+	border-radius: 8px;
+	padding: 6px;
+	width: 95%;
+}

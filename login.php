@@ -10,7 +10,7 @@
 <!--Esta es el href a los archivos que necesito para usar jquery, css-->
 	<link rel="stylesheet" href="include/css/estilos_login.css"> 
 	<script type="text/javascript" src="include/js/jquery.js"></script>
-	<script type="text/javascript" src="include/js/funciones_login.js"></script>
+<!--	<script type="text/javascript" src="include/js/funciones_login.js"></script>-->
 </head>
 <body>	
 	<div id="general">
@@ -26,6 +26,8 @@
 								<center>
 								<input type="text" name="user" id="user"
 								 placeholder="Ingrese Nombre de Usuario" >
+								 <input type="password" name="pass" id="pass"
+								 placeholder="Ingrese Contraseña" >
 								<div id="sugerencias_user"></div>
 
 								</center>
