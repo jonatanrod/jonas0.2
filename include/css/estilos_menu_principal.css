@@ -1,0 +1,292 @@
+/*Estilos para la pagina en general*/
+*{
+	font-family: "Roboto Condensed", sans-serif;
+	padding: 0;
+	margin: 0:
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+/*
+#contenedor_general{
+	background-color: #252932;	
+}
+*/
+/*Fin estilos para la pagina en general*/
+/*Estilo de encabezado para la pagina en general*/
+#encabezado{
+	background-image: url('../../imagenes/encabezado_principal.png'); /*Color de fondo del encabezado*/
+	background-size: 100% 80px;
+	color: #FFFFFF;				
+	height: 80px;
+	width: 100%;
+	z-index: 500;
+}
+
+#encabezado nav ul{ /*Estilo cuadro redondeado listado*/
+	border-radius: 10px;
+	list-style: none;
+}
+
+#encabezado nav ul li{  /* Estilo de Iconos Superior Izquierda*/
+	display: inline-block;
+	padding: 20px 15px;
+	position: relative;
+	box-shadow: 0px 0   inset;
+	-webkit-transition: all 0.5s ;
+	-o-transition: all 0.5s ;
+	transition: all 0.5s ;
+}
+
+#encabezado nav ul li:hover{ /*Animacion de llena caja otro color al hover*/
+	box-shadow: 400px 0 #2D9DC6 inset;
+}
+#encabezado nav ul li a{ /*Estilo inicial de los select*/
+	color: #FFFFFF;
+	display: inline-block;
+	font-size: 18px;
+	margin-left: 10px;
+	margin-right: 0px;
+	text-decoration: none;
+}
+#encabezado nav ul li a span{/*Espacio entre icono y texto*/
+	margin-right: 15px;
+}
+#encabezado nav ul li .children{ /*Estilo inicial cajas desplegadas */
+	background: #011826;
+	color: #FFFFFF;
+	display: none;
+	position: absolute;
+	width: 370px;
+	z-index: 1000;
+}
+#encabezado nav ul li .children li{/*Estilo de borde inferior de cada caja*/
+	border-bottom: 1px solid rgba(255,255,255,.5);
+	display: block;
+	overflow: hidden;
+}/*
+#encabezado nav ul li .children li a{ Estilo no mostrar cajas desplegables al inicio
+	display: block;
+}*/
+.icon-grid, .icon-search, .icon-bell, .icon-graph, .icon-user{ /*Tamaño de iconos encabezado*/
+	font-size: 35px;
+}
+.boton_menu, .boton_menu_lateral{/*Ocultar inicialmente menu y menu lateral*/
+	display: none;
+}
+/*Fin estilo de encabezado para la pagina en general*/
+
+/*Estilo de menu_izquierda para la pagina en general*/
+#menu_izquierda{/*Estilo tamaño menu_izquierda*/
+	float: left;
+	width:200px;
+}
+#menu_left nav{ /*Estilo inicial menu_izquierda*/
+	/*background: #023859;*/
+	background: black;
+	float: left;	
+	width: 100%;
+	z-index: 900;
+}
+#menu_left nav ul{/*Estilo borde redondeado caja principal*/
+	border-radius: 10px;
+	list-style: none;
+}
+#menu_left nav ul li{/*Estilo inicial cajas menu_left*/
+	display: block;
+	padding: 15px 2px;
+	position: relative;
+	box-shadow: 0px 0 #2D9DC6 inset;
+	-webkit-transition: all 0.5s ;
+	-o-transition: all 0.5s ;
+	transition: all 0.5s ;
+}
+#menu_left nav ul li:hover{/*Animacion hover llenar caja con otro color*/
+	box-shadow: 400px 0 #2D9DC6 inset;
+}
+#menu_left nav ul li a{ /*Estilo inicial menu_left*/
+	color: #FFFFFF;
+	display: inline-block;
+	font-size: 18px;
+	margin-left: 10px;
+	margin-right: 0px;
+	text-decoration: none;
+}
+#menu_left nav ul li a span{ /*Estilo flechas derecha de boton*/
+	margin-right: 10px;
+	margin-top: 10px;
+}/*
+#menu_left nav ul li:hover .children{
+	display: block;
+}*/
+#menu_left nav ul li .children{/*Estilo incial cajas desplegables*/
+	background: black;
+	/*background: #011826;*/
+	color: #FFFFFF;
+	display: none;
+	position: relative;
+	width: 250px;
+	z-index: 1000;
+}
+#menu_left nav ul li .children li{/*Borde inferior cajas desplegadas*/
+	border-bottom: 1px solid rgba(255,255,255,.5);
+	display: block;
+	overflow: hidden;
+	padding: 15px 2px;
+}
+#menu_left nav ul li .children li a{ /*Estilo inicial submenu de menu_left*/
+	display: block;
+}
+.titulo_submenu{ /*Posicion inicial cajas desplegadas*/
+	padding: 5px;
+}
+.caret{ /*Posicion inicial flecha (derecha) de cajas por desplegar*/
+	position: absolute;
+    font-size: 20px;
+    right: 5px;
+    top: 5px;
+}
+
+/*Fin estilo de menu_izquierda para la pagina en general*/
+/*Estilo del body*/
+body{ /*Estilo general del body*/
+	margin: 0;
+}
+#contenido{ /*Estilo general del div "contenido"*/
+	float: left;
+	width: calc(100% - 200px);
+	animation: fadeEffect 1s;
+}
+/*
+#ventana{ 
+	display: none;
+}
+#ventana2{
+	display:none;
+}
+*/
+/*Fin estilo del body*/
+
+/*Se inicia estilos al encabezado cuando es movil o ventana menos de 768px
+ de principal3.php*/			
+@media screen and (max-width: 768px){
+	body{ /*Estilo para que inicie debajo del encabezado*/
+		padding-top:120px;
+	}
+	#encabezado{ /*Estilo inicial del encabezado (movil)*/
+		background-image: url('../../imagenes/encabezado_principal.png'); /*Color de fondo del encabezado*/
+		background-size: 100% 60px;
+		height: 80px;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 1000;
+	}
+	/*#encabezado .logo { Logo del encabezado
+		font-size: 30px;
+		line-height: 60px;
+		position: fixed;
+		text-align: center;
+		vertical-align: middle;
+		width: 100%;
+		z-index: 1000;
+	}
+	*/
+	.boton_menu{ /*Estilo del boton menu*/
+		/*background: #023859;*/
+		background: black;
+		display: block;
+		position: fixed;
+		top: 60px;
+		width: 50%;
+	}
+	.boton_menu .bt-menu{/*Estilo 2 del boton menu*/
+		color: #FFFFFF;
+		display: block;
+		font-size: 15px;
+		font-weight: bold;
+		overflow: hidden;
+		padding: 15px;
+		text-decoration: none;
+	}
+	.boton_menu_lateral{/*Estilo boton menu_lateral*/
+		/*background: #023859;*/
+		background: black;
+		display: block;
+		margin-left: 50%;
+		position: fixed;
+		top: 60px;
+		width: 50%;
+	}
+	.boton_menu_lateral .bt-menu{/*Estilo 2 boton menu_lateral*/
+		color: #FFFFFF;
+		display: block;
+		font-size: 15px;
+		font-weight: bold;
+		overflow: hidden;
+		padding: 15px;
+		text-decoration: none;
+	}
+	#encabezado nav{/*Estilo inicial submenu encabezado*/
+		/*background: #023859;*/
+		background: black;
+		height: calc(100% - 120px);
+		margin: 0;
+		overflow: scroll;
+		position: fixed;
+		right: 100%;
+		top:104px;
+		width: 80%;
+	}
+	#encabezado nav ul li a{/*Estilo inicial encabezado submenu2*/
+		display: inline-block;
+	}
+	#encabezado nav ul li .children{/*Estilo inicial encabezado submenu*/
+		position: relative;
+		width: 100%;
+	}
+	#encabezado nav ul li:hover .children{/*Estilo para que no se vea la animación 
+		de llenar la casilla en los dispositivos móviles*/
+		display: none;
+	}
+	#menu_left nav{/*Estilos menu_left moviles*/
+		background: black;
+		/*background: #023859;*/
+		height: calc(100% - 120px);
+		margin: 0;
+		overflow: scroll;
+		position: fixed;
+		right: 100%;
+		top: 104px;
+		width: 80%;
+	}
+	#menu_left nav ul li a{/*Estilo bloques en menu_left*/
+		display: inline-block;
+	}
+	#menu_left nav ul li a span{ /*Estilo flechas derecha de boton*/
+		margin-top: 0px;
+	}
+	#menu_left nav ul li .children{/*Posición y ancho de submenús desplegados*/
+		position: relative;
+		width: 100%;
+	}
+	#menu_left nav ul li .children li a{/*Margen de los titulos de submenús*/
+		margin-left: 20px;
+	}
+	#menu_left nav ul li:hover .children{ /*Estilo para que no muestre animacion llenar casilla en móviles*/
+		display: none;
+	}
+	.caret{ /*Boton flechas (derecha) en submenu*/
+		position: absolute;
+	    font-size: 25px;
+	    right: 10px;
+	}
+/* Desde aqui es el estilo para móviles del contenido*/
+	#contenido{
+	 	text-align: center;
+	 	width: 100%;
+	}
+/* Hasta aqui es el estilo para móviles del contenido*/
+}
+/*Hasta aqui terminan los estilos al encabezado cuando es movil o ventana menos de 768px
+ de principal3.php*/	

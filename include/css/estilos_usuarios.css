@@ -1,0 +1,231 @@
+body{
+	background-color: #F0F0F0; 
+	color: #666;
+/*	font-family: "Roboto Condensed", sans-serif; */
+}
+.form input{ /* Estilo de la barra del buscador e input internos */
+	background-color:#FFFFFF;
+	border-radius: 8px;
+	padding: 6px;
+	width: 80%;
+}
+#ventana{ /* Formato de la ventana modal del Formulario de Agregar Usuario */
+
+}
+#ventana .form{ /* Formato del formulario Nuevo Usuario */
+
+}
+#ventana .form table{ /* Formato tabla en formulario Agregar Nuevo Usuario */
+	text-align: left;
+	width: 100%;
+}
+#ventana .form table td input{/* Tamaño de los input en tabla del Formulario Agregar Nuevo Usuario*/
+	width: 95%;
+}
+#ventana2{ /* Formato de la ventana modal de Modificar Usuario */
+	background-image: url(../../imagenes/bg-modal.png);
+	color: #FFFFFF;
+	display: none;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+#ventana2 .form{ /* Centrar formulario Modificar Usuario */
+	background-color: #FFFFFF;
+	border-radius: 20px;
+	color: #666;
+	left: 20%;
+	max-height: 450px;
+	overflow-y: scroll;
+	padding: 25px;
+	position: absolute;
+	right: 20%;
+	text-align: center;
+	top: 5%;
+	width: auto;
+}
+#ventana2 .form table{ /* Formato tabla en formulario Modificar Usuario  */
+	text-align: left;
+	width: 100%;
+}
+.cerrar{
+	font-weight: 900;
+	text-align: right;
+}
+.cerrar a{
+	color: red;
+}
+.boton_enviar{
+	border-radius: 10px;
+}
+.boton_enviar:hover{
+	background-color: #2D9DC6;
+	color: #FFFFFF;
+}
+#desplegable_resultados{
+	min-height: 100px;
+	width: 90%;
+}
+.center{
+	text-align: center;
+}
+.footer{
+	clear: both;
+	color: #252932;
+	font-size: 14px;
+}
+/*Se inicia estilos para el resultado de buscador_usuarios.php*/
+.fila1{
+	background-color: #e3e8ec;
+}
+.fila2{
+	background-color: #D8D8D8;
+}
+.art{
+	border-bottom: 1px solid rgba(255,255,255,.5);
+	border-radius: 10px;
+	display: block;
+	margin-bottom: 2px;
+	margin-left: 15px;
+	padding: 5px;
+	width: 80%;
+}
+.art:hover{
+	box-shadow: 10000px 0 #2D9DC6 inset;
+	color: #FFFFFF;
+}
+.art a{
+	display: block;	
+	text-decoration: none;
+}
+.art a:hover{
+	color: #FFFFFF;
+}
+.art span{
+	font-size: 15px;
+}
+.art1{
+	border-bottom: 1px solid rgba(255,255,255,.5);
+	border-radius: 10px;
+	display: block;
+	margin-bottom: 2px;
+	margin-left: 15px;
+	padding: 5px;
+	width: 300px;
+}
+.art1:hover{
+	box-shadow: 10000px 0 #2D9DC6 inset;
+	color: #FFFFFF;
+}
+.art1 a{
+	display: block;	
+	text-decoration: none;
+}
+.art1 a:hover{
+	color: #FFFFFF;
+}
+.art1 span{
+	font-size: 15px;
+}
+.fotos{
+	border-radius: 8px;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: auto;
+    background-color: black;
+    color: #FFFFFF;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10;
+    font-size: 12px;
+    
+    /* Posicion del tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 25%;
+    margin-left: -60px;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+/*Fin de estilos para el resultado de buscador_usuarios.php*/
+
+.errores{ /* Estilo de los errores */
+	background: red;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	color: #FFFFFF;
+	display: none;
+	float: center;
+	font-size: 12px;
+	padding: 5px;
+	position: relative;	
+	text-align: center;
+	width: 330px;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	-ms-box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	-o-box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* Se inicia estilos al form de usuarios cuando es movil o ventana menos de 768px */			
+@media screen and (max-width: 768px){
+	.art{
+		width: auto;
+	}
+	.art1{
+		width: auto;
+	}
+	#ventana{
+		color: #FFFFFF;
+		/*display: none;*/
+		height: auto; /*Si height es 100% hace la animacion de display hacia abajo*/
+		left: 0;
+		position: relative;
+		width: 100%;
+	}
+	#ventana .form{
+
+	}
+	#ventana .form table{/* Poner color blanco a letras en formulario Agregar Usuario */
+		color: #FFFFFF;
+	}
+	#ventana2{
+		color: #FFFFFF;
+		display: none;
+		height: auto; /*Si height es 100% hace la animacion de display hacia abajo*/
+		left: 0;
+		position: relative;
+		top: 0;
+		width: 100%;
+	}
+	#ventana2 .form{
+		background: #585858;
+		border-radius: 20px;
+		color:#FFFFFF;
+		height: auto;
+		left: 5%;
+		padding: 5px;
+		position: absolute;
+		right: 5%;
+		top: 2px;
+		width: 90%;
+	}
+	#ventana2 .form table{/* Poner color blanco a letras en formulario Modificar Usuario */
+		color: #FFFFFF;
+	}
+	.errores{
+		width: auto;
+	}
+}
+/* Fin estilos al form cuando es movil o ventana menos de 768px de principal3.php*/	

@@ -1,0 +1,289 @@
+/*Estilos para la pagina en general*/
+*{
+	padding: 0;
+	margin: 0:
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body{
+	
+	background-size: 100% 100%; 
+	color: #666;
+}
+#search_remitente {/* Estilos de casilla de busqueda Modulo Radicacion de Entrada */
+    width: 90%;
+}
+.center{
+	text-align: center;
+}
+
+.formulario_modal input{ /*Estilos de la casilla de busqueda de remitente*/
+	padding: 6px;
+	width: 100%;
+}
+.footer{	/* Estilos del footer */
+	clear: both;
+	color: #023859;
+	font-size: 14px;
+}
+.footer a{
+	color: #023859;
+}
+.footer a:hover{
+	color: #B40431;
+}
+.input_texto{ /* Estilos para input de texto en general */
+	width: 400px;
+}
+#sugerencias_remitente{ /* Estilo sugerencias principal */
+	min-height: 100px;
+	width: 90%;
+}
+.ventana_modal{ /*Formato ventana modal Formulario Agregar Nuevo Contacto*/
+	background-image: url(../../imagenes/bg-modal.png);
+	color: #FFFFFF;
+	display: none;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+.ventana_modal .formulario_modal{
+	background-color: #FFFFFF;
+	border-radius: 20px;
+	color: #666;
+	left: 20%;
+	max-height: 500px;
+	overflow-y: scroll;
+	padding: 25px;
+	position: absolute;
+	right: 20%;
+	text-align: center;
+	top: 3%;
+	width: auto;
+}
+.ventana_modal .formulario_modal table{
+	padding-left: 2%;
+	padding-right: 2%;
+	text-align: left;
+	width: 100%;<
+}
+.ventana_modal .formulario_modal table td{/*Distribuir en la mitad la tabla del formulario Agregar Nuevo Contacto*/
+	width: 50%;
+}
+.cerrar{
+	font-weight: 900;
+	padding-right: 10px;
+	padding-top: 10px;
+	text-align: right;
+}
+.cerrar a{
+	color: red;
+}
+#titulo_formulario{
+	margin-top: -20px;
+}#subtitulo_formulario{
+	margin-top: -20px;
+}
+.boton_enviar{
+	padding: 5px;
+	border-radius: 10px;
+}
+.boton_enviar:hover{
+	background-color: #2D9DC6;
+	color: #FFFFFF;
+}
+/*Se inicia estilos para el resultado de buscador_remitente.php*/
+.sugerencia_contacto{
+	background-color: #F1F1F1;
+	border-bottom: 1px solid rgba(255,255,255,.5);
+	border-radius: 10px;
+	display: block;
+	margin-bottom: 2px;
+	margin-left: 50px;
+	width: auto;
+	max-width: 600px;
+}	
+.sugerencia_contacto:hover{
+	box-shadow: 10000px 0 #2D9DC6 inset;
+	color: #FFFFFF;
+}
+.sugerencia_contacto a{
+	display: block;	
+	text-decoration: none;
+	margin-left: 15px;
+	margin-left: 15px;
+	margin-top: 10px;
+}
+.sugerencia_contacto a:hover{
+	color: #FFFFFF;
+}
+.sugerencia_contacto span{
+	font-size: 15px;
+}
+
+.sugerencia_contacto_radicacion_entrada{
+	background-color: #F1F1F1;
+	border-bottom: 1px solid rgba(255,255,255,.5);
+	border-radius: 10px;
+	display: block;
+	margin-bottom: 2px;
+	margin-left: -5px;
+	margin-right: -30%;
+	width: auto;
+}
+.sugerencia_contacto_radicacion_entrada:hover{
+	box-shadow: 10000px 0 #2D9DC6 inset;
+	color: #FFFFFF;
+}
+.sugerencia_contacto_radicacion_entrada a{
+	display: block;	
+	text-decoration: none;
+	margin-left: 15px;
+	margin-left: 15px;
+	margin-top: 5px;
+}
+.sugerencia_contacto_radicacion_entrada a:hover{
+	color: #FFFFFF;
+}
+.sugerencia_contacto_radicacion_entrada span{
+	font-size: 15px;
+}
+.sugerencia_nit_contacto_radicacion_entrada{
+	background-color: #F1F1F1;
+	border-bottom: 1px solid rgba(255,255,255,.5);
+	border-radius: 10px;
+	display: block;
+	margin-bottom: 2px;
+	margin-left: -5px;
+	margin-right: -30%;
+	width: auto;
+}
+.sugerencia_nit_contacto_radicacion_entrada:hover{
+	box-shadow: 10000px 0 #2D9DC6 inset;
+	color: #FFFFFF;
+}
+.sugerencia_nit_contacto_radicacion_entrada a{
+	display: block;	
+	text-decoration: none;
+	margin-left: 15px;
+	margin-left: 15px;
+	margin-top: 5px;
+}
+.sugerencia_nit_contacto_radicacion_entrada a:hover{
+	color: #FFFFFF;
+}
+.sugerencia_nit_contacto_radicacion_entrada span{
+	font-size: 15px;
+}
+.sugerencia_municipio{
+	background-color: #F1F1F1;
+	border-bottom: 1px solid rgba(255,255,255,.5);
+	border-radius: 10px;
+	display: block;
+	margin-bottom: 2px;
+	margin-left: -5px;
+	margin-right: -30%;
+	width: auto;
+}
+.sugerencia_municipio:hover{
+	box-shadow: 10000px 0 #2D9DC6 inset;
+	color: #FFFFFF;
+}
+.sugerencia_municipio a{
+	display: block;	
+	text-decoration: none;
+	margin-left: 15px;
+	margin-left: 15px;
+	margin-top: 5px;
+}
+.sugerencia_municipio a:hover{
+	color: #FFFFFF;
+}
+.sugerencia_municipio span{
+	font-size: 15px;
+}
+#div_dignatario{
+	padding-left: 35px;
+}
+.titulo{ /*Formato de la letra del listado de remitentes encontrados en la busqueda de radicación entrada*/
+	font-size: 25px;
+}
+.subtitulo{
+	font-size: 7px;
+}
+/*Fin de estilos para el resultado de buscador_municipios.php*/
+
+
+#contenedor img{
+	width: 100px;
+}	
+
+/*Se inicia estilos al form cuando es movil o agregar_contacto menos de 768px
+ de idex_entrada.php*/
+
+@media screen and (max-width: 768px){
+	.ventana_modal{
+		display: none;
+		height: 100%; /*Si height es 100% hace la animacion de display hacia abajo*/
+		left: 0;
+		position: relative;
+		top: -15;
+		width: 100%;
+	}
+	.ventana_modal .formulario_modal{
+		background: #1C1C1C;
+		border-radius: 20px;
+		color:#FFFFFF;
+		height: auto;
+		left: 5%;
+		padding: 5px;
+		position: absolute;
+		right: 5%;
+		top: 5%;
+		width: 90%;
+	}
+	.ventana_modal .formulario_modal table{
+		color: #FFFFFF;
+		padding-left: 2%;
+		padding-right: 2%;
+		text-align: left;
+		width: 100%;
+	}
+	.sugerencia_contacto{
+		margin-left: 5%;
+		margin-right: -5%;
+		width: auto;
+	}	
+	.sugerencia_municipio{
+		margin-left: -5px;
+		margin-right: -5%;
+	}
+	.sugerencia_contacto_radicacion_entrada{
+		margin-left: -5px;
+		margin-right: -5%;
+	}.sugerencia_nit_contacto_radicacion_entrada{
+		margin-left: -5px;
+		margin-right: -5%;
+	}
+}
+/*Fin estilos al form cuando es movil o agregar_contacto menos de 768px de index_entrada.php*/
+
+.errores{
+	background: red;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	color: #FFFFFF;
+	display: none;
+	float: center;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;	
+	text-align: center;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	-ms-box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	-o-box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
