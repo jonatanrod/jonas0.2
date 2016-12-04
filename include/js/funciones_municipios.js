@@ -233,7 +233,8 @@ function error_municipio_ya_existe(){
 /* Fin script cargar municipio - Formulario Agregar Nuevo Municipio */
 /* Script espacios pais - Formulario Agregar Nuevo Municipio */
 function espacios_pais(){
-	var str = $('#pais').val();	str = str.replace('-','');	str = str.replace('°','');
+	var str = $('#pais').val();	
+	str = str.replace('-','');	str = str.replace('°','');
 	str = str.replace('!','');	str = str.replace('|','');	str = str.replace('"','');
 	str = str.replace('$','');	str = str.replace('#','');	str = str.replace('%','');
 	str = str.replace('&','');	str = str.replace('=','');	str = str.replace('?','');
