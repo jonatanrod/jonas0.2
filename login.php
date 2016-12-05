@@ -2,7 +2,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Ingreso al Software de Gestion Documental JONAS</title>
-	<link href="http://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type ="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Roboto+Condensed" el="stylesheet" type ="text/css">
 	<link href="imagenes/logo5.png" type="image/x-icon" rel="shorttcut icon"/>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -15,36 +15,37 @@
 </head>
 <body>	
 	<div id="general">
-			<div class="form">
-				<img src="imagenes/encabezado_transparente.png" id="logo_principal">
-				<h1>Software de Gestión Documental</h1>
-				<hr>
-				<form action="principal3.php" method="POST" id ="formulario_login" name ="formulario_login" >
-					<table>
-						<tr>
-							<td width="100%">
-								<center>
-								<div class="casilla">
+		<div class="form">
+			<img src="imagenes/encabezado_transparente.png" id="logo_principal">
+			<h1>Software de Gestión Documental</h1>
+			<hr>
+			<form action="principal3.php" method="POST" id ="formulario_login" name ="formulario_login" >
+				<table>
+					<tr>
+						<td width="100%">
+							<center>
+								<div>
 									<img src="imagenes/iconos/icono_user.png" width="50px">
 									<input type="text" name="user" id="user"
 									 placeholder="Ingrese Usuario" onkeyup="upper_user()" maxlength='18'>
 								 </div>
 								
-								 <div class="casilla">
+								 <div>
 								 	<img src="imagenes/iconos/icono_lock.png" width="50px">
 									<input type="password" name="pass" id="pass"
 									 placeholder="Ingrese Contraseña" >
 								 </div>
-								<div class="errores">El usuario y/o contraseña no son correctos. Por favor revisar.</div>
-								</center>
-								
-							</td>
-						</tr>
-					</table>
-				</form>		
-
-
-
+								<div>
+									<br>
+									<input type="button" value="Ingresar" id="boton_ingreso" class="boton"></td>
+								</div> 
+							</center>															<div class="errores">El usuario y/o contraseña no son correctos. Por favor revisar.</div>
+						</td>
+					</tr>
+				</table>
+			</form>	
+		</div>		
+	</div>
 </body>
 </html>
 

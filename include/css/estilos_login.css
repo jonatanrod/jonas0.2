@@ -48,15 +48,20 @@ body{
 	box-shadow: 0 0 10px rgba(0,0,0,0.3);
 	color: #FFFFFF;
 	/*display: none;*/
-	float: center;
+	/*float: center;*/
 	font-size: 15px;
 	padding: 5px;
 	position: relative;	
 	text-align: center;
-	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.3);
-	-ms-box-shadow: 0 0 10px rgba(0,0,0,0.3);
-	-o-box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+.boton{
+	background: green;
+	border-radius: 10px;
+}
+.boton:hover{
+	background-color: #2D9DC6;
+	color: #FFFFFF;
 }
 /* Se inicia estilos al form de municipios cuando es movil o ventana menos de 768px */			
 @media screen and (max-width: 768px){
@@ -74,6 +79,9 @@ body{
 		padding-left: 5px;
 		width: 60%;
 	    left: 0px;
+	}
+	.boton{
+		background-color: yellow;
 	}
 
 }
