@@ -29,38 +29,41 @@ body{
 	padding-top: 1%;
 	width: 70%;
 }
-.form table input{ /* Tamaño de los input en login */
+.form table .textbox{ /* Tamaño de los input en login */
+	background: transparent;
+	border-bottom: 1px solid white;
 	border: 0;
 	bottom: 10px;
+	color: #FFFFFF;
+	font-family: "Roboto Condensed";
 	font-size: 30px;
+	left: 15px;
 	padding-left: 5px;
 	position: relative;
 	width: 40%;
-    background: transparent;
-    border-bottom: 1px solid white;
-    color: #FFFFFF;
-    font-family: "Roboto Condensed";
-    left: 15px;
 }
 .errores{ /* Estilo de los errores */
+	display: none;
+	/*float: center;*/
 	background: red;
 	border-radius: 10px;
 	box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	box-shadow: 0 0 10px rgba(0,0,0,0.3);
 	color: #FFFFFF;
-	/*display: none;*/
-	/*float: center;*/
 	font-size: 15px;
 	padding: 5px;
 	position: relative;	
 	text-align: center;
-	box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 .boton{
-	background: green;
-	border-radius: 10px;
+	background: #2D9DC6;
+	border-radius: 20px;
+	font-size: 30px;
+	font-family: "Roboto Condensed";
+	padding-left: 8%;
+	padding-right: 8%;
 }
 .boton:hover{
-	background-color: #2D9DC6;
 	color: #FFFFFF;
 }
 /* Se inicia estilos al form de municipios cuando es movil o ventana menos de 768px */			
@@ -81,7 +84,8 @@ body{
 	    left: 0px;
 	}
 	.boton{
-		background-color: yellow;
+		padding: 0px;
 	}
+
 
 }

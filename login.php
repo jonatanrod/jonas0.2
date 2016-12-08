@@ -26,18 +26,18 @@
 							<center>
 								<div>
 									<img src="imagenes/iconos/icono_user.png" width="50px">
-									<input type="text" name="user" id="user"
+									<input type="text" name="user" id="user" class="textbox"
 									 placeholder="Ingrese Usuario" onkeyup="upper_user()" maxlength='18'>
 								 </div>
 								
 								 <div>
 								 	<img src="imagenes/iconos/icono_lock.png" width="50px">
-									<input type="password" name="pass" id="pass"
+									<input type="password" name="pass" id="pass" class="textbox"
 									 placeholder="Ingrese Contraseña" >
 								 </div>
 								<div>
 									<br>
-									<input type="button" value="Ingresar" id="boton_ingreso" class="boton"></td>
+									<input type="button" value="Ingresar" id="boton_ingreso" class="boton" onclick="entra()" ></td>
 								</div> 
 							</center>															<div class="errores">El usuario y/o contraseña no son correctos. Por favor revisar.</div>
 						</td>
