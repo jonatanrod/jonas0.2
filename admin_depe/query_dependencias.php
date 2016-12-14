@@ -16,7 +16,7 @@
 		$usuario = 'Jonas';/*Este es el usuario que esta realizando la modificacion.
 		Por definir como lo voy a recuperar.*/
 
-		require_once('../login/conexion.php');
+		require_once('../login/conexion2.php');
 	
 		if(isset($_POST['tipo_formulario'])){ // Desde index_dependencias.php
 			$tipo_formulario=$_POST['tipo_formulario'];

@@ -7,7 +7,7 @@
 	<?php 
 /*Aqui defino la fecha de la transaccion*/
 		require_once('../include/genera_fecha.php');
-		require_once('../login/conexion.php');
+		require_once('../login/conexion2.php');
 		//sleep(1);
 		$permiso_administrador_municipios = 1;/*Falta por definir el permiso en usuarios
 		Lo pongo temporalmente 1 pero hay que definirlo.*/

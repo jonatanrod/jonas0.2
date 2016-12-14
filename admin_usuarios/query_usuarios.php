@@ -13,7 +13,7 @@
 <?php 
 
 	require_once('../include/genera_fecha.php');
-	require_once('../login/conexion.php');
+	require_once('../login/conexion2.php');
 
 /*	$identificacion="";
 	$nombre_completo="";

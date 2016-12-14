@@ -2,7 +2,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Validar Sesion</title>
-	<link rel="stylesheet" type="text/css" href="include/css/estilos_entrada.css">
 	<script type="text/javascript" src="include/js/jquery.js"></script>
 </head>
 <body>
@@ -13,8 +12,8 @@
 		}
 	</script>
 <?php 
-/* Llamo al archivo para concectarme con la base de datos */
-	require_once("../login/conexion.php");
+/* Llamo al archivo para concectar con la base de datos */
+	require_once("../login/conexion2.php");
 
 	$usuario=$_POST['user'];
 	$pasword=$_POST['paswd'];

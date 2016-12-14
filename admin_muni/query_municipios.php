@@ -14,7 +14,7 @@
 		$usuario = 'Jonas';/*Este es el usuario que esta realizando la modificacion.
 		Por definir como lo voy a recuperar.*/
 
-		require_once('../login/conexion.php');
+		require_once('../login/conexion2.php');
 	
 /*Aqui defino la fecha de la transaccion*/
 		include "../include/genera_fecha.php";

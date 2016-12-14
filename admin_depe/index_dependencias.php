@@ -1,4 +1,4 @@
-<?php require_once('../login/conexion.php') ?>
+<?php require_once('../login/conexion2.php') ?>
 <!DOCTYPE html>
 <html >
 <head>

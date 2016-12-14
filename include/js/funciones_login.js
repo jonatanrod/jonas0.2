@@ -22,10 +22,14 @@ function entra(){
 			'passd_j' : passd
 		},			
 		success: function(resp){
-			alert(resp);
-			
+			//alert(resp);
+			console.log(resp);
 			if(resp==""){
 				$('.errores').slideDown("slow");
+			}else{
+				$('.errores').slideUp("slow");	
+				$('#general').fadeOut("slow");
+				location.href='principal3.php';			
 			}
 			
 		}

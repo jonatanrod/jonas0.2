@@ -10,7 +10,7 @@
 	/*Fecha que se realiza la transaccion (hoy)*/	
 		$fecha_modificacion = $date; // $date es del formato "2016-05-05"
  
-		require_once('../login/conexion.php');
+		require_once('../login/conexion2.php');
 		//sleep(1);
 		$permiso_administrador_dependencias = "SI";/*Falta por definir el permiso en usuarios.	Lo pongo temporalmente 1 pero hay que definirlo.*/
 		if(isset($_POST['desde_formulario'])){
