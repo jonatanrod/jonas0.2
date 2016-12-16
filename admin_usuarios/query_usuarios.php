@@ -15,11 +15,10 @@
 	require_once('../include/genera_fecha.php');
 	require_once('../login/conexion2.php');
 
-/*	$identificacion="";
+	$identificacion="";
 	$nombre_completo="";
 
 	$identificacion=$_POST['identificacion'];
-	echo $identificacion;
 	$nombre_completo=$_POST['nombre_completo'];
 	$login=$_POST['login'];
 	$mail=$_POST['mail'];
@@ -32,7 +31,8 @@
 	$nivel_seguridad=$_POST['nivel_seguridad'];
 
 	$ventanilla_radicacion=$_POST['ventanilla_radicacion'];
-*/
+
+	$tipo_formulario=$_POST['tipo_formulario'];
 	$query_max_usuario="select max(id_usuario) from usuarios";
 
 	$fila_usuario = pg_query($conectado,$query_max_usuario);

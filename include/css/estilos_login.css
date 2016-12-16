@@ -57,6 +57,9 @@ body{
 	position: relative;	
 	text-align: center;
 }
+.icono{
+	width:50px;
+}
 .boton{
 	background: #2D9DC6;
 	border-radius: 20px;
@@ -71,10 +74,13 @@ body{
 /* Se inicia estilos al form de municipios cuando es movil o ventana menos de 768px */			
 @media screen and (max-width: 768px){
 	.form{
-		left: 10%;
+		left: 5%;
 		padding: 0px;
-		right: 10%;
-		top: 3%;
+		right: 5%;
+		top: 10%;
+	}
+	.icono{
+		width: 35px;
 	}
 	#logo_principal{
 		width: 95%;
@@ -87,6 +93,12 @@ body{
 	}
 	.boton{
 		padding: 0px;
+	}
+	.form table .textbox{ /* Tamaño de los input en login */
+		font-size: 25px;
+		left: 15px;
+		width: 60%;
+		padding: 10px;
 	}
 
 

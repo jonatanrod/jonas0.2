@@ -6,15 +6,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Buscador de Usuarios</title>
-	<!--<link href="http://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type ="text/css">-->
-	<!--<script type="text/javascript" src="include/js/jquery.js"></script>-->
 	<script type="text/javascript" src="include/js/funciones_usuarios.js"></script>
 	<link rel="stylesheet" href="include/css/estilos_usuarios.css">
 </head>
 <body>
 <!--Desde aqui el div que contiene el formulario para agregar usuarios-->
 		<div id="ventana">
-			<div class="form">
+			<div class="formulario">
 				<div class="cerrar"><a href='javascript:cerrarVentanaCrearUsuarios();'>Cerrar X</a></div>
 				<h1>Formulario Agregar Nuevo Usuario</h1>
 				<hr>
@@ -93,7 +91,7 @@
 							</td>
 							<td>
 								<input type="hidden" name="codigo_dependencia" id="codigo_dependencia">
-								<input type="text" name="dependencia" id="dependencia" placeholder="Ingrese Dependencia del Usuario">
+								<input type="text" name="dependencia" id="dependencia" placeholder="Ingrese Dependencia del Usuario" onkeyup="espacios_dependencia()">
 								<div id="sugerencias_dependencia"></div>
 
 								<div id="error_dependencia" class="errores">La dependencia del usuario es obligatoria.</div>
@@ -128,6 +126,10 @@
 								<div id="error_imagen_invalida" class="errores"> El formato de la imagen que va a ingresar no es válido. El sistema solo admite formato PNG, GIF, JPG y JPEG</div>
 							</td>
 						</tr>
+					</table>
+					<h2> Permisos del Usuario</h2>
+					<hr>	
+					<table>
 						<tr>	
 							<td>
 								Estado :
@@ -165,10 +167,6 @@
 								</select>
 							</td>
 						</tr>	
-					</table>
-					<h2> Permisos del Usuario</h2>
-					<hr>	
-					<table>
 						<tr>
 							<td>Ventanilla de Radicacion</td>
 							<td>
@@ -186,8 +184,8 @@
 						</tr>
 					</table>	
 				</form>
-			</div>		
-		</div>
+			</div><!-- Cierra el div class ="formulario" -->		
+		</div><!-- Cierra el div id='ventana' -->
 <!--Hasta aqui el div que contiene el formulario para agregar municipios-->
 <!--**************************************************************************************************-->
 <!--Desde aqui el div que contiene el formulario para modificar usuarios-->	
@@ -225,7 +223,6 @@
 							</td>
 							<td>
 								<input type="hidden" name="ant_mod_nombre_completo" id="ant_mod_nombre_completo">
-							
 								<input type="text" name="mod_nombre_completo" id="mod_nombre_completo" placeholder="Ingrese Nombres y Apellidos completos (sin numeros)" onkeyup="espacios_mod_nombre_completo()"">
 								<div id="sugerencias_mod_nombre_completo"></div>
 
@@ -306,10 +303,14 @@
 						<tr>
 							<td>Foto del Usuario</td>
 							<td>
-								<input type="file" name="imagen" id="imagen2" onchange="valida_mod_tipo_archivo()">
+								<input type="file" name="imagen2" id="imagen2" onchange="valida_mod_tipo_archivo()">
 								<div id="error_mod_imagen_invalida" class="errores"> El formato de la imagen que va a ingresar no es válido. El sistema solo admite formato PNG, GIF, JPG y JPEG</div>
 							</td>
 						</tr>
+					</table>
+					<h2> Permisos del Usuario</h2>
+					<hr>	
+					<table>
 						<tr>	
 							<td>
 								Estado :
@@ -347,10 +348,6 @@
 								</select>
 							</td>
 						</tr>	
-					</table>
-					<h2> Permisos del Usuario</h2>
-					<hr>	
-					<table>
 						<tr>
 							<td>Ventanilla de Radicacion</td>
 							<td>

@@ -5,10 +5,17 @@
             cerrarVentanaCrearUsuarios();
             cerrarVentanaModificarUsuarios()
         }
+        if(codigo== 8){ // Opcion para restringir que la tecla backspace da atras en el navegador.
+        	if (history.forward(1)) {
+				location.replace(history.forward(1));
+			}	
+        }
     }, false);
 /* Fin script para ventana modal - Tecla Esc */
-/* Administrador de usuarios ********************************************************************/
-/*Script buscador - Administrador de Usuarios*/
+
+/************************************************************************************************************/
+/* Buscador - Administrador de Usuarios *********************************************************************/
+/************************************************************************************************************/
 $(function buscador_usuarios(){
 	
 	$('#search_usuario').focus();
@@ -16,8 +23,8 @@ $(function buscador_usuarios(){
 		var envio_usuario = $('#search_usuario').val();
 		if(envio_usuario.length>2 && envio_usuario.length<50){		
 			$('#logo').html('<h2>Buscador de Usuarios</h2>');
-
-			$.ajax({
+	
+	        $.ajax({
 				type: 'POST',
 				url: 'admin_usuarios/buscador_usuarios.php',
 				data: {
@@ -29,105 +36,124 @@ $(function buscador_usuarios(){
 						$('#desplegable_resultados').html(resp);
 					}
 				}
-			})
+			}); 			 		
 		}else{
 			$('#desplegable_resultados').html('');
 		}
 	})
 })
-/* Fin script buscador - Administrador de Usuarios */
+/************************************************************************************************************/
+/* Fin Buscador - Administrador de Usuarios *****************************************************************/
+/************************************************************************************************************/
 
-/* Fin administrador de usuarios ****************************************************************/
-/* Formulario Agregar Nuevo Usuario *************************************************************/
+
+/************************************************************************************************************/
+/* Formulario Agregar Nuevo Usuario *************************************************************************/
+/************************************************************************************************************/
 
 /* Script buscador identificacion - Formulario Agregar Nuevo Usuarios */
 $(function busca_identificacion(){
-	
-	$('#identificacion').focus();
-	
+		
 	$('#identificacion').keyup(function busca_identificacion(){
 		var envio_identificacion = $('#identificacion').val();
-		
-		$.ajax({
-			type: 'POST',
-			url: 'admin_usuarios/buscador_usuarios.php',
-			data: {
-				'search_identificacion' : envio_identificacion,
-				'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-			},			
-			success: function(resp){
-				if(resp!=""){
-					$('#sugerencias_identificacion').html(resp);
+
+		if(envio_identificacion.length>2 && envio_identificacion.length<50){		
+	
+	       $.ajax({
+				type: 'POST',
+				url: 'admin_usuarios/buscador_usuarios.php',
+				data: {
+					'search_identificacion' : envio_identificacion,
+					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+				},			
+				success: function(resp){
+					if(resp!=""){
+						$('#sugerencias_identificacion').html(resp);
+					}
 				}
-			}
-		})	
+			})	 			 		
+		}else{
+			$('#sugerencias_identificacion').html('');
+		}		
 	})
 })
 /* Fin script buscador identificacion - Formulario Agregar Nuevo Usuarios */
 /* Script buscador nombre_completo - Formulario Agregar Nuevo Usuarios */
 $(function busca_nombre_completo(){	
-	$('#nombre_completo').focus();
 	
 	$('#nombre_completo').keyup(function busca_identificacion(){
 		var envio_nombre_completo = $('#nombre_completo').val();
 		
-		$.ajax({
-			type: 'POST',
-			url: 'admin_usuarios/buscador_usuarios.php',
-			data: {
-				'search_nombre_completo' : envio_nombre_completo,
-				'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-			},			
-			success: function(resp){
-				if(resp!=""){
-					$('#sugerencias_nombre_completo').html(resp);
+		if(envio_nombre_completo.length>2 && envio_nombre_completo.length<50){		
+			$.ajax({
+				type: 'POST',
+				url: 'admin_usuarios/buscador_usuarios.php',
+				data: {
+					'search_nombre_completo' : envio_nombre_completo,
+					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+				},			
+				success: function(resp){
+					if(resp!=""){
+						$('#sugerencias_nombre_completo').html(resp);
+					}
 				}
-			}
-		})	
+			})				 		
+		}else{
+			$('#sugerencias_nombre_completo').html('');
+		}
 	})
 })
 /* Fin script buscador nombre_completo - Formulario Agregar Nuevo Usuarios */
 /* Script buscador login - Formulario Agregar Nuevo Usuarios */
 $(function busca_login(){	
-	$('#login').focus();
 	
 	$('#login').keyup(function busca_login(){
 		var envio_login = $('#login').val();
-		$.ajax({
-			type: 'POST',
-			url: 'admin_usuarios/buscador_usuarios.php',
-			data: {
-				'search_login' : envio_login,
-				'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-			},			
-			success: function(resp){
-				if(resp!=""){
-					$('#sugerencias_login').html(resp);
+
+		if(envio_login.length>2 && envio_login.length<50){		
+			$.ajax({
+				type: 'POST',
+				url: 'admin_usuarios/buscador_usuarios.php',
+				data: {
+					'search_login' : envio_login,
+					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+				},			
+				success: function(resp){
+					if(resp!=""){
+						$('#sugerencias_login').html(resp);
+					}
 				}
-			}
-		})	
+			})		 		
+		}else{
+			$('#sugerencias_login').html('');
+		}	
 	})
 })
 /* Fin script buscador login - Formulario Agregar Nuevo Usuarios */
 /* Script buscador dependencia - Formulario Agregar Nuevo Usuarios */
 $(function busca_dependencia(){	
-	$('#dependencia').focus();
+	//$('#dependencia').focus();
 	
 	$('#dependencia').keyup(function busca_dependencia(){
 		var envio_dependencia = $('#dependencia').val();
-		$.ajax({
-			type: 'POST',
-			url: 'admin_usuarios/buscador_usuarios.php',
-			data: {
-				'search_dependencia' : envio_dependencia,
-				'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-			},			
-			success: function(resp){
-				if(resp!=""){
-					$('#sugerencias_dependencia').html(resp);
+
+		if(envio_dependencia.length>2 && envio_dependencia.length<50){		
+			$.ajax({
+				type: 'POST',
+				url: 'admin_usuarios/buscador_usuarios.php',
+				data: {
+					'search_dependencia' : envio_dependencia,
+					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+				},			
+				success: function(resp){
+					if(resp!=""){
+						$('#sugerencias_dependencia').html(resp);
+					}
 				}
-			}
-		})	
+			})		 		
+		}else{
+			$('#sugerencias_dependencia').html('');
+		}
 	})
 })
 /* Fin script buscador dependencia - Formulario Agregar Nuevo Usuarios */
@@ -156,6 +182,7 @@ function abrirVentanaCrearUsuarios(){
 	$("#ventana").slideToggle("slow");
 	$("#identificacion").focus();
 }
+
 function cerrarVentanaCrearUsuarios(){
 	$("#ventana").slideUp("slow");
 	$("#search_usuario").focus();
@@ -189,6 +216,8 @@ function cerrarVentanaCrearUsuarios(){
 	$("#error_dependencia_invalida").slideUp("slow");
 	$("#error_dependencia_inexistente").slideUp("slow");
 
+	$("#error_perfil").slideUp("slow");	
+
 	$("#error_imagen").slideUp("slow");
 	$("#error_imagen_invalida").slideUp("slow");	
 
@@ -211,12 +240,7 @@ function cerrarVentanaCrearUsuarios(){
 /* Script espacios identificacion - Formulario Agregar Nuevo Usuario */
 function espacios_identificacion(){
 	var str = $('#identificacion').val();
-		if (isNaN(str)) {
-		$("#error_no_es_numero").slideDown("slow");
-	}else{
-		$("#error_no_es_numero").slideUp("slow");
-	}
-
+	
 	str = str.replace('-','');	str = str.replace('°','');	str = str.replace('!','');
 	str = str.replace('|','');	str = str.replace('"','');	str = str.replace('$','');
 	str = str.replace('#','');	str = str.replace('%','');	str = str.replace('&','');
@@ -230,7 +254,13 @@ function espacios_identificacion(){
 	str = str.replace(',','');	str = str.replace('^','');	str = str.replace('<','');
 	str = str.replace('>','');	str = str.replace('  ','');
 
+	$('#identificacion').val(str);
 
+	if (isNaN(str)) {
+		$("#error_no_es_numero").slideDown("slow");
+	}else{
+		$("#error_no_es_numero").slideUp("slow");
+	}
 }
 /* Fin script espacios identificacion - Formulario Agregar Nuevo Usuario */
 /* Script espacios nombre_completo - Formulario Agregar Nuevo Usuario */
@@ -285,15 +315,25 @@ function espacios_login(){
 function espacios_mail(){
 	var str2 = $('#mail').val();
 
-	str2 = str2.replace('ñ','N');
+	str2 = str2.replace('ñ','N'); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
 	str2 = str2.replace('Ñ','N');	str2 = str2.replace('á','A');	str2 = str2.replace('é','E');
 	str2 = str2.replace('í','I');	str2 = str2.replace('ó','O');	str2 = str2.replace('ú','U');
 	str2 = str2.replace('Á','A');	str2 = str2.replace('É','E');	str2 = str2.replace('Í','I');
 	str2 = str2.replace('Ó','O');	str2 = str2.replace('Ú','U');	str2 = str2.replace('  ','');
+	str2 = str2.replace('|','');	str2 = str2.replace('"','');	str2 = str2.replace('$','');
+	str2 = str2.replace('#','');	str2 = str2.replace('%','');	str2 = str2.replace('&','');
+	str2 = str2.replace('=','');	str2 = str2.replace('?','');	str2 = str2.replace('¿','');
+	str2 = str2.replace('¡','');	str2 = str2.replace('(','');	str2 = str2.replace(')','');
+	str2 = str2.replace('{','');	str2 = str2.replace('}','');	str2 = str2.replace('[','');
+	str2 = str2.replace(']','');	str2 = str2.replace(';','');	str2 = str2.replace(':','');
+	str2 = str2.replace('~','');	str2 = str2.replace('´','');	str2 = str2.replace("+",'');	
+	str2 = str2.replace("/","");	str2 = str2.replace("*","");	str2 = str2.replace("'","");	
+	str2 = str2.replace(',','');	str2 = str2.replace('^','');	str2 = str2.replace('<','');	
+	str2 = str2.replace('>','');
 
 	$('#mail').val(str2.toUpperCase());
 }
-function validarEmail(mail) {
+function validarEmail(mail) { // Verifica que el formato del input sea usuario@algunmail.com
     expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if ( !expr.test(mail) ){
     	$("#error_mail_formato").slideDown();
@@ -304,13 +344,39 @@ function validarEmail(mail) {
   	}
 }
 /* Fin script espacios mail - Formulario Agregar Nuevo Usuario */
+/* Script espacios nombre_completo - Formulario Agregar Nuevo Usuario */
+function espacios_dependencia(){
+	var str2 = $('#dependencia').val();
+
+	str2 = str2.replace('-',''); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
+	str2 = str2.replace('|','');	str2 = str2.replace('"','');	str2 = str2.replace('$','');
+	str2 = str2.replace('#','');	str2 = str2.replace('%','');	str2 = str2.replace('&','');
+	str2 = str2.replace('=','');	str2 = str2.replace('?','');	str2 = str2.replace('¿','');
+	str2 = str2.replace('¡','');	str2 = str2.replace('(','');	str2 = str2.replace(')','');
+	str2 = str2.replace('{','');	str2 = str2.replace('}','');	str2 = str2.replace('[','');
+	str2 = str2.replace(']','');	str2 = str2.replace('.','');	str2 = str2.replace(';','');
+	str2 = str2.replace(':','');	str2 = str2.replace('_','');	str2 = str2.replace('~','');
+	str2 = str2.replace('@','');	str2 = str2.replace('´','');	str2 = str2.replace("+",'');
+	str2 = str2.replace("/","");	str2 = str2.replace("*","");	str2 = str2.replace("'","");
+	str2 = str2.replace(',','');	str2 = str2.replace('^','');	str2 = str2.replace('ñ','N');
+	str2 = str2.replace('Ñ','N');	str2 = str2.replace('á','A');	str2 = str2.replace('é','E');
+	str2 = str2.replace('í','I');	str2 = str2.replace('ó','O');	str2 = str2.replace('ú','U');
+	str2 = str2.replace('Á','A');	str2 = str2.replace('É','E');	str2 = str2.replace('Í','I');
+	str2 = str2.replace('Ó','O');	str2 = str2.replace('Ú','U');	str2 = str2.replace('<','');
+	str2 = str2.replace('>','');	str2 = str2.replace('  ','');
+
+	$('#dependencia').val(str2.toUpperCase());
+}
+/* Fin script espacios dependencia - Formulario Agregar Nuevo Usuario */
 /* Script cargar campo dependencia - Formulario Agregar Usuarios */
 function carga_dependencia(codigo_dependencia, dependencia){
 	$("#codigo_dependencia").val(codigo_dependencia);
 	$("#dependencia").val(dependencia);
+	$('#error_perfil').slideUp('slow');
 	$("#sugerencias_dependencia").slideUp("slow");
 	$("#error_dependencia_invalida").slideUp("slow");
-	$("#perfil").focus()
+	$("#perfil").focus();
+	valida_perfil();
 }
 /* Fin script cargar campo dependencia - Formulario Agregar Usuarios */
 /* Script que valida si el perfil del usuario esta disponible en la dependencia */
@@ -662,7 +728,6 @@ $(function submit_agregar_usuario(){
 				data: 'data',
 				success: function(resp){
 					$('#formulario_agregar_usuario').submit(); // Realizar la creación del usuario
-					//alert("El usuario ha sido cargado correctamente")
 					$("#contenido").load("admin_usuarios/index_usuarios.php");	
 				}
 			})
@@ -672,25 +737,84 @@ $(function submit_agregar_usuario(){
 	});
 })
 /*Fin funcion para insertar datos de usuario*/
-/* Fin Formulario Agregar Nuevo Usuario *************************************************************/
+/************************************************************************************************************/
+/* Fin Formulario Agregar Nuevo Usuario *********************************************************************/
+/************************************************************************************************************/
 
-/******************************************************************************************/
-/* Modificar Usuarios *********************************************************************/
-/******************************************************************************************/
+/************************************************************************************************************/
+/* Modificar Usuarios ***************************************************************************************/
+/************************************************************************************************************/
 
 /* Funciones para desplegar ventana modal Modificar Usuarios */
-/* Fin funciones para desplegar ventana modal Modificar Usuarios*/
 
-
-
-/*Funciones para desplegar ventana modal Modificar Municipio*/
 function abrirVentanaModificarUsuarios(){
 	$("#ventana2").slideDown("slow");
 }
+
 function cerrarVentanaModificarUsuarios(){
 	$("#ventana2").slideUp("slow");
+	$("#search_usuario").focus();
+
+	$(".art1").slideUp("slow");
+
+	$("#error_no_es_mod_numero").slideUp("slow");
+	$("#error_mod_identificacion").slideUp("slow");
+	$("#valida_minimo_mod_identificacion").slideUp("slow");
+	$("#valida_maximo_mod_identificacion").slideUp("slow");
+	$("#error_mod_identificacion_ya_existe").slideUp("slow");
+	
+	$("#error_mod_nombre_completo").slideUp("slow");
+	$("#valida_minimo_mod_nombre_completo").slideUp("slow");
+	$("#valida_maximo_mod_nombre_completo").slideUp("slow");
+	$("#error_mod_nombre_completo_ya_existe").slideUp("slow");
+
+	$("#error_mod_login").slideUp();
+	$("#valida_minimo_mod_login").slideUp("slow");
+	$("#valida_maximo_mod_login").slideUp("slow");
+	$("#error_mod_login_ya_existe").slideUp("slow");
+
+	$("#error_mod_mail").slideUp();
+	$("#valida_minimo_mod_mail").slideUp("slow");
+	$("#valida_maximo_mod_mail").slideUp("slow");
+	$("#error_mod_mail_formato").slideUp("slow");
+
+	$("#error_mod_dependencia").slideUp();
+	$("#valida_minimo_mod_dependencia").slideUp("slow");
+	$("#valida_maximo_mod_dependencia").slideUp("slow");
+	$("#error_mod_dependencia_invalida").slideUp("slow");
+	$("#error_mod_dependencia_inexistente").slideUp("slow");
+
+	$("#error_mod_perfil").slideUp("slow");	
+
+	$("#error_mod_imagen_invalida").slideUp("slow");	
+	
+	$("#mod_id_usuario").val("");
+	$("#ant_mod_identificacion").val("");
+	$("#mod_identificacion").val("");
+
+	$("#ant_mod_nombre_completo").val("");
+	$("#mod_nombre_completo").val("");
+	
+	$("#ant_mod_login").val("");
+	$("#mod_login").val("");
+
+	$("#mod_mail").val("");
+	
+	$("#mod_codigo_dependencia").val("");
+	$("#mod_ant_mod_nom_depe").val("");
+	$("#mod_nombre_dependencia").val("");
+
+	$("#imagen2").val("");
+
+	$("#mod_perfil").val("USUARIO");
+	$("#mod_estado").val("ACTIVO");
+	$("#mod_usuario_nuevo").val("SI");
+	$("#mod_nivel_seguridad").val("1");
+
+	$("#mod_ventanilla_radicacion").val("NO");
 }
-/* Fin funciones para desplegar ventana modal Modificar Usuario */
+/* Fin funciones para desplegar ventana modal Modificar Usuarios*/
+
 
 function cargar_modifica_usuario(identificacion,nombre_completo,login,mail,codigo_dependencia,
 	nombre_dependencia,perfil,estado,usuario_nuevo,nivel_seguridad,id_usuario,ventanilla_radicacion){
@@ -717,7 +841,7 @@ function cargar_modifica_usuario(identificacion,nombre_completo,login,mail,codig
 	$("#mod_identificacion").focus();
 }
 /* Script cargar campo mod_dependencia - Formulario Modificar Usuarios */
-function carga_mod_dependencia(codigo_mod_dependencia, mod_dependencia){
+/*function carga_mod_dependencia(codigo_mod_dependencia, mod_dependencia){
 	$("#mod_codigo_dependencia").val(codigo_mod_dependencia);
 	$("#mod_nombre_dependencia").val(mod_dependencia);
 	$("#sugerencias_mod_dependencia").slideUp("slow");
@@ -753,7 +877,7 @@ $(function busca_mod_identificacion(){
 })
 /* Fin script buscador identificacion - Formulario Modificar Nuevo Usuarios */
 /* Script buscador nombre_completo - Formulario Modificar Nuevo Usuarios */
-$(function busca_mod_nombre_completo(){
+/*$(function busca_mod_nombre_completo(){
 	
 	$('#mod_nombre_completo').focus();
 	
@@ -779,7 +903,7 @@ $(function busca_mod_nombre_completo(){
 })
 /* Fin script buscador nombre_completo - Formulario Modificar Nuevo Usuarios */
 /* Script buscador mod_login - Formulario Modificar Usuario */
-$(function busca_mod_login(){	
+/*$(function busca_mod_login(){	
 	$('#mod_login').focus();
 	
 	$('#mod_login').keyup(function busca_mod_login(){
@@ -804,7 +928,7 @@ $(function busca_mod_login(){
 })
 /* Fin script buscador mod_login - Formulario Modificar Usuario */
 /* Script buscador mod_dependencia - Formulario Modificar Usuarios */
-$(function busca_mod_dependencia(){	
+/*$(function busca_mod_dependencia(){	
 	$('#mod_nombre_dependencia').focus();
 	
 	$('#mod_nombre_dependencia').keyup(function busca_mod_dependencia(){
@@ -835,19 +959,19 @@ function valida_mod_identificacion_ya_existe(){
 }
 /* Fin script validar si identificacion ya existe - Formulario Modificar Usuario */
 /* Script validar si nombre_completo ya existe - Formulario Modificar Usuario */
-function valida_mod_nombre_completo_ya_existe(){
+/*function valida_mod_nombre_completo_ya_existe(){
 	$("#mod_nombre_completo").focus();
 	$("#error_mod_nombre_completo_ya_existe").slideDown();
 }
 /* Fin script validar si nombre_completo ya existe - Formulario Modificar Usuario */
 /* Script validar si mod_login ya existe - Formulario Modificar Usuario */
-function valida_mod_login_ya_existe(){
+/*function valida_mod_login_ya_existe(){
 	$("#mod_login").focus();
 	$("#error_mod_login_ya_existe").slideDown();
 }
 /* Fin script validar si mod_login ya existe - Formulario Modificar Usuario */
 /* Script que valida si el mod_perfil del usuario esta disponible en la dependencia - Formulario Modificar Usuario*/
-function valida_mod_perfil(){
+/*function valida_mod_perfil(){
 	var mod_depe_codi = $("#mod_codigo_dependencia").val();
 	var mod_perfil=$("#mod_perfil").val();
 		
@@ -899,7 +1023,7 @@ function espacios_mod_identificacion(){
 }
 /* Fin script espacios mod_identificacion - Formulario Modificar Usuario */
 /* Script espacios mod_nombre_completo - Formulario Modificar Usuario */
-function espacios_mod_nombre_completo(){
+/*function espacios_mod_nombre_completo(){
 	var str2 = $('#mod_nombre_completo').val();
 
 	str2 = str2.replace('-',''); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
@@ -923,7 +1047,7 @@ function espacios_mod_nombre_completo(){
 }
 /* Fin script espacios mod_nombre_completo - Formulario Modificar Usuario */
 /* Script espacios mod_login - Formulario Modificar Usuario */
-function espacios_mod_login(){
+/*function espacios_mod_login(){
 	var str2 = $('#mod_login').val();
 
 	str2 = str2.replace('-',''); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
@@ -946,8 +1070,8 @@ function espacios_mod_login(){
 	$('#mod_login').val(str2.toUpperCase());
 }
 /* Fin script espacios mod_login - Formulario Modificar Usuario */
-/* Script espacios mod_mail - Formulario Agregar Nuevo Usuario */
-function espacios_mod_mail(){
+/* Script espacios mod_mail - Formulario Modificar Usuario */
+/*function espacios_mod_mail(){
 	var str2 = $('#mod_mail').val();
 
 	str2 = str2.replace('ñ','N');	str2 = str2.replace('Ñ','N');	str2 = str2.replace('á','A');	
@@ -968,8 +1092,8 @@ function validar_mod_email(mod_mail) {
 		$("#error_mod_mail_formato").slideUp();
   	}
 }
-/* Fin script espacios mod_mail - Formulario Agregar Nuevo Usuario */
-espacios_mod_mail
+/* Fin script espacios mod_mail - Formulario Modificar Usuario */
+//espacios_mod_mail 
 
 /* Script para validar campo mod_identificacion - Formulario Modificar Usuario */
 function validar_mod_identificacion(mod_identificacion){
@@ -1033,7 +1157,7 @@ function validar_mod_identificacion(mod_identificacion){
 /* Fin script para validar campo mod_identificacion - Formulario Modificar Usuario */
 
 /* Script para validar campo mod_nombre_completo - Formulario Modificar Usuario */
-function validar_mod_nom_completo(mod_nombre_completo){
+/*function validar_mod_nom_completo(mod_nombre_completo){
 	if(mod_nombre_completo==""){
 		$("#error_mod_nombre_completo").slideDown("slow");
 		$("#valida_minimo_mod_nombre_completo").slideUp("slow");
@@ -1054,7 +1178,7 @@ function validar_mod_nom_completo(mod_nombre_completo){
 		}else{
 			if(mod_nombre_completo.length>30){
 /*Hasta aqui voy 22 Sep 2016 */				
-				$("#error_mod_nombre_completo").slideUp("slow");
+/*				$("#error_mod_nombre_completo").slideUp("slow");
 				$("#valida_minimo_mod_nombre_completo").slideUp("slow");
 				$("#valida_maximo_mod_nombre_completo").slideDown("slow");
 				$("#error_mod_nombre_completo_ya_existe").slideUp("slow");
@@ -1084,7 +1208,7 @@ function validar_mod_nom_completo(mod_nombre_completo){
 /* Fin script para validar campo mod_nombre_completo - Formulario Modificar Usuario */
 
 /* Script para validar campo mod_login - Formulario Modificar Usuario */
-function validar_modif_login(mod_login){
+/*function validar_modif_login(mod_login){
 	if(mod_login==""){
 	$("#error_mod_login").slideDown("slow");
 	$("#valida_minimo_mod_login").slideUp("slow");
@@ -1134,7 +1258,7 @@ function validar_modif_login(mod_login){
 }	
 /* Fin script para validar campo mod_login - Formulario Modificar Usuario */
 /* Script para validar campo mod_mail - Formulario Modificar Usuario */
-function validar_modif_email(mod_mail){
+/*function validar_modif_email(mod_mail){
 	if(mod_mail==""){
 		$("#error_mod_mail").slideDown("slow");
 		$("#valida_minimo_mod_mail").slideUp("slow");
@@ -1184,7 +1308,7 @@ function validar_modif_email(mod_mail){
 }	
 /* Fin script para validar campo mod_mail - Formulario Modificar Usuario */
 /* Script para validar campo mod_dependencia - Formulario Modificar Usuario */
-function validar_modif_dep(mod_depe){			
+/*function validar_modif_dep(mod_depe){			
 	if(mod_depe==""){
 		$("#error_mod_dependencia").slideDown("slow");
 		$("#valida_minimo_mod_dependencia").slideUp("slow");
@@ -1253,19 +1377,23 @@ function validar_modif_dep(mod_depe){
 function validar_modificar_usuario(){
 	var mod_identificacion =$('#mod_identificacion').val();
 	var validar_mod_id = validar_mod_identificacion(mod_identificacion);
+/*
 	var mod_nombre_completo=$("#mod_nombre_completo").val();
 	var validar_mod_nombre_completo= validar_mod_nom_completo(mod_nombre_completo);
+	
 	var mod_login=$("#mod_login").val();
 	var validar_mod_login= validar_modif_login(mod_login);
+	
 	var mod_mail=$("#mod_mail").val();
 	var validar_mod_email= validar_modif_email(mod_mail);
+	
 	var mod_depe=$("#mod_nombre_dependencia").val();
 	var validar_modif_depe=validar_modif_dep(mod_depe);
-
+*/
 	if(validar_mod_id==false){
 		$("#mod_identificacion").focus()
 		return false;
-	}else{
+	}else{/*
 		if(validar_mod_nombre_completo==false){
 			$("#mod_nombre_completo").focus();
 			return false;
@@ -1285,13 +1413,15 @@ function validar_modificar_usuario(){
 						if($("#error_mod_perfil").is(":visible")){
 							$("#mod_perfil").focus();
 							return false;
-						}else{
+						}else{*/
 							return true;
+							/*
 						}
 					}
 				}
 			}
 		}
+		*/
 	}
 }
 
@@ -1300,20 +1430,25 @@ $(function submit_modificar_usuario(){
 		var submit_modificar_usuario = validar_modificar_usuario();
 		if(submit_modificar_usuario==false){
 			return false;
-		}else if(submit_modificar_usuario==true){ // Realizar la creación de Usuario
-				
+		}else if(submit_modificar_usuario==true){ // Realizar la modificacion de Usuario
+			alert("Ya estoy actualizando");
+			/*	
 			$.ajax({
 				url:'admin_usuarios/query_usuarios.php',
 				type: 'POST',
 				data: 'data',
 				success: function(resp){
-					$('#formulario_modificar_usuario').submit(); // Realizar la creación del usuario
+					$('#formulario_modificar_usuario').submit(); // Realizar la modificacion del usuario
 					$("#contenido").load("admin_usuarios/index_usuarios.php");	
 				}
 			})
+			*/
 		}else{
 			alert("No se puede modificar el usuario. Intente nuevamente")
 		}										
 	});
 })
-/* Fin funcion para modificar Usuarios */
+
+/************************************************************************************************************/
+/* Fin Modificar Usuarios ***********************************************************************************/
+/************************************************************************************************************/

@@ -6,16 +6,19 @@
 	<link rel="shortcut icon" href="imagenes/logo5.png">
 	<title>Jonas Principal</title>
 	
-<!-- Esta es la fuente "Roboto+Condensed que traigo desde googlefonts para la pagina en general " -->
-	<link href="http://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type ="text/css">
 <!--Esta es el href a los archivos que necesito para usar jquery, css-->
-<!--	<link rel="stylesheet" href="include/css/estilos_menu_principal.css"> -->
+	<link rel="stylesheet" href="include/css/estilos_menu_principal.css"> 
 	<script type="text/javascript" src="include/js/jquery.js"></script>
 	<script type="text/javascript" src="include/js/funciones_menu.js"></script>
 
 <!-- Esta es la fuente para los iconos -->
 	<link rel="stylesheet" href="include/iconos/fonts/style.css">	
 </head>
+<?php 
+	session_start();
+//	var_dump($_SESSION);
+	$perfil=$_SESSION['perfil'];
+ ?>
 
 <body style ="margin: 0px">
 	<div id="contenedor_general">
@@ -33,9 +36,12 @@
 					<li class="submenu">
 						<a href="#"><span class="icon-grid"></span></a>
 						<ul class="children">
-							
-							<li id="admin_usuarios" onclick="carga_administrador_usuarios()"><a href="#"><span class="icon-users"></span> Usuarios y Perfiles</a></li>
-							
+						<?php 
+							if ($perfil=='ADMINISTRADOR_SISTEMA'){ // Solo muestra CRUD usuarios si el perfil es  Administrador del sistema  ?>
+							<li id="admin_usuarios" onclick="carga_administrador_usuarios()"><a href="#">
+							<span class="icon-users"></span> Usuarios y Perfiles</a></li>
+						<?php } ?>
+
 							<li id="admin_dependencias" onclick="carga_administrador_dependencias()" ><a href="#"><span class="icon-tree"></span> Dependencias</a></li>
 							<!--
 							<li><a href="#"><span class="icon-tools"></span> Configuración de Envíos</a></li>

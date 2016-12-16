@@ -1,10 +1,17 @@
 /* Javascript Login */
 
 $(function main(){
-	$("#user").focus();
+	$("#user").focus();	
 	
+	function valida_entra(){
+		 $("#user").keyup(function(e) {
+	       if(e.which == 13) {
+	          // Acciones a realizar, por ej: enviar formulario.
+	          entra();
+	       }
+	    }); 
+	}
 })
-
 function upper_user(){
 	var str = $('#user').val();	
 	str = str.replace(' ','');
@@ -26,9 +33,13 @@ function entra(){
 			console.log(resp);
 			if(resp==""){
 				$('.errores').slideDown("slow");
-			}else{
+			}else if(resp=="No pude conectarme con la base de datos, revisa las variables de conexión por favor."){
+				alert(resp);
+			}
+			else{
 				$('.errores').slideUp("slow");	
-				$('#general').fadeOut("slow");
+				alert(resp);
+				//$('#general').fadeOut("slow");
 				location.href='principal3.php';			
 			}
 			

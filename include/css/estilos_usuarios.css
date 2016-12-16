@@ -1,30 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
 body{
 	background-color: #F0F0F0; 
 	color: #666;
-/*	font-family: "Roboto Condensed", sans-serif; */
+	font-family: "Roboto Condensed", sans-serif; 
 }
 .form input{ /* Estilo de la barra del buscador e input internos */
-	background-color:#FFFFFF;
+	/*background-color:#FFFFFF;*/
 	border-radius: 8px;
 	padding: 6px;
 	width: 80%;
 }
 #ventana{ /* Formato de la ventana modal del Formulario de Agregar Usuario */
+	background-image: url(../../imagenes/bg-modal.png);
+	color: #FFFFFF;
+	display: none;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
 
 }
-#ventana .form{ /* Formato del formulario Nuevo Usuario */
-
+#ventana .formulario{ /* Formato del formulario Nuevo Usuario */
+	background-color: #FFFFFF;
+	border-radius: 20px;
+	color: #666;
+	left: 20%;
+	max-height: 450px;
+	overflow-y: scroll;
+	padding: 25px;
+	position: absolute;
+	right: 20%;
+	text-align: center;
+	top: 5%;
+	width: auto;
 }
-#ventana .form table{ /* Formato tabla en formulario Agregar Nuevo Usuario */
+#ventana .formulario table{ /* Formato tabla en formulario Agregar Nuevo Usuario */
+	font-size: 20px;
 	text-align: left;
 	width: 100%;
 }
-#ventana .form table td input{/* Tamaño de los input en tabla del Formulario Agregar Nuevo Usuario*/
+#ventana .formulario table td input{/* Tamaño de los input en tabla del Formulario Agregar Nuevo Usuario*/
+	border-radius: 8px;
+	padding: 6px;
 	width: 95%;
 }
 #ventana2{ /* Formato de la ventana modal de Modificar Usuario */
 	background-image: url(../../imagenes/bg-modal.png);
-	color: #FFFFFF;
 	display: none;
 	height: 100%;
 	left: 0;
@@ -59,10 +82,12 @@ body{
 }
 .boton_enviar{
 	border-radius: 10px;
+	background: #2D9DC6;
+	color: #FFFFFF;
 }
 .boton_enviar:hover{
-	background-color: #2D9DC6;
-	color: #FFFFFF;
+	background: #56aece;
+	color: black;
 }
 #desplegable_resultados{
 	min-height: 100px;
@@ -169,9 +194,10 @@ body{
 	float: center;
 	font-size: 12px;
 	padding: 5px;
+	padding-bottom: 8px;
 	position: relative;	
 	text-align: center;
-	width: 330px;
+	width: auto;
 	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3);
 	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.3);
 	-ms-box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -187,43 +213,28 @@ body{
 		width: auto;
 	}
 	#ventana{
-		color: #FFFFFF;
-		/*display: none;*/
-		height: auto; /*Si height es 100% hace la animacion de display hacia abajo*/
-		left: 0;
-		position: relative;
-		width: 100%;
+		height: 100%; /*Si height es 100% hace la animacion de display hacia abajo*/
 	}
-	#ventana .form{
+	#ventana .formulario{
+		left: 2%;
+		padding: 25px;
+		right: 2%;
+		/* text-align: center; */
+		top: 20%;
+		width: auto;
 
 	}
-	#ventana .form table{/* Poner color blanco a letras en formulario Agregar Usuario */
-		color: #FFFFFF;
-	}
 	#ventana2{
-		color: #FFFFFF;
-		display: none;
-		height: auto; /*Si height es 100% hace la animacion de display hacia abajo*/
-		left: 0;
-		position: relative;
-		top: 0;
-		width: 100%;
+		height: 100%; /*Si height es 100% hace la animacion de display hacia abajo*/
 	}
 	#ventana2 .form{
-		background: #585858;
-		border-radius: 20px;
-		color:#FFFFFF;
-		height: auto;
-		left: 5%;
-		padding: 5px;
-		position: absolute;
-		right: 5%;
-		top: 2px;
-		width: 90%;
+		left: 2%;
+		padding: 25px;
+		right: 2%;
+		top: 20%;
+		width: auto;
 	}
-	#ventana2 .form table{/* Poner color blanco a letras en formulario Modificar Usuario */
-		color: #FFFFFF;
-	}
+	
 	.errores{
 		width: auto;
 	}

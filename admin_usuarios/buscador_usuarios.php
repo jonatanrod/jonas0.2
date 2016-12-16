@@ -9,7 +9,7 @@
 	/*Aqui defino la fecha de la transaccion*/
 	require_once('../include/genera_fecha.php');
 	require_once('../login/conexion2.php');
-		//sleep(1);
+
 		$permiso_administrador = 1;/*Falta por definir el permiso en usuarios
 		Lo pongo temporalmente 1 pero hay que definirlo.*/
 		if(isset($_POST['desde_formulario'])){
@@ -31,10 +31,11 @@
 		order by u.nombre_completo limit 10";
 
 		$fila_usuario = pg_query($conectado,$consulta_usuario);
+
 	/*Calcula el numero de registros que genera la consulta anterior.*/
 		$registros_usuario= pg_num_rows($fila_usuario);
-	/*Recorre el array generado e imprime uno a uno los resultados.*/	
 
+	/*Recorre el array generado e imprime uno a uno los resultados.*/	
 			if($registros_usuario>0 && $search_usuario!=''){
 
 				do{
@@ -218,6 +219,7 @@
 						$imagen = $linea['path_foto'];
 						$nombre_dependencia=$linea['nombre_dependencia'];
 						$fecha_modificacion=$linea['fecha_modificacion'];//Fecha que tiene registro en base de datos
+
 						$fecha_creacion = $b->traducefecha($fecha_modificacion);//Trduce la fecha en formato "Domingo 15 de Mayo de 2016"
 					
 							echo "
@@ -310,7 +312,7 @@
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
 							echo "<a href=\"javascript:valida_login_ya_existe()\">";
 
-	/*Aqui defino lo que se muestra del resultado obtenido*/						
+	/*Aqui defino lo que se muestra del resultado obtenido*/
 								echo "
 									<div style='float:left;'>
 										<img src='".$imagen."' height='40' width='40' class='fotos'> 
@@ -580,9 +582,14 @@
 							else echo " fila1"; //si el resto de la división NO es 0 pongo otro color 
 						echo "'>"; 
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
-							echo "<a href=\"javascript:valida_mod_identificacion_ya_existe()\">";
+							echo "uno $search_mod_identificacion y dos $search_ant_mod_id";
+							if($search_mod_identificacion==$search_ant_mod_id){
+								echo "<a href=\"javascript:$('#mod_identificacion').val('$search_ant_mod_id')) \"<";
+							}else{
+								echo "<a href=\"javascript:valida_mod_identificacion_ya_existe()\">";
+							}
 
-	/*Aqui definmod_o lo que se muestra del resultado obtenido*/						
+	/*Aqui defino lo que se muestra del resultado obtenido*/						
 								echo "
 									<div style='float:left;'>
 										<img src='".$imagen."' height='60' width='50' class='fotos'> 
