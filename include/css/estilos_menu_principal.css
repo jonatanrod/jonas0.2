@@ -1,11 +1,10 @@
 /*Estilos para la pagina en general*/
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
 *{
 	font-family: "Roboto Condensed", sans-serif;
 	padding: 0;
-	margin: 0:
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+	margin: 0;
 }
 /*
 #contenedor_general{

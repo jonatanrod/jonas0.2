@@ -564,6 +564,7 @@
 					for ($i=0;$i<$registros_mod_identificacion;$i++){
 						$linea = pg_fetch_array($fila_mod_identificacion);
 
+						$documento_usuario= $linea['documento_usuario'];
 						$perfil = $linea['perfil'];
 						$codigo_dependencia = $linea['codigo_dependencia'];
 						$login = $linea['login'];
@@ -582,9 +583,9 @@
 							else echo " fila1"; //si el resto de la división NO es 0 pongo otro color 
 						echo "'>"; 
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
-							echo "uno $search_mod_identificacion y dos $search_ant_mod_id";
-							if($search_mod_identificacion==$search_ant_mod_id){
-								echo "<a href=\"javascript:$('#mod_identificacion').val('$search_ant_mod_id')) \"<";
+							//echo "uno $documento_usuario y dos $search_ant_mod_id";
+							if($documento_usuario==$search_ant_mod_id){
+								echo "<a href=\"javascript:id_anterior($documento_usuario)\">";
 							}else{
 								echo "<a href=\"javascript:valida_mod_identificacion_ya_existe()\">";
 							}
@@ -674,7 +675,12 @@
 							else echo " fila1"; //si el resto de la división NO es 0 pongo otro color 
 						echo "'>"; 
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
-							echo "<a href=\"javascript:valida_mod_nombre_completo_ya_existe()\">";
+
+							if($search_ant_mod_nom==$nombre_completo){
+								echo "<a href=\"javascript:nombre_anterior('$nombre_completo')\">";
+							}else{
+								echo "<a href=\"javascript:valida_mod_nombre_completo_ya_existe()\">";
+							}
 
 	/*Aqui definmod_o lo que se muestra del resultado obtenido*/						
 								echo "
@@ -760,7 +766,7 @@
 						$imagen = $linea['path_foto'];
 						$nombre_dependencia=$linea['nombre_dependencia'];
 						$fecha_modificacion=$linea['fecha_modificacion'];//Fecha que tiene registro en base de datos
-						$fecha_creacion = $b->traducefecha($fecha_modificacion);//Trduce la fecha en formato "Domingo 15 de Mayo de 2016"
+						$fecha_creacion = $b->traducefecha($fecha_modificacion);//Traduce la fecha en formato "Domingo 15 de Mayo de 2016"
 					
 							echo "
 					<div class='tooltip'>	
@@ -770,6 +776,13 @@
 						echo "'>"; 
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
 							echo "<a href=\"javascript:valida_mod_login_ya_existe()\">";
+
+							if($search_ant_mod_login==$login){
+								echo "<a href=\"javascript:login_anterior('$login')\">";
+							}else{
+								echo "<a href=\"javascript:valida_mod_login_ya_existe()\">";
+							}
+
 
 	/*Aqui defino lo que se muestra del resultado obtenido*/						
 								echo "
@@ -792,10 +805,6 @@
 					}
 				}while ($fila_mod_login=pg_fetch_assoc($fila_mod_login));
 			}else{
-				echo"<script>
-					$('.art1').slideUp('slow');
-					$('#sugerencias_mod_login').slideUp('slow');
-				</script>";
 				/*Aqui va lo que quiero mostrar si no hay resultados*/
 			}
 		}

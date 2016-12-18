@@ -117,7 +117,8 @@
 			</div>
 		</div><!--Fin del menu_izquierda de principal3.php-->
 <!--Inicio del contenido de principal2.php-->
-		<div id="contenido" style="padding-left:10px; padding-right:10px;">
+	<!--	<div id="contenido" style="padding-left:10px; padding-right:10px;"> -->
+		<div id="contenido">
 			Contenido
 		</div>
 <!--Fin del contenido de principal2.php-->

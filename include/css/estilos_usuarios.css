@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+/* La fuente Roboto Condensed ha sido importada en el archivo principal3.php y la hereda a admin_usuarios */
+/*@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed'); */
 
 body{
 	background-color: #F0F0F0; 
@@ -197,7 +198,6 @@ body{
 	padding-bottom: 8px;
 	position: relative;	
 	text-align: center;
-	width: auto;
 	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3);
 	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.3);
 	-ms-box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -232,10 +232,6 @@ body{
 		padding: 25px;
 		right: 2%;
 		top: 20%;
-		width: auto;
-	}
-	
-	.errores{
 		width: auto;
 	}
 }

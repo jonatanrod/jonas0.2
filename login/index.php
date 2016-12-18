@@ -26,7 +26,7 @@
         $_SESSION['perfil'] = $perfil;
         $_SESSION['nivel'] = $nivel;   
         $_SESSION['ultimo_ingreso']=date("Y-n-j H:i:s"); 
-            
+        /*    
         echo "nombre es $nombre
         nuevo $nuevo 
         perfil es $perfil  
@@ -34,7 +34,9 @@
         nivel es $nivel
         ventanilla_radicacion es $ventanilla_radicacion
         ";
-        var_dump($_SESSION);
+        */
+       // var_dump($_SESSION);
+        echo "Bienvenido a Jonas";
     }else{
         echo "";
     }   

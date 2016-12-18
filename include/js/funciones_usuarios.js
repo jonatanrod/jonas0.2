@@ -852,80 +852,118 @@ function cargar_modifica_usuario(identificacion,nombre_completo,login,mail,codig
 /* Fin script cargar campo mod_dependencia - Formulario Modificar Usuarios */
 /* Script buscador identificacion - Formulario Modificar Nuevo Usuarios */
 $(function busca_mod_identificacion(){
-	
-	$('#mod_identificacion').focus();
-	
+		
 	$('#mod_identificacion').keyup(function busca_mod_identificacion(){
 		var envio_mod_identificacion = $('#mod_identificacion').val();
 		var envio_ant_mod_id =$("#ant_mod_identificacion").val();
-		
-		$.ajax({
-			type: 'POST',
-			url: 'admin_usuarios/buscador_usuarios.php',
-			data: {
-				'search_mod_id' : envio_mod_identificacion,
-				'search_ant_mod_id' : envio_ant_mod_id,
-				'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-			},			
-			success: function(resp){
-				if(resp!=""){
-					$('#sugerencias_mod_identificacion').html(resp);
+
+		if(envio_mod_identificacion.length>3){	
+			$.ajax({
+				type: 'POST',
+				url: 'admin_usuarios/buscador_usuarios.php',
+				data: {
+					'search_mod_id' : envio_mod_identificacion,
+					'search_ant_mod_id' : envio_ant_mod_id,
+					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+				},			
+				success: function(resp){
+					if(resp!=""){
+						$('#sugerencias_mod_identificacion').html(resp);
+					}
 				}
-			}
-		})	
+			})	
+		}else{
+			$('#sugerencias_mod_identificacion').html('');
+		}
 	})
 })
+function id_anterior(documento_usuario){
+	$('#mod_identificacion').val(documento_usuario);
+	$('#sugerencias_mod_identificacion').html('');
+	$('#error_mod_identificacion').slideUp('slow');
+	$('#valida_minimo_mod_identificacion').slideUp('slow');
+	$('#valida_maximo_mod_identificacion').slideUp('slow');
+	$('#error_mod_identificacion_ya_existe').slideUp('slow');
+
+	$('#mod_nombre_completo').focus();
+}
 /* Fin script buscador identificacion - Formulario Modificar Nuevo Usuarios */
 /* Script buscador nombre_completo - Formulario Modificar Nuevo Usuarios */
-/*$(function busca_mod_nombre_completo(){
-	
-	$('#mod_nombre_completo').focus();
+$(function busca_mod_nombre_completo(){
 	
 	$('#mod_nombre_completo').keyup(function busca_mod_nombre_completo(){
 		var envio_mod_nombre_completo = $('#mod_nombre_completo').val();
 		var envio_ant_mod_nombre =$("#ant_mod_nombre_completo").val();
-		
-		$.ajax({
-			type: 'POST',
-			url: 'admin_usuarios/buscador_usuarios.php',
-			data: {
-				'search_mod_nombre_completo' : envio_mod_nombre_completo,
-				'search_ant_mod_nom' : envio_ant_mod_nombre,
-				'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-			},			
-			success: function(resp){
-				if(resp!=""){
-					$('#sugerencias_mod_nombre_completo').html(resp);
+
+		if(envio_mod_nombre_completo.length>3){	
+			$.ajax({
+				type: 'POST',
+				url: 'admin_usuarios/buscador_usuarios.php',
+				data: {
+					'search_mod_nombre_completo' : envio_mod_nombre_completo,
+					'search_ant_mod_nom' : envio_ant_mod_nombre,
+					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+				},			
+				success: function(resp){
+					if(resp!=""){
+						$('#sugerencias_mod_nombre_completo').html(resp);
+					}
 				}
-			}
-		})	
+			})	
+		}else{
+			$('#sugerencias_mod_nombre_completo').html('');
+		}
 	})
 })
+function nombre_anterior(mod_nombre_completo){
+	$('#mod_nombre_completo').val(mod_nombre_completo);
+	$('#sugerencias_mod_nombre_completo').html('');
+	$('#error_mod_nombre_completo').slideUp('slow');
+	$('#valida_minimo_mod_nombre_completo').slideUp('slow');
+	$('#valida_maximo_mod_nombre_completo').slideUp('slow');
+	$('#error_mod_nombre_completo_ya_existe').slideUp('slow');
+
+	$('#mod_login').focus();
+}
 /* Fin script buscador nombre_completo - Formulario Modificar Nuevo Usuarios */
 /* Script buscador mod_login - Formulario Modificar Usuario */
-/*$(function busca_mod_login(){	
-	$('#mod_login').focus();
+$(function busca_mod_login(){	
 	
 	$('#mod_login').keyup(function busca_mod_login(){
 		var envio_mod_login =$('#mod_login').val();
 		var envio_ant_mod_login=$('#ant_mod_login').val();
 
-		$.ajax({
-			type: 'POST',
-			url: 'admin_usuarios/buscador_usuarios.php',
-			data: {
-				'search_mod_login' : envio_mod_login,
-				'search_ant_mod_login' : envio_ant_mod_login,
-				'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-			},			
-			success: function(resp){
-				if(resp!=""){
-					$('#sugerencias_mod_login').html(resp);
+		if(envio_mod_login.length>1){			
+			$.ajax({
+				type: 'POST',
+				url: 'admin_usuarios/buscador_usuarios.php',
+				data: {
+					'search_mod_login' : envio_mod_login,
+					'search_ant_mod_login' : envio_ant_mod_login,
+					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+				},			
+				success: function(resp){
+					if(resp!=""){
+						$('#sugerencias_mod_login').html(resp);
+					}
 				}
-			}
-		})	
+			})	
+		}else{
+			$('#sugerencias_mod_login').html('');			
+		}
+
 	})
 })
+function login_anterior(login){
+	$('#mod_login').val(login);
+	$('#sugerencias_mod_login').html('');
+	$('#error_mod_login').slideUp('slow');
+	$('#valida_minimo_mod_login').slideUp('slow');
+	$('#valida_maximo_mod_login').slideUp('slow');
+	$('#error_mod_login_ya_existe').slideUp('slow');
+
+	$('#mod_mail').focus();
+}
 /* Fin script buscador mod_login - Formulario Modificar Usuario */
 /* Script buscador mod_dependencia - Formulario Modificar Usuarios */
 /*$(function busca_mod_dependencia(){	
@@ -959,13 +997,13 @@ function valida_mod_identificacion_ya_existe(){
 }
 /* Fin script validar si identificacion ya existe - Formulario Modificar Usuario */
 /* Script validar si nombre_completo ya existe - Formulario Modificar Usuario */
-/*function valida_mod_nombre_completo_ya_existe(){
+function valida_mod_nombre_completo_ya_existe(){
 	$("#mod_nombre_completo").focus();
 	$("#error_mod_nombre_completo_ya_existe").slideDown();
 }
 /* Fin script validar si nombre_completo ya existe - Formulario Modificar Usuario */
 /* Script validar si mod_login ya existe - Formulario Modificar Usuario */
-/*function valida_mod_login_ya_existe(){
+function valida_mod_login_ya_existe(){
 	$("#mod_login").focus();
 	$("#error_mod_login_ya_existe").slideDown();
 }
@@ -1020,10 +1058,11 @@ function espacios_mod_identificacion(){
 	}else{
 		$("#error_no_es_mod_numero").slideUp("slow");
 	}
+	$('#mod_identificacion').val(str);
 }
 /* Fin script espacios mod_identificacion - Formulario Modificar Usuario */
 /* Script espacios mod_nombre_completo - Formulario Modificar Usuario */
-/*function espacios_mod_nombre_completo(){
+function espacios_mod_nombre_completo(){
 	var str2 = $('#mod_nombre_completo').val();
 
 	str2 = str2.replace('-',''); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
@@ -1047,7 +1086,7 @@ function espacios_mod_identificacion(){
 }
 /* Fin script espacios mod_nombre_completo - Formulario Modificar Usuario */
 /* Script espacios mod_login - Formulario Modificar Usuario */
-/*function espacios_mod_login(){
+function espacios_mod_login(){
 	var str2 = $('#mod_login').val();
 
 	str2 = str2.replace('-',''); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
@@ -1157,7 +1196,7 @@ function validar_mod_identificacion(mod_identificacion){
 /* Fin script para validar campo mod_identificacion - Formulario Modificar Usuario */
 
 /* Script para validar campo mod_nombre_completo - Formulario Modificar Usuario */
-/*function validar_mod_nom_completo(mod_nombre_completo){
+function validar_mod_nom_completo(mod_nombre_completo){
 	if(mod_nombre_completo==""){
 		$("#error_mod_nombre_completo").slideDown("slow");
 		$("#valida_minimo_mod_nombre_completo").slideUp("slow");
@@ -1177,8 +1216,7 @@ function validar_mod_identificacion(mod_identificacion){
 			return false;
 		}else{
 			if(mod_nombre_completo.length>30){
-/*Hasta aqui voy 22 Sep 2016 */				
-/*				$("#error_mod_nombre_completo").slideUp("slow");
+				$("#error_mod_nombre_completo").slideUp("slow");
 				$("#valida_minimo_mod_nombre_completo").slideUp("slow");
 				$("#valida_maximo_mod_nombre_completo").slideDown("slow");
 				$("#error_mod_nombre_completo_ya_existe").slideUp("slow");
@@ -1208,7 +1246,7 @@ function validar_mod_identificacion(mod_identificacion){
 /* Fin script para validar campo mod_nombre_completo - Formulario Modificar Usuario */
 
 /* Script para validar campo mod_login - Formulario Modificar Usuario */
-/*function validar_modif_login(mod_login){
+function validar_modif_login(mod_login){
 	if(mod_login==""){
 	$("#error_mod_login").slideDown("slow");
 	$("#valida_minimo_mod_login").slideUp("slow");
@@ -1377,13 +1415,14 @@ function validar_mod_identificacion(mod_identificacion){
 function validar_modificar_usuario(){
 	var mod_identificacion =$('#mod_identificacion').val();
 	var validar_mod_id = validar_mod_identificacion(mod_identificacion);
-/*
+
 	var mod_nombre_completo=$("#mod_nombre_completo").val();
 	var validar_mod_nombre_completo= validar_mod_nom_completo(mod_nombre_completo);
 	
 	var mod_login=$("#mod_login").val();
 	var validar_mod_login= validar_modif_login(mod_login);
 	
+/*
 	var mod_mail=$("#mod_mail").val();
 	var validar_mod_email= validar_modif_email(mod_mail);
 	
@@ -1393,16 +1432,17 @@ function validar_modificar_usuario(){
 	if(validar_mod_id==false){
 		$("#mod_identificacion").focus()
 		return false;
-	}else{/*
+	}else{
 		if(validar_mod_nombre_completo==false){
 			$("#mod_nombre_completo").focus();
 			return false;
 		}else{
+			
 			if(validar_mod_login==false){
 				$("#mod_login").focus();
 				return false;
 			}else{
-				if(validar_mod_email==false){
+		/*		if(validar_mod_email==false){
 					$("#mod_email").focus();
 					return false;
 				}else{
@@ -1419,9 +1459,9 @@ function validar_modificar_usuario(){
 						}
 					}
 				}
+		*/
 			}
 		}
-		*/
 	}
 }
 

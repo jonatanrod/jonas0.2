@@ -1,6 +1,7 @@
 <?php 
 	require_once("../login/validar_inactividad.php");
-	require_once('../login/conexion2.php') ?>
+	//require_once('../login/conexion2.php') 
+?>
 <!DOCTYPE html>
 <html > 
 <head>

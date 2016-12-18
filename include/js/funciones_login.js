@@ -30,7 +30,7 @@ function entra(){
 		},			
 		success: function(resp){
 			//alert(resp);
-			console.log(resp);
+			//console.log(resp);
 			if(resp==""){
 				$('.errores').slideDown("slow");
 			}else if(resp=="No pude conectarme con la base de datos, revisa las variables de conexión por favor."){
@@ -38,7 +38,7 @@ function entra(){
 			}
 			else{
 				$('.errores').slideUp("slow");	
-				alert(resp);
+				//alert(resp);
 				//$('#general').fadeOut("slow");
 				location.href='principal3.php';			
 			}
