@@ -10,8 +10,8 @@ $operacion=60*15;/* Este es el tiempo para que la sesion se inactive automaticam
 	Es decir, 60 (segundos) por la cantidad de minutos que quiera la inactividad */
 
 	if($tiempo>=$operacion){
-		session_unset();
 		session_destroy();
+		session_unset();
 		echo '<script language=javascript>
 				alert("Por su seguridad, su sesión ha sido caducada. Por favor ingrese nuevamente.")
 				self.location="login.php"

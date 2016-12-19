@@ -194,6 +194,7 @@ body{
 	display: none;
 	float: center;
 	font-size: 12px;
+	height: auto;
 	padding: 5px;
 	padding-bottom: 8px;
 	position: relative;	
@@ -217,9 +218,9 @@ body{
 	}
 	#ventana .formulario{
 		left: 2%;
-		padding: 25px;
+		text-align: center;
+		height: 70%;
 		right: 2%;
-		/* text-align: center; */
 		top: 20%;
 		width: auto;
 
@@ -229,7 +230,7 @@ body{
 	}
 	#ventana2 .form{
 		left: 2%;
-		padding: 25px;
+		height: 70%;
 		right: 2%;
 		top: 20%;
 		width: auto;

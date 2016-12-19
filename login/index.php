@@ -11,7 +11,6 @@
     $resultado = pg_query($conectado,$isql);
 
     if(pg_num_rows ($resultado)>0){
-        session_start();
 
         $linea = pg_fetch_array($resultado);    
 
