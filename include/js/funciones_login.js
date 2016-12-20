@@ -41,8 +41,7 @@ function entra(){
 				//alert(resp);
 				//$('#general').fadeOut("slow");
 				location.href='principal3.php';			
-			}
-			
+			}	
 		}
 	})
 }
