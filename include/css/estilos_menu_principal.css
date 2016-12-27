@@ -145,7 +145,15 @@
     right: 5px;
     top: 5px;
 }
-
+#boton_menu{/*Estilo incial boton_menu*/
+	background: black;
+	/*background: #011826;*/
+	color: #FFFFFF;
+	display: none;
+	position: relative;
+	width: 250px;
+	z-index: 1000;
+}
 /*Fin estilo de menu_izquierda para la pagina en general*/
 /*Estilo del body*/
 body{ /*Estilo general del body*/
@@ -155,6 +163,7 @@ body{ /*Estilo general del body*/
 	float: left;
 	width: calc(100% - 200px);
 	animation: fadeEffect 1s;
+	height:100%;
 }
 /*
 #ventana{ 
@@ -279,6 +288,9 @@ body{ /*Estilo general del body*/
 		position: absolute;
 	    font-size: 25px;
 	    right: 10px;
+	}
+	#boton_menu{/*Estilo incial boton_menu*/
+		display: block;
 	}
 /* Desde aqui es el estilo para móviles del contenido*/
 	#contenido{

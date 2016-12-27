@@ -7,6 +7,8 @@ $(document).ready(main);
 function main(){
 	var contador_superior = 1;
 	var contador_lateral  = 1;
+	var contador_menu 	  = 1;
+	var contador_rad	  = 1;
 
 	$('.boton_menu').click(function despliega_superior(){
 		if(contador_superior == 1){
@@ -47,15 +49,47 @@ function main(){
 		}
 	});
 
+	$('#contenido').click(function limpia(){
+		if(contador_superior != 1){			
+			contador_superior = 1;
+			$('.menu_superior').animate({
+				left:'-100%'
+			});
+		}
+		if(contador_lateral!=1){
+			contador_lateral = 1;
+			$('.menu_lat').animate({
+				left:'-100%'
+			});
+		}
+	});
+
 	/*Mostrar y ocultar sumbenus*/
-	$('.submenu').click(function submenu2(){
-		$(this).children('.children').slideToggle();
+	$('#menu_superior').click(function submenu2(){
+		//$(this).children('.children').slideToggle();
+
+		if(contador_menu == 1){
+			$(this).children('#boton_menu').slideDown("slow");
+			contador_menu =0;
+			/*
+			if(contador_rad !=1){
+				$(this).children('#boton_rad').slideDown("slow");
+				$(this).children('#boton_menu').slideUp("slow");
+				contador_menu=1;
+				contador_rad=0;
+			}	
+			*/	
+		}else {
+			contador_menu = 1;
+			$(this).children('#boton_menu').slideUp("slow");	
+		}
+
+
 	});
 }
 /*Fin funcion para botones responsive del menu y menu_lateral*/
 /************************************************************************/
 /*Funcion para que al dar clic cargue el div #contenido*/
-
 /*Carga el administrador de usuarios*/
 	function carga_administrador_usuarios() {
 		$("#contenido").load("admin_usuarios/index_usuarios.php");

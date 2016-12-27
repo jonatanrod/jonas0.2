@@ -33,9 +33,9 @@
 			</div>
 			<nav class="menu_superior">
 				<ul style="margin:0px">
-					<li class="submenu">
+					<li id="menu_superior" class="submenu">
 						<a href="#"><span class="icon-grid"></span></a>
-						<ul class="children">
+						<ul id="boton_menu" class="children">
 						<?php 
 							if ($perfil=='ADMINISTRADOR_SISTEMA'){ // Solo muestra CRUD usuarios si el perfil es  Administrador del sistema  ?>
 							<li id="admin_usuarios" onclick="carga_administrador_usuarios()"><a href="#">
@@ -77,7 +77,7 @@
 						<ul>
 							<li class="submenu">
 								<a href="#"><span class="icon-file-empty"><span class="titulo_submenu"> Radicación </span><span class="caret icon-circle-down"></span></span></a>
-								<ul class="children">
+								<ul id="boton_rad" class="children">
 									<li onclick ="carga_radicacion_entrada()"><a href="#"><span class="icon-sign-in"></span> Radicación de Entrada</a></li>
 								<!-- Comento desde aqui porque no se ha desarrollado | Johnnatan Rodriguez 11 Abril 
 									<li><a href="#"><span class="icon-sign-out"></span> Radicación de Salida</a></li>

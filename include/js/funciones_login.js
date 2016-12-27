@@ -32,7 +32,7 @@ function entra(){
 			//alert(resp);
 			//console.log(resp);
 			if(resp==""){
-				$('.errores').slideDown("slow");
+				$('.errores').slideDown("fast");
 			}else if(resp=="No pude conectarme con la base de datos, revisa las variables de conexión por favor."){
 				alert(resp);
 			}
