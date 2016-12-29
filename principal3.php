@@ -75,7 +75,7 @@
 			<div id="menu_left">
 				<nav class="menu_lat">
 						<ul>
-							<li class="submenu">
+							<li id="menu_radicacion" class="submenu">
 								<a href="#"><span class="icon-file-empty"><span class="titulo_submenu"> Radicación </span><span class="caret icon-circle-down"></span></span></a>
 								<ul id="boton_rad" class="children">
 									<li onclick ="carga_radicacion_entrada()"><a href="#"><span class="icon-sign-in"></span> Radicación de Entrada</a></li>
