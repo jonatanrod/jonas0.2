@@ -662,34 +662,40 @@ function validar_agregar_usuario(){
 																							$("#dependencia").focus();
 																							return false
 																						}else{
-																							$("#error_dependencia").slideUp();
-																							$("#valida_minimo_dependencia").slideUp("slow");
-																							$("#valida_maximo_dependencia").slideUp("slow");
-																							$("#error_dependencia_invalida").slideUp("slow");
-																							$("#error_dependencia_inexistente").slideUp("slow");
-
-																							$("#perfil").focus();
-
-																							if($("#error_perfil").is(":visible")){
-																								$("#perfil").focus();
-																								return false;
+																							if($("#codigo_dependencia").val()==""){
+																								$("#error_dependencia").slideDown("slow");
+																								$("#dependencia").focus();
+																								return false
 																							}else{
-																								if(imagen==""){
-																									$("#error_imagen").slideDown("slow");
+																								$("#error_dependencia").slideUp("slow");
+																								$("#valida_minimo_dependencia").slideUp("slow");
+																								$("#valida_maximo_dependencia").slideUp("slow");
+																								$("#error_dependencia_invalida").slideUp("slow");
+																								$("#error_dependencia_inexistente").slideUp("slow");
+																								
+																								$("#perfil").focus();
 
-																									$("#imagen").focus()
+																								if($("#error_perfil").is(":visible")){
+																									$("#perfil").focus();
 																									return false;
 																								}else{
-																									$("#error_imagen").slideUp("slow");
-																									if($("#error_imagen_invalida").is(":visible")){
-																										$("#error_imagen").slideUp("slow")
+																									if(imagen==""){
+																										$("#error_imagen").slideDown("slow");
+
+																										$("#imagen").focus()
 																										return false;
 																									}else{
 																										$("#error_imagen").slideUp("slow");
-																										$("#error_imagen_invalida").slideUp("slow");
-																										return true;																													return true;
+																										if($("#error_imagen_invalida").is(":visible")){
+																											$("#error_imagen").slideUp("slow")
+																											return false;
+																										}else{
+																											$("#error_imagen").slideUp("slow");
+																											$("#error_imagen_invalida").slideUp("slow");
+																											return true;																													return true;
+																										}
 																									}
-																								}
+																								}		
 																							}		
 																						}
 																					}

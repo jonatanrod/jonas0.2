@@ -11,28 +11,52 @@
 </head>
 <body>
 <?php 
-
 	require_once('../include/genera_fecha.php');
 	require_once('../login/conexion2.php');
 
-	$identificacion="";
-	$nombre_completo="";
+//	$identificacion="";
+//	$nombre_completo="";
 
-	$identificacion=$_POST['identificacion'];
-	$nombre_completo=$_POST['nombre_completo'];
-	$login=$_POST['login'];
-	$mail=$_POST['mail'];
-	$codigo_dependencia=$_POST['codigo_dependencia'];
-	$dependencia=$_POST['dependencia'];
-	$perfil=$_POST['perfil'];
-	$ubicacion=$_POST['ubicacion'];
-	$estado=$_POST['estado'];
-	$usuario_nuevo=$_POST['usuario_nuevo'];
-	$nivel_seguridad=$_POST['nivel_seguridad'];
+	if(isset($_POST['identificacion'])){
+		$identificacion=$_POST['identificacion'];
+	}
+	if(isset($_POST['nombre_completo'])){
+		$nombre_completo=$_POST['nombre_completo'];
+	}
+	if(isset($_POST['login'])){
+		$login=$_POST['login'];
+	}
+	if(isset($_POST['mail'])){
+		$mail=$_POST['mail'];
+	}
+	if(isset($_POST['codigo_dependencia'])){
+		$codigo_dependencia=$_POST['codigo_dependencia'];	
+	}
+	if(isset($_POST['dependencia'])){
+		$dependencia=$_POST['dependencia'];	
+	}
+	if(isset($_POST['perfil'])){
+		$perfil=$_POST['perfil'];
+	}
+	if(isset($_POST['ubicacion'])){
+		$ubicacion=$_POST['ubicacion'];	
+	}
+	if(isset($_POST['estado'])){
+		$estado=$_POST['estado'];	
+	}
+	if(isset($_POST['usuario_nuevo'])){
+		$usuario_nuevo=$_POST['usuario_nuevo'];	
+	}
+	if(isset($_POST['nivel_seguridad'])){
+		$nivel_seguridad=$_POST['nivel_seguridad'];	
+	}
+	if(isset($_POST['ventanilla_radicacion'])){
+		$ventanilla_radicacion=$_POST['ventanilla_radicacion'];	
+	}
+	if(isset($_POST['tipo_formulario'])){	
+		$tipo_formulario=$_POST['tipo_formulario'];
+	}
 
-	$ventanilla_radicacion=$_POST['ventanilla_radicacion'];
-
-	$tipo_formulario=$_POST['tipo_formulario'];
 	$query_max_usuario="select max(id_usuario) from usuarios";
 
 	$fila_usuario = pg_query($conectado,$query_max_usuario);
@@ -108,5 +132,6 @@
 					volver();
 			</script>";
 	}
+
 ?>
 </body>

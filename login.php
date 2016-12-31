@@ -19,7 +19,7 @@
 			<img src="imagenes/encabezado_transparente.png" id="logo_principal">
 			<h1>Software de Gestión Documental</h1>
 			<hr>
-			<form action="principal3.php" method="POST" id ="formulario_login" name ="formulario_login" >
+			<form action="principal3.php" method="POST" id ="formulario_login" name ="formulario_login" autocomplete="off">
 				<table>
 					<tr>
 						<td width="100%">

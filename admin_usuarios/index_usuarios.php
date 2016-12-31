@@ -17,7 +17,7 @@
 				<div class="cerrar"><a href='javascript:cerrarVentanaCrearUsuarios();'>Cerrar X</a></div>
 				<h1>Formulario Agregar Nuevo Usuario</h1>
 				<hr>
-				<form enctype="multipart/form-data" action="admin_usuarios/query_usuarios.php" method="POST" id ="formulario_agregar_usuario" name ="formulario_agregar_usuario" >
+				<form enctype="multipart/form-data" action="admin_usuarios/query_usuarios.php" method="POST" id ="formulario_agregar_usuario" name ="formulario_agregar_usuario" autocomplete="off">
 					<input type="hidden" name="tipo_formulario" id="tipo_formulario" value="crear_usuario">
 					<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
 					<table>
@@ -128,23 +128,24 @@
 							</td>
 						</tr>
 					</table>
+					<hr>
 					<h2> Permisos del Usuario</h2>
 					<hr>	
 					<table>
 						<tr>	
-							<td>
+							<td border="5">
 								Estado :
 							</td>
-							<td>	
+							<td border="5">	
 								<select name="estado" id="estado">
 									<option value="ACTIVO">Activo</option>
 									<option value="INACTIVO">Inactivo</option>
 								</select>
 							</td>
-						</tr>	
-						<tr>
-							<td>
-								Usuario Nuevo
+					<!--</tr>	
+						<tr>	
+					-->		<td>
+								Contraseña Nueva
 							</td>
 							<td>	
 								<select name="usuario_nuevo" id="usuario_nuevo">
@@ -167,9 +168,9 @@
 									<option value="5">5</option>
 								</select>
 							</td>
-						</tr>	
+					<!--</tr>	
 						<tr>
-							<td>Ventanilla de Radicacion</td>
+					-->		<td>Ventanilla de Radicacion</td>
 							<td>
 								<select name="ventanilla_radicacion" id="ventanilla_radicacion">
 									<option value="SI">SI</option>
@@ -178,7 +179,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2">
+							<td colspan="3">
 								<center>
 									<input type="button" value="Crear Usuario" id="bCrearUsuario" class="boton_enviar"></td>
 								</center>	
@@ -195,7 +196,8 @@
 				<div class="cerrar"><a href='javascript:cerrarVentanaModificarUsuarios();'>Cerrar X</a></div>
 				<h1>Formulario Modificar Usuario</h1>
 				<hr>
-				<form enctype="multipart/form-data" action="admin_usuarios/query_usuarios.php" method="POST" id ="formulario_modificar_usuario" name ="formulario_modificar_usuario" >		<input type="hidden" name="tipo_formulario" id="tipo_formulario" value="modificar_usuario">		
+				<form enctype="multipart/form-data" action="admin_usuarios/query_usuarios.php" method="POST" id ="formulario_modificar_usuario" name ="formulario_modificar_usuario" autocomplete="off">		
+					<input type="hidden" name="tipo_formulario" id="tipo_formulario" value="modificar_usuario">		
 					<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
 					<table>
 						<tr>
@@ -224,7 +226,7 @@
 							</td>
 							<td>
 								<input type="hidden" name="ant_mod_nombre_completo" id="ant_mod_nombre_completo">
-								<input type="text" name="mod_nombre_completo" id="mod_nombre_completo" placeholder="Ingrese Nombres y Apellidos completos (sin numeros)" onkeyup="espacios_mod_nombre_completo()"">
+								<input type="text" name="mod_nombre_completo" id="mod_nombre_completo" placeholder="Ingrese Nombres y Apellidos completos (sin numeros)" onkeyup="espacios_mod_nombre_completo()">
 								<div id="sugerencias_mod_nombre_completo"></div>
 
 								<div id="error_mod_nombre_completo" class="errores">El nombre completo del usuario es obligatorio.</div>
@@ -309,6 +311,7 @@
 							</td>
 						</tr>
 					</table>
+					<hr>
 					<h2> Permisos del Usuario</h2>
 					<hr>	
 					<table>
@@ -322,10 +325,10 @@
 									<option value="INACTIVO">Inactivo</option>
 								</select>
 							</td>
-						</tr>	
+						<!--</tr>	
 						<tr>
-							<td>
-								Usuario Nuevo
+						-->	<td>
+								Contraseña Nueva
 							</td>
 							<td>	
 								<select name="mod_usuario_nuevo" id="mod_usuario_nuevo">
@@ -348,9 +351,9 @@
 									<option value="5">5</option>
 								</select>
 							</td>
-						</tr>	
+						<!--</tr>	
 						<tr>
-							<td>Ventanilla de Radicacion</td>
+						-->	<td>Ventanilla de Radicacion</td>
 							<td>
 								<select name="mod_ventanilla_radicacion" id="mod_ventanilla_radicacion">
 									<option value="SI">SI</option>
