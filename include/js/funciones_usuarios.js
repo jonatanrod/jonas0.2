@@ -1116,7 +1116,7 @@ function espacios_mod_login(){
 }
 /* Fin script espacios mod_login - Formulario Modificar Usuario */
 /* Script espacios mod_mail - Formulario Modificar Usuario */
-/*function espacios_mod_mail(){
+function espacios_mod_mail(){
 	var str2 = $('#mod_mail').val();
 
 	str2 = str2.replace('ñ','N');	str2 = str2.replace('Ñ','N');	str2 = str2.replace('á','A');	
@@ -1302,7 +1302,7 @@ function validar_modif_login(mod_login){
 }	
 /* Fin script para validar campo mod_login - Formulario Modificar Usuario */
 /* Script para validar campo mod_mail - Formulario Modificar Usuario */
-/*function validar_modif_email(mod_mail){
+function validar_modif_email(mod_mail){
 	if(mod_mail==""){
 		$("#error_mod_mail").slideDown("slow");
 		$("#valida_minimo_mod_mail").slideUp("slow");
@@ -1428,10 +1428,10 @@ function validar_modificar_usuario(){
 	var mod_login=$("#mod_login").val();
 	var validar_mod_login= validar_modif_login(mod_login);
 	
-/*
+
 	var mod_mail=$("#mod_mail").val();
 	var validar_mod_email= validar_modif_email(mod_mail);
-	
+/*	
 	var mod_depe=$("#mod_nombre_dependencia").val();
 	var validar_modif_depe=validar_modif_dep(mod_depe);
 */
@@ -1448,11 +1448,11 @@ function validar_modificar_usuario(){
 				$("#mod_login").focus();
 				return false;
 			}else{
-		/*		if(validar_mod_email==false){
+				if(validar_mod_email==false){
 					$("#mod_email").focus();
 					return false;
 				}else{
-					if(validar_modif_depe==false){
+		/*			if(validar_modif_depe==false){
 						$("#mod_nombre_dependencia").focus();
 						return false;
 					}else{
@@ -1464,8 +1464,8 @@ function validar_modificar_usuario(){
 							/*
 						}
 					}
-				}
 		*/
+				}
 			}
 		}
 	}

@@ -362,7 +362,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2">
+							<td colspan="4">
 								<center>
 									<input type="button" value="Modificar Usuario" id="bModificarUsuario" class="boton_enviar">
 								</center>
