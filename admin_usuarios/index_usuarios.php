@@ -276,7 +276,7 @@
 							<td>
 								<input type="hidden" name="mod_codigo_dependencia" id="mod_codigo_dependencia">
 								<input type="hidden" name="mod_ant_mod_nom_depe" id="mod_ant_mod_nom_depe">
-								<input type="text" name="mod_nombre_dependencia" id="mod_nombre_dependencia" placeholder="Ingrese Dependencia del Usuario">
+								<input type="text" name="mod_nombre_dependencia" id="mod_nombre_dependencia" placeholder="Ingrese Dependencia del Usuario" onkeyup="espacios_mod_dependencia()">
 								<div id="sugerencias_mod_dependencia"></div>
 
 								<div id="error_mod_dependencia" class="errores">La dependencia del usuario es obligatoria.</div>

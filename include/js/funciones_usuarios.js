@@ -847,7 +847,7 @@ function cargar_modifica_usuario(identificacion,nombre_completo,login,mail,codig
 	$("#mod_identificacion").focus();
 }
 /* Script cargar campo mod_dependencia - Formulario Modificar Usuarios */
-/*function carga_mod_dependencia(codigo_mod_dependencia, mod_dependencia){
+function carga_mod_dependencia(codigo_mod_dependencia, mod_dependencia){
 	$("#mod_codigo_dependencia").val(codigo_mod_dependencia);
 	$("#mod_nombre_dependencia").val(mod_dependencia);
 	$("#sugerencias_mod_dependencia").slideUp("slow");
@@ -972,7 +972,7 @@ function login_anterior(login){
 }
 /* Fin script buscador mod_login - Formulario Modificar Usuario */
 /* Script buscador mod_dependencia - Formulario Modificar Usuarios */
-/*$(function busca_mod_dependencia(){	
+$(function busca_mod_dependencia(){	
 	$('#mod_nombre_dependencia').focus();
 	
 	$('#mod_nombre_dependencia').keyup(function busca_mod_dependencia(){
@@ -1039,9 +1039,6 @@ function valida_mod_login_ya_existe(){
 	
 }
 /* Fin script que valida si el mod_perfil del usuario esta disponible en la dependencia - Formulario Modificar Usuario*/
-
-
-
 
 /* Script espacios mod_identificacion - Formulario Modificar Usuario */
 function espacios_mod_identificacion(){
@@ -1138,7 +1135,33 @@ function validar_mod_email(mod_mail) {
   	}
 }
 /* Fin script espacios mod_mail - Formulario Modificar Usuario */
-//espacios_mod_mail 
+/* Script espacios dependencia - Formulario Modificar Usuario */
+
+function espacios_mod_dependencia(){
+	var str2 = $('#mod_nombre_dependencia').val();
+
+	str2 = str2.replace('-',''); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
+	str2 = str2.replace('|','');	str2 = str2.replace('"','');	str2 = str2.replace('$','');
+	str2 = str2.replace('#','');	str2 = str2.replace('%','');	str2 = str2.replace('&','');
+	str2 = str2.replace('=','');	str2 = str2.replace('?','');	str2 = str2.replace('¿','');
+	str2 = str2.replace('¡','');	str2 = str2.replace('(','');	str2 = str2.replace(')','');
+	str2 = str2.replace('{','');	str2 = str2.replace('}','');	str2 = str2.replace('[','');
+	str2 = str2.replace(']','');	str2 = str2.replace('.','');	str2 = str2.replace(';','');
+	str2 = str2.replace(':','');	str2 = str2.replace('_','');	str2 = str2.replace('~','');
+	str2 = str2.replace('@','');	str2 = str2.replace('´','');	str2 = str2.replace("+",'');
+	str2 = str2.replace("/","");	str2 = str2.replace("*","");	str2 = str2.replace("'","");
+	str2 = str2.replace(',','');	str2 = str2.replace('^','');	str2 = str2.replace('ñ','N');
+	str2 = str2.replace('Ñ','N');	str2 = str2.replace('á','A');	str2 = str2.replace('é','E');
+	str2 = str2.replace('í','I');	str2 = str2.replace('ó','O');	str2 = str2.replace('ú','U');
+	str2 = str2.replace('Á','A');	str2 = str2.replace('É','E');	str2 = str2.replace('Í','I');
+	str2 = str2.replace('Ó','O');	str2 = str2.replace('Ú','U');	str2 = str2.replace('<','');
+	str2 = str2.replace('>','');	str2 = str2.replace('  ','');
+
+	$('#mod_nombre_dependencia').val(str2.toUpperCase());
+}
+/* Fin script espacios dependencia - Formulario Modificar Usuario */
+
+
 
 /* Script para validar campo mod_identificacion - Formulario Modificar Usuario */
 function validar_mod_identificacion(mod_identificacion){
@@ -1352,7 +1375,7 @@ function validar_modif_email(mod_mail){
 }	
 /* Fin script para validar campo mod_mail - Formulario Modificar Usuario */
 /* Script para validar campo mod_dependencia - Formulario Modificar Usuario */
-/*function validar_modif_dep(mod_depe){			
+function validar_modif_dep(mod_depe){			
 	if(mod_depe==""){
 		$("#error_mod_dependencia").slideDown("slow");
 		$("#valida_minimo_mod_dependencia").slideUp("slow");
@@ -1431,10 +1454,10 @@ function validar_modificar_usuario(){
 
 	var mod_mail=$("#mod_mail").val();
 	var validar_mod_email= validar_modif_email(mod_mail);
-/*	
+	
 	var mod_depe=$("#mod_nombre_dependencia").val();
 	var validar_modif_depe=validar_modif_dep(mod_depe);
-*/
+
 	if(validar_mod_id==false){
 		$("#mod_identificacion").focus()
 		return false;
@@ -1452,19 +1475,18 @@ function validar_modificar_usuario(){
 					$("#mod_email").focus();
 					return false;
 				}else{
-		/*			if(validar_modif_depe==false){
+					if(validar_modif_depe==false){
 						$("#mod_nombre_dependencia").focus();
 						return false;
 					}else{
 						if($("#error_mod_perfil").is(":visible")){
 							$("#mod_perfil").focus();
 							return false;
-						}else{*/
+						}else{
 							return true;
-							/*
+							
 						}
 					}
-		*/
 				}
 			}
 		}
