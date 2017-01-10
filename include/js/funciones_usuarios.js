@@ -755,6 +755,7 @@ $(function submit_agregar_usuario(){
 
 function abrirVentanaModificarUsuarios(){
 	$("#ventana2").slideDown("slow");
+	$('#mod_nombre_dependencia').focus();
 }
 
 function cerrarVentanaModificarUsuarios(){
@@ -854,6 +855,7 @@ function carga_mod_dependencia(codigo_mod_dependencia, mod_dependencia){
 	$("#error_mod_dependencia_invalida").slideUp("slow");
 
 	$("#mod_perfil").focus()
+	valida_mod_perfil();
 }
 /* Fin script cargar campo mod_dependencia - Formulario Modificar Usuarios */
 /* Script buscador identificacion - Formulario Modificar Nuevo Usuarios */
@@ -973,7 +975,7 @@ function login_anterior(login){
 /* Fin script buscador mod_login - Formulario Modificar Usuario */
 /* Script buscador mod_dependencia - Formulario Modificar Usuarios */
 $(function busca_mod_dependencia(){	
-	$('#mod_nombre_dependencia').focus();
+	//$('#mod_nombre_dependencia').focus();
 	
 	$('#mod_nombre_dependencia').keyup(function busca_mod_dependencia(){
 		var envio_mod_dependencia = $('#mod_nombre_dependencia').val();
@@ -1015,7 +1017,7 @@ function valida_mod_login_ya_existe(){
 }
 /* Fin script validar si mod_login ya existe - Formulario Modificar Usuario */
 /* Script que valida si el mod_perfil del usuario esta disponible en la dependencia - Formulario Modificar Usuario*/
-/*function valida_mod_perfil(){
+function valida_mod_perfil(){
 	var mod_depe_codi = $("#mod_codigo_dependencia").val();
 	var mod_perfil=$("#mod_perfil").val();
 		

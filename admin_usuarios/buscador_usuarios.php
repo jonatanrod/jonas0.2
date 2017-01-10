@@ -813,7 +813,20 @@
 		$search_mod_dependencia ='';
 		if(isset($_POST['search_mod_dependencia'])){
 			$search_mod_dependencia = $_POST['search_mod_dependencia'];
-			$mod_ant_mod_nom_depe=$_POST['search_ant_mod_depe'];
+			$mod_ant_nom_depe=$_POST['search_ant_mod_depe'];
+
+		/* Si el nombre a modificar es el mismo que tenía, quita los errores */
+			if($search_mod_dependencia==$mod_ant_nom_depe){
+				echo"<script>
+					$('.art1').slideUp('slow');
+					$('#sugerencia_mod_dependencia').slideUp('slow');
+				</script>";
+			}else{
+				echo "<script>
+					$('#sugerencia_mod_dependencia').slideDown('slow');					
+				</script>";
+			}
+		
 
 			$consulta_mod_dependencia="SELECT * FROM dependencias where UPPER(codigo_dependencia) like UPPER('%".$search_mod_dependencia."%')
 			or UPPER(nombre_dependencia) like UPPER('%".$search_mod_dependencia."%') and activa='SI' order by nombre_dependencia limit 5";

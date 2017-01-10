@@ -24,7 +24,7 @@
 							<td>
 							<input type="hidden" name ="tipo_formulario" id="tipo_formulario" value="1"><!--Valor 1 equivale a "Formulario de Agregar Municipios" en query_dependencias.php-->
 								<input type="text" placeholder="Digite Codigo Dependencia Alfanumerico" name="codigo_dependencia" id="codigo_dependencia" onkeyup="espacios_codigo_dependencia()" onblur="validar_grabar_dependencia()" maxlength="3" >
-								<div id="sugerencia_codigo_dependencia" class="sugerencia"></div>
+								
 								<div id="codigo_dependencia_ya_existe" class="errores">El codigo de la dependencia ya existe, no es posible crear una nueva dependencia con éste código</div>								
 								<div id="error_codigo_dependencia" class="errores">El codigo de la dependencia es obligatoria</div>
 								<div id="valida_minimo_codigo" class="errores">El codigo de la dependencia no puede ser menor a tres caracteres (numeros o letras)</div>
