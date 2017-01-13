@@ -19,11 +19,19 @@
         $perfil=$linea['perfil'];
         $estado=$linea['estado'];
         $nivel=$linea['nivel_seguridad'];
+        $usuario=$linea['login'];
+        $pw=$linea['pass'];
         $ventanilla_radicacion=$linea['ventanilla_radicacion'];
+        $imagen = $linea['path_foto'];
+
         
         $_SESSION['nombre'] = $nombre;
         $_SESSION['perfil'] = $perfil;
         $_SESSION['nivel'] = $nivel;   
+        $_SESSION['login'] = $usuario;  
+        $_SESSION['pass'] = $pw; 
+        $_SESSION['imagen'] = $imagen; 
+
         $_SESSION['ultimo_ingreso']=date("Y-n-j H:i:s"); 
         /*    
         echo "nombre es $nombre

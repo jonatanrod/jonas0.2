@@ -21,7 +21,6 @@
 	width: 100%;
 	z-index: 500;
 }
-
 #encabezado nav ul{ /*Estilo cuadro redondeado listado*/
 	border-radius: 10px;
 	list-style: none;
@@ -164,6 +163,27 @@ body{ /*Estilo general del body*/
 	width: calc(100% - 200px);
 	animation: fadeEffect 1s;
 	height:100%;
+	z-index: 1;
+}
+#derecha{ /* Estilo de boton de Usuario */
+	position:relative;
+	float:right;
+}
+#circulo img{	/* Estilo imagen dentro de boton Usuario */
+    border-radius: 50%;
+    height: 75px;
+    padding: 3%;
+    width: 75px;
+}
+#contenedor_toptil{
+	margin-top: 2px;
+	position:absolute;
+	left: 75%; 
+	width: 25%;
+	background: black;
+}
+#contenedor_toptil li{
+	width: 100%;
 }
 /*
 #ventana{ 

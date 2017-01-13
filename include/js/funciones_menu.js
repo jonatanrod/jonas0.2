@@ -143,6 +143,48 @@ function main(){
 		});		
 	};
 	/*Fin carga el Módulo de radicación de entrada*/
+	/* Carga el Módulo de cambio de contraseña*/
+	function cambiar_contrasena(){
+		$("#contenido").load("login/cambio_contrasena.php");
+	}
+	/* Fin Módulo cambio de contraseña*/
+
+	/* Cierra sesion */
+	function destruir_sesion(){
+		alert("La sesión ha sido cerrada. Ingrese nuevamente usuario y contraseña.")
+		window.location.href='login.php';
+	}
+	/* Fin cierra sesion */
 
 /*Fin funcion para que al dar clic cargue el div #contenido*/
+
 /************************************************************************/
+
+
+function cambio_pass(){
+    var usuario=$('#usuario').val();
+    var pass1=$('#new_pass').val();
+    var pass2=$('#confirma_pass').val();
+    //alert(pass1)
+    if(pass1.length< 5){
+      alert("La clave debe tener al menos 5 caracteres");  
+    }else if(pass1.length>10){
+      alert("La clave no puede tener más de 10 caracteres");
+    }
+    else if(pass1!=pass2){
+        alert("Las contraseñas no coinciden, Por favor intente nuevamente.")
+    }else if(usuario=="-Seleccionar Usuario-"){
+        alert("Seleccione un usuario por favor")
+    }else if(pass1==''){
+        alert("Ingrese una nueva contraseña")
+    }else if (!pass1.match('[a-z]')){
+        alert('La clave debe tener al menos una letra minúscula');
+    }else if (!pass1.match('[A-Z]')){
+        alert('La clave debe tener al menos una letra mayúscula');
+    }else if (!pass1.match('[0-9]')){
+        alert('La clave debe tener al menos un caracter numérico');
+    }else{
+        //alert("si pasa")
+        $('#envia_pass').submit();
+    }
+}

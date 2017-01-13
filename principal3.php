@@ -18,11 +18,18 @@
 	session_start();
 //	var_dump($_SESSION);
 	$perfil=$_SESSION['perfil'];
+	$usuario=$_SESSION['login'];
+	$imagen = $_SESSION['imagen'];
+	$nombre_completo = $_SESSION['nombre'];
+
+    //$pw=$_SESSION['pass'];
  ?>
 
 <body style ="margin: 0px">
 	<div id="contenedor_general">
+
 <!--Inicio del encabezado de principal3.php-->		
+	
 		<div id="encabezado">
 		<!--	<div class="logo">Jonas SGD</div> -->
 			<div class="boton_menu">
@@ -65,7 +72,32 @@
 						</ul>
 					</li>
 					Hasta aqui comento porque no se ha desarrollado
-					-->
+					-->					
+	<!-- Inicio menu usuario -->				
+					<div id="derecha">
+						<div id="circulo">
+							<?php 
+								echo '<img src="'.$imagen.'">';
+							 ?>
+						</div>
+					</div>
+					<div id="contenedor_toptil">
+						<?php 
+							echo "<center><h1><b>$nombre_completo<br>( $usuario )</b></h1></center>";			
+						?>
+					<div>
+						<li id="cambiar_pass" onclick="cambiar_contrasena()">
+							<a href="#">
+								<span class="icon-users"></span> Cambiar Contraseña
+							</a>
+						</li>
+						<li id="destroy" onclick="destruir_sesion()">
+							<a href="#">
+								<span class="icon-users"></span> Cerrar Sesion
+							</a>
+						</li>					
+					</div>
+	<!-- Fin menu usuario -->
 				</ul>
 			</nav>
 		</div>	
@@ -116,12 +148,13 @@
 				</nav>
 			</div>
 		</div><!--Fin del menu_izquierda de principal3.php-->
-<!--Inicio del contenido de principal2.php-->
+<!--Inicio del contenido de principal3.php-->
 	<!--	<div id="contenido" style="padding-left:10px; padding-right:10px;"> -->
 		<div id="contenido">
 			Contenido
 		</div>
-<!--Fin del contenido de principal2.php-->
+<!--Fin del contenido de principal3.php-->
 	</div> <!--Fin del contenedor_general-->
 </body>
 </html>
+
