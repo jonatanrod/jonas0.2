@@ -77,7 +77,7 @@
 					<div id="derecha">
 						<div id="circulo">
 							<?php 
-								echo '<img src="'.$imagen.'">';
+								echo '<img src="'.$imagen.'" id="foto_usuario">';
 							 ?>
 						</div>
 					</div>

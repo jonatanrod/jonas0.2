@@ -14,6 +14,10 @@
 	<script type="text/javascript" src="include/js/funciones_login.js"></script>
 </head>
 <body>	
+<?php 
+	session_unset();
+	//session_destroy();
+ ?>	
 	<div id="general">
 		<div class="form">
 			<img src="imagenes/encabezado_transparente.png" id="logo_principal">

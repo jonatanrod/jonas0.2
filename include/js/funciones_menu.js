@@ -1,6 +1,16 @@
 if (history.forward(1)) {
 	location.replace(history.forward(1));
 }	
+/* Script para ventana modal - Tecla Esc */
+    window.addEventListener("keyup", function(event){
+        var codigo = event.keyCode || event.which;
+        if(codigo== 8){ // Opcion para restringir que la tecla backspace da atras en el navegador.
+        	if (history.forward(1)) {
+				location.replace(history.forward(1));
+			}	
+        }
+    }, false);
+/* Fin script para ventana modal - Tecla Esc */
 /*Funcion para botones responsive del menu y menu_lateral*/
 $(document).ready(main);
 
@@ -9,6 +19,7 @@ function main(){
 	var contador_lateral  = 1;
 	var contador_menu 	  = 1;
 	var contador_rad	  = 1;
+	var contador_usuario  = 1;
 
 	$('.boton_menu').click(function despliega_superior(){ // Boton "Menu" Version Movil
 		if(contador_superior == 1){
@@ -82,6 +93,17 @@ function main(){
 		}
 	});
 
+	$('#foto_usuario').click(function menu_usuario(){
+		if(contador_usuario==1){
+			$('#contenedor_toptil').slideDown("slow");
+			contador_usuario=0;
+			//alert("Guetta");
+		}else{
+			$('#contenedor_toptil').slideUp("slow");
+			contador_usuario=1;
+		}
+	});
+
 	$('#contenido').click(function limpia(){ // Comportamiento al hacer click en el div "contenido"
 		//alert("ki"); 
 		if(contador_superior != 1){			
@@ -99,6 +121,7 @@ function main(){
 		contador_menu = 1;
 		$('#boton_menu').slideUp("slow"); 	// Cierra menu configuracion
 		$('#boton_rad').slideUp("slow");	// Cierra menu radicacion
+		$('#contenedor_toptil').slideUp("slow");	// Cierra menu usaurio
 	});	
 
 }
@@ -146,6 +169,11 @@ function main(){
 	/* Carga el Módulo de cambio de contraseña*/
 	function cambiar_contrasena(){
 		$("#contenido").load("login/cambio_contrasena.php");
+
+		$('.menu_superior').animate({
+				left:'-100%'
+		});
+		$('#contenedor_toptil').slideUp();
 	}
 	/* Fin Módulo cambio de contraseña*/
 

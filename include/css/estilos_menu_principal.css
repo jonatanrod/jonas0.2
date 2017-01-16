@@ -161,13 +161,13 @@ body{ /*Estilo general del body*/
 #contenido{ /*Estilo general del div "contenido"*/
 	float: left;
 	width: calc(100% - 200px);
-	animation: fadeEffect 1s;
+	animation : fadeEffect 1s;
 	height:100%;
 	z-index: 1;
 }
 #derecha{ /* Estilo de boton de Usuario */
-	position:relative;
 	float:right;
+	position:relative;
 }
 #circulo img{	/* Estilo imagen dentro de boton Usuario */
     border-radius: 50%;
@@ -176,11 +176,12 @@ body{ /*Estilo general del body*/
     width: 75px;
 }
 #contenedor_toptil{
+	background: #011826;
+	display: none;
+	left: 75%; 
 	margin-top: 2px;
 	position:absolute;
-	left: 75%; 
 	width: 25%;
-	background: black;
 }
 #contenedor_toptil li{
 	width: 100%;
@@ -210,16 +211,6 @@ body{ /*Estilo general del body*/
 		width: 100%;
 		z-index: 1000;
 	}
-	/*#encabezado .logo { Logo del encabezado
-		font-size: 30px;
-		line-height: 60px;
-		position: fixed;
-		text-align: center;
-		vertical-align: middle;
-		width: 100%;
-		z-index: 1000;
-	}
-	*/
 	.boton_menu{ /*Estilo del boton menu*/
 		/*background: #023859;*/
 		background: black;
@@ -254,6 +245,16 @@ body{ /*Estilo general del body*/
 		overflow: hidden;
 		padding: 15px;
 		text-decoration: none;
+	}
+	#derecha{ /* Estilo de boton de Usuario */
+		position:absolute;
+	}
+	#contenedor_toptil{
+		left: 0%;
+		margin-left: 20px;
+		margin-top: 80;
+		position:absolute;
+		width: 75%;
 	}
 	#encabezado nav{/*Estilo inicial submenu encabezado*/
 		/*background: #023859;*/
