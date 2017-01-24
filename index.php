@@ -43,7 +43,8 @@
 									<input type="button" value="Ingresar" id="boton_ingreso" class="boton" onclick="entra()" ></td>
 								</div> 
 							</center>	
-							<div class="errores">El usuario y/o contraseña no son correctos. Por favor revisar.</div>
+							<div class="errores" id="error_user">El usuario y/o contraseña no son correctos. Por favor revisar.</div>
+							<div class="errores" id="error_inactivo">El usuario se encuentra inactivo. Por favor comuniquese con el administrador del sistema.</div>
 						</td>
 					</tr>
 				</table>

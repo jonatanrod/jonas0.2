@@ -180,7 +180,7 @@ function main(){
 	/* Cierra sesion */
 	function destruir_sesion(){
 		alert("La sesión ha sido cerrada. Ingrese nuevamente usuario y contraseña.")
-		window.location.href='login.php';
+		window.location.href='index.php';
 	}
 	/* Fin cierra sesion */
 

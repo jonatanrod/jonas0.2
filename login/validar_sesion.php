@@ -8,7 +8,7 @@
 	<script>
 		function enviar(){
 			alert("La sesión ha sido cerrada por inactividad. Ingrese nuevamente usuario y contraseña.")
-			window.location.href='../login.php';
+			window.location.href='../index.php';
 		}
 	</script>
 <?php 

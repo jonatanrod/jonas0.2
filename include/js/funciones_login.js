@@ -31,16 +31,25 @@ function entra(){
 		success: function(resp){
 			//alert(resp);
 			//console.log(resp);
-			if(resp==""){
-				$('.errores').slideDown("fast");
-			}else if(resp=="No pude conectarme con la base de datos, revisa las variables de conexión por favor."){
-				alert(resp);
-			}
-			else{
-				$('.errores').slideUp("slow");	
-				//alert(resp);
-				//$('#general').fadeOut("slow");
-				location.href='principal3.php';			
+			switch(resp){
+				case "":
+					$('#error_user').slideDown("fast");
+					$('#error_inactivo').slideUp("slow");
+					break;
+				case "No pude conectarme con la base de datos, revisa las variables de conexión por favor.":	
+					alert(resp);
+					break;
+				case "inactivo":
+					$('#error_inactivo').slideDown("slow");
+					$('#error_user').slideUp("slow");
+					break;	
+				default:
+					$('#error_user').slideUp("slow");
+					$('#error_inactivo').slideUp("slow");	
+					//alert(resp);
+					//$('#general').fadeOut("slow");
+					location.href='principal3.php';			
+					break;	
 			}	
 		}
 	})

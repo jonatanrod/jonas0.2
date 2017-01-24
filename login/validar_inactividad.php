@@ -2,6 +2,15 @@
 session_start();
 
 $fecha_antigua=$_SESSION["ultimo_ingreso"];
+$nuevo=$_SESSION['usuario_nuevo'];
+var_dump($nuevo);
+echo "<script>alert('jjjjjjjjjjjjjj')";
+if ($nuevo="SI ") {
+	echo '<script language=javascript>
+				alert("Por su seguridad, Se requiere cambio de contraseña.");
+				$("#contenido").load("login/cambio_contrasena.php");
+			</script>';
+}
 
 $hora=date("Y-n-j H:i:s");
 
@@ -14,7 +23,7 @@ $operacion=60*15;/* Este es el tiempo para que la sesion se inactive automaticam
 		session_unset();
 		echo '<script language=javascript>
 				alert("Por su seguridad, su sesión ha sido caducada. Por favor ingrese nuevamente.")
-				self.location="login.php"
+				self.location="index.php"
 			</script>';
 	}else{
 		$_SESSION["ultimo_ingreso"]=$hora;

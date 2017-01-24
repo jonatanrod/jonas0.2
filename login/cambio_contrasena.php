@@ -3,6 +3,7 @@
 	//	var_dump($_SESSION);
 	$perfil=$_SESSION['perfil'];
 	$usuario=$_SESSION['nombre'];
+	$id_usuario=$_SESSION['id_usuario'];
     //$pw=$_SESSION['pass'];
  ?>
 <!DOCTYPE html>
@@ -23,7 +24,9 @@
 		<img src="imagenes/logo5.png" width="100" alt="Jonas SGD" title="Logo Jonas">	
 		<h1 style="margin-top:-10px;">Cambiar Contraseña 
 			<?php 
-				echo "<h2>$usuario</h2>";		
+				echo "<h2>$usuario</h2>
+				<input type='hidden' id='id_usuario' value='$id_usuario'>
+				";
 	 		?>
 	 	</h1>
 		<form action="javascript:cambio_pass()" method="post" id="envia_pass" class="form">
@@ -32,7 +35,7 @@
 				<tr>
 					<td>
 	 					<center>
-	 						<input type="text" id="pass1" name="pass1" placeholder="Ingrese su nuevo password" onkeyup="if (event.keyCode==13){modificar_pass_usuario(); return false;}">	
+	 						<input type="password" id="pass1" name="pass1" placeholder="Ingrese su nuevo password" onkeyup="if (event.keyCode==13){modificar_pass_usuario(); return false;}">	
 							<div id="valida_pass_vacio" class="errores">El password no puede ser menor a 6 caracteres</div>
 	 					</center>
 					</td>
@@ -40,7 +43,7 @@
 				<tr>
 					<td>
 						<center>
-							<input type="text" id="pass2" name="pass2" placeholder="Confirme su nuevo password"  onkeyup="if (event.keyCode==13){modificar_pass_usuario(); return false;}">	
+							<input type="password" id="pass2" name="pass2" placeholder="Confirme su nuevo password"  onkeyup="if (event.keyCode==13){modificar_pass_usuario(); return false;}">	
 							<div id="valida_pass_confirmacion" class="errores">El password de confirmacion no corresponde al ingresado</div>
 						</center>			
 					</td>

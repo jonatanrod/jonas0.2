@@ -1527,11 +1527,13 @@ $(function submit_modificar_usuario(){
 /* Inicio Modificar Contraseña ******************************************************************************/
 /************************************************************************************************************/
 function modificar_pass_usuario(){
+	var id_usuario = $('#id_usuario').val();
 	var pass1 = $('#pass1').val();
 	var pass2 = $('#pass2').val();
 
 	if(pass1.length<6){
 		$('#valida_pass_vacio').slideDown("slow");
+		$('#pass1').focus();
 	}else{
 		$('#valida_pass_vacio').slideUp("slow");
 		if(pass1!=pass2){
@@ -1541,14 +1543,17 @@ function modificar_pass_usuario(){
 			$('#valida_pass_confirmacion').slideUp("slow");
 
 			$.ajax({
-				url:'cambio_contrasena.php',
+				url:'login/modifica_pass.php',
 				type: 'POST',
-				data: 'pass':pass2,
+				data: {
+					'id_usuario':id_usuario,
+					'pass':pass2 
+				},
 				success: function(resp){
 					alert(resp)
-					//window.location.href='../principal3.php';
+					window.location.href='principal3.php';
 				}
-			})
+			})	
 		}
 	}
 }

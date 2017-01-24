@@ -23,6 +23,7 @@
         $pw=$linea['pass'];
         $ventanilla_radicacion=$linea['ventanilla_radicacion'];
         $imagen = $linea['path_foto'];
+        $id_usuario = $linea['id_usuario'];
 
         
         $_SESSION['nombre'] = $nombre;
@@ -31,6 +32,8 @@
         $_SESSION['login'] = $usuario;  
         $_SESSION['pass'] = $pw; 
         $_SESSION['imagen'] = $imagen; 
+        $_SESSION['id_usuario']=$id_usuario;
+        $_SESSION['usuario_nuevo']=$nuevo;
 
         $_SESSION['ultimo_ingreso']=date("Y-n-j H:i:s"); 
         /*    
@@ -43,7 +46,14 @@
         ";
         */
        // var_dump($_SESSION);
-        echo "Bienvenido a Jonas";
+       // echo "nuevo es $nuevo";
+        if($estado=="INACTIVO"){
+            echo "inactivo";
+        }else if($nuevo="SI"){
+            echo "nuevo";
+        }else{
+            echo "Bienvenido a Jonas";
+        }
     }else{
         echo "";
     }   
