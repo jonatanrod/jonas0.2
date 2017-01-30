@@ -2,14 +2,15 @@
 session_start();
 
 $fecha_antigua=$_SESSION["ultimo_ingreso"];
-$nuevo=$_SESSION['usuario_nuevo'];
-var_dump($nuevo);
-echo "<script>alert('jjjjjjjjjjjjjj')";
-if ($nuevo="SI ") {
-	echo '<script language=javascript>
-				alert("Por su seguridad, Se requiere cambio de contraseña.");
-				$("#contenido").load("login/cambio_contrasena.php");
-			</script>';
+$nuevo=trim($_SESSION['usuario_nuevo']);
+
+if ($nuevo=="SI") {
+	echo '
+	<script language=javascript>
+		alert("Por seguridad de su cuenta, Se requiere cambio de contraseña.");
+		$("#contenido").load("login/cambio_contrasena.php");
+	</script>';
+    $_SESSION['usuario_nuevo']='NO'; // Asigno a la sesion la variable de usuario_nuevo
 }
 
 $hora=date("Y-n-j H:i:s");

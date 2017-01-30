@@ -381,7 +381,7 @@
 		
 		</div>
 		<div class="form center">
-			<input type="text" id="search_usuario" class="input_largo">
+			<input type="search" id="search_usuario" class="input_largo" >
 		</div>
 		<div id="desplegable_resultados"></div>
 

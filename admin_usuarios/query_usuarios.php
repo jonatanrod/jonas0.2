@@ -82,7 +82,7 @@
 					pass, estado, nombre_completo, usuario_nuevo, documento_usuario, sesion, 
 					fecha_sesion, nivel_seguridad, mail_usuario, id_usuario, path_foto,
 					ventanilla_radicacion )
-					VALUES('$perfil','$codigo_dependencia','$login','123','$estado',
+					VALUES('$perfil','$codigo_dependencia','$login',md5('123'),'$estado',
 					'$nombre_completo','$usuario_nuevo','$identificacion','Sesion_inicio',
 					'$fecha_sesion','$nivel_seguridad','$mail','$max_usuario2','$path_foto',
 					'$ventanilla_radicacion')";
@@ -101,8 +101,19 @@
 						alert('El formulario para crear/modificar usuario no se pudo enviar.')
 					</script>";
 				}
+
+				$fila_usuario = pg_query($conectado,$query_usuario);
+				echo "<script> alert('El Usuario ha sido creado / modificado correctamente') 
+						volver();
+				</script>";
 		
 		}else{
+			echo "<script>
+				alert('Hay un problema para cargar la imagen del usuario. Comuniquese con el administrador del sistema.')
+			</script>";
+		}
+		/*		Comento porque este sería el caso en el que no carga la imagen y la imagen es obligatoria
+		else{
 			if($tipo_formulario=='crear_usuario'){
 					$query_usuario="insert into usuarios (perfil, codigo_dependencia, login, 
 					pass, estado, nombre_completo, usuario_nuevo, documento_usuario, sesion, 
@@ -127,10 +138,7 @@
 					</script>";
 				}
 		}
-			$fila_usuario = pg_query($conectado,$query_usuario);
-			echo "<script> alert('El Usuario ha sido creado / modificado correctamente') 
-					volver();
-			</script>";
+		*/
 	}
 
 ?>

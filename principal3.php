@@ -31,7 +31,7 @@
 <!--Inicio del encabezado de principal3.php-->		
 	
 		<div id="encabezado">
-		<!--	<div class="logo">Jonas SGD</div> -->
+			<!--<div class="logo">Jonas SGD</div> -->
 			<div class="boton_menu">
 				<a href="#" class="bt-menu"><span class ="icon-menu"> Menu</span></a>
 			</div>
@@ -93,7 +93,7 @@
 						</li>
 						<li id="destroy" onclick="destruir_sesion()">
 							<a href="#">
-								<span class="icon-users"></span> Cerrar Sesion
+								<span class="icon-circle-with-cross"></span> Cerrar Sesion
 							</a>
 						</li>					
 					</div>

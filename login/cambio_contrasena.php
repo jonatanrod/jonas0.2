@@ -1,10 +1,11 @@
 <?php 
-	require_once("../login/validar_inactividad.php");
+	session_start();
+
+	//require_once("../login/validar_inactividad.php");
 	//	var_dump($_SESSION);
 	$perfil=$_SESSION['perfil'];
 	$usuario=$_SESSION['nombre'];
 	$id_usuario=$_SESSION['id_usuario'];
-    //$pw=$_SESSION['pass'];
  ?>
 <!DOCTYPE html>
 <html > 

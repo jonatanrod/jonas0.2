@@ -1,5 +1,5 @@
 /* Script para ventana modal - Tecla Esc */
-    window.addEventListener("keyup", function(event){
+    window.addEventListener("keydown", function(event){
         var codigo = event.keyCode || event.which;
         if (codigo == 27){
             cerrarVentanaCrearUsuarios();
@@ -17,9 +17,9 @@
 /* Buscador - Administrador de Usuarios *********************************************************************/
 /************************************************************************************************************/
 $(function buscador_usuarios(){
-	
 	$('#search_usuario').focus();
 	$('#search_usuario').keyup(function buscador_usuarios(){
+		$('#desplegable_resultados').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
 		var envio_usuario = $('#search_usuario').val();
 		if(envio_usuario.length>2 && envio_usuario.length<50){		
 			$('#logo').html('<h2>Buscador de Usuarios</h2>');
@@ -40,8 +40,12 @@ $(function buscador_usuarios(){
 		}else{
 			$('#desplegable_resultados').html('');
 		}
+		if(envio_usuario.length>50){
+			$('#desplegable_resultados').html('<h4>La busqueda debe tener de 50 caracteres maximo. Revise por favor</h4>');
+		}
 	})
 })
+
 /************************************************************************************************************/
 /* Fin Buscador - Administrador de Usuarios *****************************************************************/
 /************************************************************************************************************/
@@ -56,6 +60,7 @@ $(function busca_identificacion(){
 		
 	$('#identificacion').keyup(function busca_identificacion(){
 		var envio_identificacion = $('#identificacion').val();
+		$('#sugerencias_identificacion').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
 
 		if(envio_identificacion.length>2 && envio_identificacion.length<50){		
 	
@@ -83,7 +88,7 @@ $(function busca_nombre_completo(){
 	
 	$('#nombre_completo').keyup(function busca_identificacion(){
 		var envio_nombre_completo = $('#nombre_completo').val();
-		
+		$('#sugerencias_nombre_completo').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
 		if(envio_nombre_completo.length>2 && envio_nombre_completo.length<50){		
 			$.ajax({
 				type: 'POST',
@@ -111,6 +116,8 @@ $(function busca_login(){
 		var envio_login = $('#login').val();
 
 		if(envio_login.length>2 && envio_login.length<50){		
+		$('#sugerencias_login').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+
 			$.ajax({
 				type: 'POST',
 				url: 'admin_usuarios/buscador_usuarios.php',
@@ -866,6 +873,7 @@ $(function busca_mod_identificacion(){
 		var envio_ant_mod_id =$("#ant_mod_identificacion").val();
 
 		if(envio_mod_identificacion.length>3){	
+		$('#sugerencias_mod_identificacion').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
 			$.ajax({
 				type: 'POST',
 				url: 'admin_usuarios/buscador_usuarios.php',
@@ -904,6 +912,7 @@ $(function busca_mod_nombre_completo(){
 		var envio_ant_mod_nombre =$("#ant_mod_nombre_completo").val();
 
 		if(envio_mod_nombre_completo.length>3){	
+		$('#sugerencias_mod_nombre_completo').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
 			$.ajax({
 				type: 'POST',
 				url: 'admin_usuarios/buscador_usuarios.php',
@@ -941,7 +950,9 @@ $(function busca_mod_login(){
 		var envio_mod_login =$('#mod_login').val();
 		var envio_ant_mod_login=$('#ant_mod_login').val();
 
-		if(envio_mod_login.length>1){			
+		if(envio_mod_login.length>1){
+		$('#sugerencias_mod_login').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+
 			$.ajax({
 				type: 'POST',
 				url: 'admin_usuarios/buscador_usuarios.php',
