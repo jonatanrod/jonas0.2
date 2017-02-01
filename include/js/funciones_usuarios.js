@@ -16,72 +16,91 @@
 /************************************************************************************************************/
 /* Buscador - Administrador de Usuarios *********************************************************************/
 /************************************************************************************************************/
+var timerid="";
 $(function buscador_usuarios(){
-	$('#search_usuario').focus();
-	$('#search_usuario').keyup(function buscador_usuarios(){
-		$('#desplegable_resultados').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
-		var envio_usuario = $('#search_usuario').val();
-		if(envio_usuario.length>2 && envio_usuario.length<50){		
-			$('#logo').html('<h2>Buscador de Usuarios</h2>');
-	
-	        $.ajax({
-				type: 'POST',
-				url: 'admin_usuarios/buscador_usuarios.php',
-				data: {
-					'search_usuario' : envio_usuario,
-					'desde_formulario' : '1'
-				},			
-				success: function(resp){
-					if(resp!=""){
-						$('#desplegable_resultados').html(resp);
-					}
-				}
-			}); 			 		
-		}else{
-			$('#desplegable_resultados').html('');
-		}
-		if(envio_usuario.length>50){
-			$('#desplegable_resultados').html('<h4>La busqueda debe tener de 50 caracteres maximo. Revise por favor</h4>');
-		}
-	})
-})
+	$("#search_usuario").focus();
 
+	$("#search_usuario").on("input",function(e){ // Accion que se activa cuando se digita #search_usuario
+        var envio_usuario = $(this).val();
+	    
+	    if($(this).data("lastval")!= envio_usuario){
+	    	$(this).data("lastval",envio_usuario);
+                    
+   			clearTimeout(timerid);
+   			timerid = setTimeout(function() {
+         		//alert("valor "+envio_usuario);
+
+         		if(envio_usuario.length>2 && envio_usuario.length<50){		
+					$('#desplegable_resultados').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+					$('#logo').html('<h2>Buscador de Usuarios</h2>');
+
+			        $.ajax({
+						type: 'POST',
+						url: 'admin_usuarios/buscador_usuarios.php',
+						data: {
+							'search_usuario' : envio_usuario,
+							'desde_formulario' : '1'
+						},			
+						success: function(resp){
+							if(resp!=""){
+								$('#desplegable_resultados').html(resp);
+							}
+						}
+					}); 			 		
+				}else{
+					$('#desplegable_resultados').html('');
+				} 
+				if(envio_usuario.length>50){
+					$('#desplegable_resultados').html('<h4>La busqueda debe tener de 50 caracteres maximo. Revise por favor</h4>');
+				}  				 
+   			},500);
+	    };
+	});
+});
 /************************************************************************************************************/
 /* Fin Buscador - Administrador de Usuarios *****************************************************************/
 /************************************************************************************************************/
-
 
 /************************************************************************************************************/
 /* Formulario Agregar Nuevo Usuario *************************************************************************/
 /************************************************************************************************************/
 
 /* Script buscador identificacion - Formulario Agregar Nuevo Usuarios */
-$(function busca_identificacion(){
-		
-	$('#identificacion').keyup(function busca_identificacion(){
-		var envio_identificacion = $('#identificacion').val();
-		$('#sugerencias_identificacion').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+$("#identificacion").on("input",function(e){ // Accion que se activa cuando se digita #identificacion
+    var envio_identificacion = $(this).val();
+    
+    if($(this).data("lastval")!= envio_identificacion){
+    	$(this).data("lastval",envio_identificacion);
+                
+			clearTimeout(timerid);
+			timerid = setTimeout(function() {
+     		//alert("valor "+envio_identificacion);
 
-		if(envio_identificacion.length>2 && envio_identificacion.length<50){		
-	
-	       $.ajax({
-				type: 'POST',
-				url: 'admin_usuarios/buscador_usuarios.php',
-				data: {
-					'search_identificacion' : envio_identificacion,
-					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-				},			
-				success: function(resp){
-					if(resp!=""){
-						$('#sugerencias_identificacion').html(resp);
+     		if(envio_identificacion.length>2 && envio_identificacion.length<50){
+        		$('#sugerencias_identificacion').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>"); 				
+        		 $.ajax({
+					type: 'POST',
+					url: 'admin_usuarios/buscador_usuarios.php',
+					data: {
+						'search_identificacion' : envio_identificacion,
+						'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+					},			
+					success: function(resp){
+						if(resp!=""){
+							$('#sugerencias_identificacion').html(resp);
+						}
 					}
-				}
-			})	 			 		
-		}else{
-			$('#sugerencias_identificacion').html('');
-		}		
-	})
-})
+				})	
+		 		
+			}else{
+				$('#sugerencias_identificacion').html('');
+			}	
+			if(envio_identificacion.length>50){
+				$('#sugerencias_identificacion').html('<h4>La busqueda debe tener de 50 caracteres maximo. Revise por favor</h4>');
+			}  				 
+			},500);
+    };
+});
 /* Fin script buscador identificacion - Formulario Agregar Nuevo Usuarios */
 /* Script buscador nombre_completo - Formulario Agregar Nuevo Usuarios */
 $(function busca_nombre_completo(){	

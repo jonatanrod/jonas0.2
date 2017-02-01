@@ -7,7 +7,7 @@
 	<title>Jonas Principal</title>
 	
 <!--Esta es el href a los archivos que necesito para usar jquery, css-->
-	<link rel="stylesheet" href="include/css/estilos_menu_principal.css"> 
+<!--	<link rel="stylesheet" href="include/css/estilos_menu_principal.css"> -->
 	<script type="text/javascript" src="include/js/jquery.js"></script>
 	<script type="text/javascript" src="include/js/funciones_menu.js"></script>
 
@@ -77,7 +77,7 @@
 					<div id="derecha">
 						<div id="circulo">
 							<?php 
-								echo '<img src="'.$imagen.'" id="foto_usuario">';
+							//	echo '<img src="'.$imagen.'" id="foto_usuario">';
 							 ?>
 						</div>
 					</div>

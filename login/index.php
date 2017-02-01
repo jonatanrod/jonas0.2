@@ -1,6 +1,7 @@
 <?php 
+/* Archivo invocado por ajax funciones_login.js - funcion entra().
+ recibe user_j y passd_j por POST */
     session_start();
-
     include ("conexion2.php");
 
     $user_j=$_POST['user_j'];
@@ -24,8 +25,7 @@
         $ventanilla_radicacion=$linea['ventanilla_radicacion'];
         $imagen = $linea['path_foto'];
         $id_usuario = $linea['id_usuario'];
-
-        
+      
         $_SESSION['nombre'] = $nombre;
         $_SESSION['perfil'] = $perfil;
         $_SESSION['nivel'] = $nivel;   
@@ -36,17 +36,7 @@
         $_SESSION['usuario_nuevo']=$nuevo;
 
         $_SESSION['ultimo_ingreso']=date("Y-n-j H:i:s"); 
-        /*    
-        echo "nombre es $nombre
-        nuevo $nuevo 
-        perfil es $perfil  
-        estado es $estado
-        nivel es $nivel
-        ventanilla_radicacion es $ventanilla_radicacion
-        ";
-        */
-       // var_dump($_SESSION);
-       // echo "nuevo es $nuevo";
+    
         if($estado=="INACTIVO"){
             echo "inactivo";
         }else if($nuevo="SI"){
@@ -57,5 +47,4 @@
     }else{
         echo "";
     }   
-   // echo "user=$user y password es $passd";
- ?>
+?>

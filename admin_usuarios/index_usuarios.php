@@ -26,7 +26,7 @@
 								Identificacion :
 							</td>
 							<td>
-								<input type="text" name="identificacion" id="identificacion"
+								<input type="search" name="identificacion" id="identificacion"
 								 placeholder="Ingrese Numero Identificacion (sin puntos)" onkeyup="espacios_identificacion()">
 								<div id="sugerencias_identificacion"></div>
 
@@ -179,7 +179,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="3">
+							<td colspan="4">
 								<center>
 									<input type="button" value="Crear Usuario" id="bCrearUsuario" class="boton_enviar"></td>
 								</center>	
@@ -381,7 +381,7 @@
 		
 		</div>
 		<div class="form center">
-			<input type="search" id="search_usuario" class="input_largo" >
+			<input type="search" id="search_usuario" class="input_largo" placeholder="Ingrese Nombre de Usuario" >
 		</div>
 		<div id="desplegable_resultados"></div>
 

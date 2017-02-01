@@ -48,7 +48,20 @@ function entra(){
 					$('#error_inactivo').slideUp("slow");	
 					//alert(resp);
 					//$('#general').fadeOut("slow");
-					location.href='principal3.php';			
+					$.ajax({
+						type: 'POST',
+						url: 'login/transacciones.php',
+						data: {
+							'transaccion' : 'login'	// Envio variable para que no salga "Para agregar usuario haga click aqui"
+						},			
+						success: function(resp1){
+							alert(resp1);
+							/*if(resp!=""){
+								$('#sugerencias_nombre_completo').html(resp);
+							}*/
+						}
+					})	
+					//location.href='principal3.php';			
 					break;	
 			}	
 		}
