@@ -6,7 +6,6 @@ $(function main(){
 	function valida_entra(){
 		 $("#user").keyup(function(e) {
 	       if(e.which == 13) {
-	          // Acciones a realizar, por ej: enviar formulario.
 	          entra();
 	       }
 	    }); 
@@ -29,39 +28,41 @@ function entra(){
 			'passd_j' : passd
 		},			
 		success: function(resp){
-			//alert(resp);
-			//console.log(resp);
-			switch(resp){
+//			alert("m"+resp+'p')
+//			console.log(resp);
+			switch(resp){ // Valida la respuesta de login/index.php
+				case "No pude conectarme con la base de datos 1, revisa las variables de conexión por favor.":	
+					alert(resp);
+					break;
+				case "false":
+					alert("No pude conectarme a la tabla U de la base de datos 1, revisa la base de datos por favor");// Quiere decir que la tabla de usuarios no se ha creado.
+					break;	
 				case "":
 					$('#error_user').slideDown("fast");
 					$('#error_inactivo').slideUp("slow");
-					break;
-				case "No pude conectarme con la base de datos, revisa las variables de conexión por favor.":	
-					alert(resp);
 					break;
 				case "inactivo":
 					$('#error_inactivo').slideDown("slow");
 					$('#error_user').slideUp("slow");
 					break;	
-				default:
+				default:       // Ingresa de manera correcta
 					$('#error_user').slideUp("slow");
 					$('#error_inactivo').slideUp("slow");	
-					//alert(resp);
-					//$('#general').fadeOut("slow");
-					$.ajax({
+		
+					$.ajax({	// Guardo registro de ingreso al sistema para auditoria
 						type: 'POST',
 						url: 'login/transacciones.php',
 						data: {
-							'transaccion' : 'login'	// Envio variable para que no salga "Para agregar usuario haga click aqui"
+							'transaccion' : 'login'	
 						},			
 						success: function(resp1){
-							alert(resp1);
-							/*if(resp!=""){
-								$('#sugerencias_nombre_completo').html(resp);
-							}*/
+							if(resp1=="true"){
+								location.href='principal3.php';			
+							}else{
+								alert(resp1)
+							}
 						}
 					})	
-					//location.href='principal3.php';			
 					break;	
 			}	
 		}

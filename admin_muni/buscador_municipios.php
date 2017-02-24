@@ -8,28 +8,27 @@
 /*Aqui defino la fecha de la transaccion*/
 		require_once('../include/genera_fecha.php');
 		require_once('../login/conexion2.php');
-		//sleep(1);
-		$permiso_administrador_municipios = 1;/*Falta por definir el permiso en usuarios
-		Lo pongo temporalmente 1 pero hay que definirlo.*/
-		if(isset($_POST['desde_formulario'])){
-			$desde_formulario = 1; 
-		}
 		
 /*Isset ajax consulta sugerencias - Principal Municipios */	
 		$search ='';
 		if(isset($_POST['search'])){
 			$search = $_POST['search'];
 		
-		$consulta = "SELECT * FROM municipios WHERE UPPER(nombre_municipio)
-		LIKE UPPER('%".$search."%')	order by nombre_municipio limit 10";
+		$consulta = "SELECT * FROM municipios WHERE UPPER(nombre_municipio) LIKE UPPER('%".$search."%')	order by nombre_municipio limit 10";
 		$fila = pg_query($conectado,$consulta);
+		if($fila==false){ // Valida si la tabla municipios existe en la base de datos
+			echo '<script>
+				alert("No pude conectarme a la tabla M de la base de datos 1, revisa la base de datos por favor");
+				window.location.href="principal3.php"
+			</script>';	
+		}
 	/*Calcula el numero de registros que genera la consulta anterior.*/
 		$registros= pg_num_rows($fila);
 
 	/*Recorre el array generado e imprime uno a uno los resultados.*/	
 			if($registros>0 && $search!=''){
 				do{
-					$num_fila=0;
+					$num_fila=0; // Variable declarada para poner color a la fila según ésta variable.
 					for ($i=0;$i<$registros;$i++){
 						$linea = pg_fetch_array($fila);
 
@@ -46,11 +45,7 @@
 							else echo " fila1"; //si el resto de la división NO es 0 pongo otro color 
 						echo "'>"; 
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
-							if($desde_formulario===1){
-								echo "<a href=\"javascript:cargar_modifica_municipio('$nombre_municipio','$nombre_departamento','$nombre_pais','$nombre_continente')\">";
-							}else{
-								echo "<a href=\"#\"> <script> alert('No, no hay Ahora formulario_nuevo_contacto es '+'$desde_formulario');</script>";
-							}
+							echo "<a href=\"javascript:cargar_modifica_municipio('$nombre_municipio','$nombre_departamento','$nombre_pais','$nombre_continente')\">";	
 			
 	/*Aqui defino cuál va a ser el comportamiento al dar click sobre el resultado obtenido*/			
 							echo $nombre_municipio." (".
@@ -64,23 +59,8 @@
 						$num_fila++; 
 					}
 				}while ($fila=pg_fetch_assoc($fila));
-			}elseif($search===''){
-				if($permiso_administrador_municipios==1){
-					if($desde_formulario !=1){
-						echo " Ingresa un parámetro de búsqueda";
-					}		
-				}else{
-					echo"<script>$('#error_ubicacion_contacto').slideUp('slow');</script>";
-					echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
-					<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
-				}
 			}else{
-				if($permiso_administrador_municipios==1){
-					echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
-					<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
-				}else{
-					echo"<script>$('#error_ubicacion_contacto').slideDown('slow');</script>";
-				}	
+					echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click <a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
 			}
 		}
 /* Fin que ajax - sugerencias Principal Municipios */	
@@ -91,31 +71,13 @@
 			$search_pais = $_POST['search_pais'];
 			$search_continente=$_POST['search_continente'];
 		
-			$consulta_pais = "SELECT distinct nombre_pais, nombre_continente FROM municipios WHERE 
-			UPPER(nombre_continente) LIKE UPPER('%".$search_continente."%') and 
-			UPPER(nombre_pais) like UPPER('%".$search_pais."%')	order by nombre_pais limit 5";
+			$consulta_pais = "SELECT distinct nombre_pais, nombre_continente FROM municipios WHERE UPPER(nombre_continente) LIKE UPPER('%".$search_continente."%') and UPPER(nombre_pais) like UPPER('%".$search_pais."%')	order by nombre_pais limit 5";
 			$fila_pais = pg_query($conectado,$consulta_pais);
 	/*Calcula el numero de registros que genera la consulta anterior.*/
 			$registros_pais= pg_num_rows($fila_pais);
 	/*Recorre el array generado e imprime uno a uno los resultados.*/	
 
-			if($registros_pais>0 && $search_pais!=''){
-				echo'<script>
-					$("#error_pais").slideUp("slow");
-					$("#error_pais_minimo").slideUp("slow");
-					$("#error_pais_maximo").slideUp("slow");
-					$("#error_pais_invalido").slideUp("slow");
-
-					$("#error_departamento").slideUp("slow");
-					$("#error_departamento_minimo").slideUp("slow");
-					$("#error_departamento_maximo").slideUp("slow");
-					$("#error_departamento_invalido").slideUp("slow");
-
-					$("#error_municipio").slideUp("slow");
-					$("#error_municipio_minimo").slideUp("slow");
-					$("#error_municipio_maximo").slideUp("slow");
-					$("#error_municipio_invalido").slideUp("slow");
-				</script>';	
+			if($registros_pais>0 && $search_pais!=''){	
 				do{
 					for ($i=0;$i<$registros_pais;$i++){
 						$linea_pais = pg_fetch_array($fila_pais);
@@ -125,11 +87,7 @@
 						
 						echo "<div id='resultado_pais' class='art'>";
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
-							if($desde_formulario===1){
-								echo "<a href=\"javascript:cargar_pais('$nombre_pais')\">";
-							}else{
-								echo "<a href=\"#\"> <script> alert('No, no hay Ahora formulario_nuevo_contacto es '+'$desde_formulario');</script>";
-							}
+								echo "<a href=\"javascript:cargar_pais('$nombre_pais')\">";							
 
 	/*Aqui defino cuál va a ser el comportamiento al dar click sobre el resultado obtenido*/	
 							echo "<span>".$nombre_pais." - ".$nombre_continente."";
@@ -138,24 +96,8 @@
 						echo "</div>";//cierra div #resultado_pais
 					}
 				}while ($fila=pg_fetch_assoc($fila));
-			}elseif($search===''){
-				if($permiso_administrador_municipios==1){
-					if($desde_formulario !=1){
-						echo " Ingresa un parámetro de búsqueda";
-					}		
-				}else{
-					echo"<script>$('#error_ubicacion_contacto').slideUp('slow');</script>";
-					echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
-					<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
-				}
 			}else{
-				if($permiso_administrador_municipios==1){
-					echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
-					<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
-				}else{
-					echo"<script>$('#error_ubicacion_contacto').slideDown('slow');</script>";
-				}
-				
+				echo "";
 			}
 		}
 /* Fin ajax - consulta sugerencias pais - Formulario Agregar Nuevo Municipio */
@@ -163,8 +105,8 @@
 /*Isset ajax - consulta sugerencias departamento - Formulario Agregar Nuevo Departamento */	
 		$search_departamento ='';
 		if(isset($_POST['search_departamento'])){
-			$search_departamento = $_POST['search_departamento'];
 			$search_pais=$_POST['search_pais2'];
+			$search_departamento = $_POST['search_departamento'];
 		
 			$consulta_departamento = "SELECT distinct nombre_departamento, nombre_pais FROM municipios WHERE 
 			UPPER(nombre_pais) LIKE UPPER('%".$search_pais."%') and 
@@ -176,20 +118,7 @@
 
 			if($registros_departamento>0 && $search_departamento!=''){
 				echo'<script>
-					$("#error_pais").slideUp("slow");
-					$("#error_pais_minimo").slideUp("slow");
-					$("#error_pais_maximo").slideUp("slow");
-					$("#error_pais_invalido").slideUp("slow");
-
-					$("#error_departamento").slideUp("slow");
-					$("#error_departamento_minimo").slideUp("slow");
-					$("#error_departamento_maximo").slideUp("slow");
-					$("#error_departamento_invalido").slideUp("slow");
-					
-					$("#error_municipio").slideUp("slow");
-					$("#error_municipio_minimo").slideUp("slow");
-					$("#error_municipio_maximo").slideUp("slow");
-					$("#error_municipio_invalido").slideUp("slow");
+					oculta_errores();
 				</script>';	
 				do{
 					for ($i=0;$i<$registros_departamento;$i++){
@@ -200,11 +129,7 @@
 						
 						echo "<div id='resultado_departamento' class='art'>";
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
-							if($desde_formulario===1){
-								echo "<a href=\"javascript:cargar_departamento('$nombre_departamento')\">";
-							}else{
-								echo "<a href=\"#\"> <script> alert('No, no hay Ahora formulario_nuevo_contacto es '+'$desde_formulario');</script>";
-							}
+						echo "<a href=\"javascript:cargar_departamento('$nombre_departamento')\">";
 
 	/*Aqui defino cuál va a ser el comportamiento al dar click sobre el resultado obtenido*/	
 							echo "<span>".$nombre_departamento." - ".$nombre_pais."";
@@ -213,24 +138,8 @@
 						echo "</div>";//cierra div #resultado_pais
 					}
 				}while ($fila=pg_fetch_assoc($fila));
-			}elseif($search===''){
-				if($permiso_administrador_municipios==1){
-					if($desde_formulario !=1){
-						echo " Ingresa un parámetro de búsqueda";
-					}		
-				}else{
-					echo"<script>$('#error_ubicacion_contacto').slideUp('slow');</script>";
-					echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
-					<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
-				}
 			}else{
-				if($permiso_administrador_municipios==1){
-					echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
-					<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
-				}else{
-					echo"<script>$('#error_ubicacion_contacto').slideDown('slow');</script>";
-				}
-				
+				echo "";
 			}
 		}
 /* Fin ajax - consulta sugerencias Departamento - Formulario Agregar Nuevo Municipio */
@@ -248,26 +157,11 @@
 	/*Calcula el numero de registros que genera la consulta anterior.*/
 			$registros_municipio= pg_num_rows($fila_municipio);
 	/*Recorre el array generado e imprime uno a uno los resultados.*/	
-
+			echo'<script>
+				oculta_errores();
+			</script>';	
+			
 			if($registros_municipio>0 && $search_municipio!=''){
-				echo'<script>
-					$("#error_pais").slideUp("slow");
-					$("#error_pais_minimo").slideUp("slow");
-					$("#error_pais_maximo").slideUp("slow");
-					$("#error_pais_invalido").slideUp("slow");
-
-					$("#error_departamento").slideUp("slow");
-					$("#error_departamento_minimo").slideUp("slow");
-					$("#error_departamento_maximo").slideUp("slow");
-					$("#error_departamento_invalido").slideUp("slow");
-					
-					$("#error_municipio").slideUp("slow");
-					$("#error_municipio_minimo").slideUp("slow");
-					$("#error_municipio_maximo").slideUp("slow");
-					$("#error_municipio_invalido").slideUp("slow");
-					$("#municipio_ya_existe").slideUp("slow");
-
-				</script>';	
 				do{
 					for ($i=0;$i<$registros_municipio;$i++){
 						$linea_municipio = pg_fetch_array($fila_municipio);
@@ -278,12 +172,8 @@
 						
 						echo "<div id='resultado_municipio' class='art'>";
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
-							if($desde_formulario===1){
-								echo "<a href=\"javascript:error_municipio_ya_existe()\">";
-							}else{
-								echo "<a href=\"#\"> <script> alert('No, no hay Ahora formulario_nuevo_contacto es '+'$desde_formulario');</script>";
-							}
-
+						echo "<a href=\"javascript:error_municipio_ya_existe()\">";
+				
 	/*Aqui defino cuál va a ser el comportamiento al dar click sobre el resultado obtenido*/	
 							echo "<span>".$nombre_municipio." - ".$nombre_departamento." - ".$nombre_pais."";
 							echo "</a>";
@@ -292,7 +182,7 @@
 					}
 				}while ($fila=pg_fetch_assoc($fila));
 			}else{
-				echo'<script>$("#municipio_ya_existe").slideUp("slow");</script>';				
+				echo"";				
 			}
 		}
 /* Fin ajax - consulta sugerencias Municipio - Formulario Agregar Nuevo Municipio */	
@@ -327,20 +217,7 @@
 
 			if($registros_mod_pais>0 && $search_mod_pais!=''){
 				echo'<script>
-					$("#error_mod_pais").slideUp("slow");
-					$("#error_mod_pais_minimo").slideUp("slow");
-					$("#error_mod_pais_maximo").slideUp("slow");
-					$("#error_mod_pais_invalido").slideUp("slow");
-
-					$("#error_mod_departamento").slideUp("slow");
-					$("#error_mod_departamento_minimo").slideUp("slow");
-					$("#error_mod_departamento_maximo").slideUp("slow");
-					$("#error_mod_departamento_invalido").slideUp("slow");
-
-					$("#error_mod_municipio").slideUp("slow");
-					$("#error_mod_municipio_minimo").slideUp("slow");
-					$("#error_mod_municipio_maximo").slideUp("slow");
-					$("#error_mod_municipio_invalido").slideUp("slow");
+					oculta_mod_errores();
 				</script>';	
 				do{
 					for ($i=0;$i<$registros_mod_pais;$i++){
@@ -351,12 +228,8 @@
 						
 						echo "<div id='resultado_mod_pais' class='art'>";
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
-							if($desde_formulario===1){
-								echo "<a href=\"javascript:cargar_mod_pais('$nombre_mod_pais')\">";
-							}else{
-								echo "<a href=\"#\"> <script> alert('No, no hay Ahora formulario_nuevo_contacto es '+'$desde_formulario');</script>";
-							}
-
+						echo "<a href=\"javascript:cargar_mod_pais('$nombre_mod_pais')\">";
+							
 	/*Aqui defino cuál va a ser el comportamiento al dar click sobre el resultado obtenido*/	
 							echo "<span>".$nombre_mod_pais." - ".$nombre_mod_continente."";
 							echo "</a>";
@@ -364,24 +237,9 @@
 						echo "</div>";//cierra div #resultado_pais
 					}
 				}while ($fila=pg_fetch_assoc($fila));
-			}elseif($search_mod_pais===''){
-				if($permiso_administrador_municipios==1){
-					if($desde_formulario !=1){
-						echo " Ingresa un parámetro de búsqueda";
-					}		
-				}else{
-					echo"<script>$('#error_ubicacion_contacto').slideUp('slow');</script>";
-					echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
-					<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
-				}
 			}else{
-				if($permiso_administrador_municipios==1){
-				/*	echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
-					<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
-				*/
-				}else{
-					echo"<script>$('#error_ubicacion_contacto').slideDown('slow');</script>";
-				}
+				echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
+				<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";	
 			}
 		}
 /* Fin ajax consulta sugerencias pais - Formulario Modificar Municipio */	
@@ -415,20 +273,7 @@
 
 			if($registros_mod_departamento>0 && $search_mod_departamento!=''){
 				echo'<script>
-					$("#error_mod_pais").slideUp("slow");
-					$("#error_mod_pais_minimo").slideUp("slow");
-					$("#error_mod_pais_maximo").slideUp("slow");
-					$("#error_mod_pais_invalido").slideUp("slow");
-
-					$("#error_mod_departamento").slideUp("slow");
-					$("#error_mod_departamento_minimo").slideUp("slow");
-					$("#error_mod_departamento_maximo").slideUp("slow");
-					$("#error_mod_departamento_invalido").slideUp("slow");
-
-					$("#error_mod_municipio").slideUp("slow");
-					$("#error_mod_municipio_minimo").slideUp("slow");
-					$("#error_mod_municipio_maximo").slideUp("slow");
-					$("#error_mod_municipio_invalido").slideUp("slow");
+					oculta_mod_errores();
 				</script>';	
 				do{
 					for ($i=0;$i<$registros_mod_departamento;$i++){
@@ -439,12 +284,8 @@
 						
 						echo "<div id='resultado_mod_departamento' class='art'>";
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
-							if($desde_formulario===1){
-								echo "<a href=\"javascript:cargar_mod_departamento('$nombre_mod_departamento')\">";
-							}else{
-								echo "<a href=\"#\"> <script> alert('No, no hay Ahora formulario_nuevo_contacto es '+'$desde_formulario');</script>";
-							}
-
+						echo "<a href=\"javascript:cargar_mod_departamento('$nombre_mod_departamento')\">";
+							
 	/*Aqui defino cuál va a ser el comportamiento al dar click sobre el resultado obtenido*/	
 							echo "<span>".$nombre_mod_departamento." - ".$nombre_mod_pais."";
 							echo "</a>";
@@ -452,24 +293,9 @@
 						echo "</div>";//cierra div #resultado_pais
 					}
 				}while ($fila=pg_fetch_assoc($fila));
-			}elseif($search_mod_pais===''){
-				if($permiso_administrador_municipios==1){
-					if($desde_formulario !=1){
-						echo " Ingresa un parámetro de búsqueda";
-					}		
-				}else{
-					echo"<script>$('#error_ubicacion_contacto').slideUp('slow');</script>";
-					echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
-					<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
-				}
 			}else{
-				if($permiso_administrador_municipios==1){
-				/*	echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
-					<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
-				*/
-				}else{
-					echo"<script>$('#error_ubicacion_contacto').slideDown('slow');</script>";
-				}
+				echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
+				<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
 			}
 		}
 /* Fin ajax consulta sugerencias Departamento - Formulario Modificar Municipio */	
@@ -503,20 +329,7 @@
 
 			if($registros_mod_municipio>0 && $search_mod_municipio!=''){
 				echo'<script>
-					$("#error_mod_departamento").slideUp("slow");
-					$("#error_mod_departamento_minimo").slideUp("slow");
-					$("#error_mod_departamento_maximo").slideUp("slow");
-					$("#error_mod_departamento_invalido").slideUp("slow");
-
-					$("#error_mod_municipio").slideUp("slow");
-					$("#error_mod_municipio_minimo").slideUp("slow");
-					$("#error_mod_municipio_maximo").slideUp("slow");
-					$("#error_mod_municipio_invalido").slideUp("slow");
-
-					$("#error_mod_municipio").slideUp("slow");
-					$("#error_mod_municipio_minimo").slideUp("slow");
-					$("#error_mod_municipio_maximo").slideUp("slow");
-					$("#error_mod_municipio_invalido").slideUp("slow");
+					oculta_mod_errores();
 				</script>';	
 				do{
 					for ($i=0;$i<$registros_mod_municipio;$i++){
@@ -527,11 +340,7 @@
 						
 						echo "<div id='resultado_mod_municipio' class='art'>";
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
-							if($desde_formulario===1){
-								echo "<a href=\"javascript:cargar_mod_municipio('$nombre_mod_municipio')\">";
-							}else{
-								echo "<a href=\"#\"> <script> alert('No, no hay Ahora formulario_nuevo_contacto es '+'$desde_formulario');</script>";
-							}
+						echo "<a href=\"javascript:cargar_mod_municipio('$nombre_mod_municipio')\">";
 
 	/*Aqui defino cuál va a ser el comportamiento al dar click sobre el resultado obtenido*/	
 							echo "<span>".$nombre_mod_municipio." - ".$nombre_mod_departamento."";
@@ -540,24 +349,9 @@
 						echo "</div>";//cierra div #resultado_departamento
 					}
 				}while ($fila=pg_fetch_assoc($fila));
-			}elseif($search_mod_departamento===''){
-				if($permiso_administrador_municipios==1){
-					if($desde_formulario !=1){
-						echo " Ingresa un parámetro de búsqueda";
-					}		
-				}else{
-					echo"<script>$('#error_ubicacion_contacto').slideUp('slow');</script>";
-					echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
-					<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
-				}
 			}else{
-				if($permiso_administrador_municipios==1){
-				/*	echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
-					<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
-				*/
-				}else{
-					echo"<script>$('#error_ubicacion_contacto').slideDown('slow');</script>";
-				}
+				echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo municipio haga click 
+				<a href='javascript:abrirVentanaCrearMunicipios();'>aqui</a></p>";
 			}
 		}
 /* Fin ajax consulta sugerencias municipio - Formulario Modificar Municipio */	

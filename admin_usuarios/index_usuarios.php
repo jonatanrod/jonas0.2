@@ -1,6 +1,5 @@
 <?php 
 	require_once("../login/validar_inactividad.php");
-	//require_once('../login/conexion2.php') 
 ?>
 <!DOCTYPE html>
 <html > 
@@ -27,7 +26,7 @@
 							</td>
 							<td>
 								<input type="search" name="identificacion" id="identificacion"
-								 placeholder="Ingrese Numero Identificacion (sin puntos)" onkeyup="espacios_identificacion()">
+								 placeholder="Ingrese Numero Identificacion (sin puntos)" onkeyup="espacios_formulario_usuarios('identificacion')" onblur="validar_agregar_usuario()">
 								<div id="sugerencias_identificacion"></div>
 
 								<div id="error_identificacion" class="errores">El número de identificación es obligatorio.</div>
@@ -44,7 +43,7 @@
 								Nombre Completo :
 							</td>
 							<td>
-								<input type="text" name="nombre_completo" id="nombre_completo" placeholder="Ingrese Nombres y Apellidos completos (sin numeros)" onkeyup="espacios_nombre_completo()">
+								<input type="search" name="nombre_completo" id="nombre_completo" placeholder="Ingrese Nombres y Apellidos completos (sin numeros)" onkeyup="espacios_formulario_usuarios('nombre_completo')" onblur="validar_agregar_usuario()">
 								<div id="sugerencias_nombre_completo"></div>
 
 								<div id="error_nombre_completo" class="errores">El nombre completo del usuario es obligatorio.</div>
@@ -60,7 +59,7 @@
 								Nombre de Usuario (Login) :
 							</td>
 							<td>
-								<input type="text" name="login" id="login" placeholder="Ingrese Login del usuario" onkeyup="espacios_login()">
+								<input type="search" name="login" id="login" placeholder="Ingrese Login del usuario" onkeyup="espacios_formulario_usuarios('login')" onblur="validar_agregar_usuario()">
 								<div id="sugerencias_login"></div>
 
 								<div id="error_login" class="errores">El Login del usuario es obligatorio.</div>
@@ -76,7 +75,7 @@
 								Mail Usuario
 							</td>
 							<td>
-								<input type="text" name="mail" id="mail" placeholder="Ingrese Mail del Usuario" onkeyup="espacios_mail()">
+								<input type="email" name="mail" id="mail" placeholder="Ingrese Mail del Usuario" onkeyup="espacios_mail('agregar_usuario')" onblur="validar_agregar_usuario()">
 
 								<div id="error_mail" class="errores">El mail del usuario es obligatorio.</div>
 								<div id="valida_minimo_mail" class="errores">El mail del usuario no puede ser menor a 6 caracteres.</div>
@@ -92,7 +91,7 @@
 							</td>
 							<td>
 								<input type="hidden" name="codigo_dependencia" id="codigo_dependencia">
-								<input type="text" name="dependencia" id="dependencia" placeholder="Ingrese Dependencia del Usuario" onkeyup="espacios_dependencia()">
+								<input type="search" name="dependencia" id="dependencia" placeholder="Ingrese Dependencia del Usuario" onkeyup="espacios_formulario_usuarios('dependencia')">
 								<div id="sugerencias_dependencia"></div>
 
 								<div id="error_dependencia" class="errores">La dependencia del usuario es obligatoria.</div>
@@ -207,8 +206,8 @@
 							<td>
 								<input type="hidden" name="mod_id_usuario" id="mod_id_usuario">
 								<input type="hidden" name="ant_mod_identificacion" id="ant_mod_identificacion">
-								<input type="text" name="mod_identificacion" id="mod_identificacion"
-								 placeholder="Ingrese Numero Identificacion (sin puntos)" onkeyup="espacios_mod_identificacion()">
+								<input type="search" name="mod_identificacion" id="mod_identificacion"
+								 placeholder="Ingrese Numero Identificacion (sin puntos)" onkeyup="espacios_formulario_usuarios('mod_identificacion')" onblur="validar_modificar_usuario()">
 								<div id="sugerencias_mod_identificacion"></div>
 
 								<div id="error_mod_identificacion" class="errores">El número de identificación es obligatorio.</div>
@@ -226,12 +225,12 @@
 							</td>
 							<td>
 								<input type="hidden" name="ant_mod_nombre_completo" id="ant_mod_nombre_completo">
-								<input type="text" name="mod_nombre_completo" id="mod_nombre_completo" placeholder="Ingrese Nombres y Apellidos completos (sin numeros)" onkeyup="espacios_mod_nombre_completo()">
+								<input type="search" name="mod_nombre_completo" id="mod_nombre_completo" placeholder="Ingrese Nombres y Apellidos completos (sin numeros)" onkeyup="espacios_formulario_usuarios('mod_nombre_completo')" onblur="validar_modificar_usuario()">
 								<div id="sugerencias_mod_nombre_completo"></div>
 
 								<div id="error_mod_nombre_completo" class="errores">El nombre completo del usuario es obligatorio.</div>
 								<div id="valida_minimo_mod_nombre_completo" class="errores">El nombre  del usuario (con apellido) no puede ser menor a 6 caracteres (sin numeros)</div>
-								<div id="valida_maximo_mod_nombre_completo" class="errores">El nombre completo del usuario no puede ser mayor a 30 caracteres (sin numeros.)</div>
+								<div id="valida_maximo_mod_nombre_completo" class="errores">El nombre completo del usuario no puede ser mayor a 50 caracteres (sin numeros.)</div>
 								<div id="error_mod_nombre_completo_ya_existe" class="errores">
 									El nombre ingresado corresponde a un usuario que ya existe por lo que no se puede crear.
 								</div>
@@ -243,7 +242,7 @@
 							</td>
 							<td>
 								<input type="hidden" name="ant_mod_login" id="ant_mod_login">
-								<input type="text" name="mod_login" id="mod_login" placeholder="Ingrese Login del usuario" onkeyup="espacios_mod_login()">
+								<input type="search" name="mod_login" id="mod_login" placeholder="Ingrese Login del usuario" onkeyup="espacios_formulario_usuarios('mod_login')" onblur="validar_modificar_usuario()">
 								<div id="sugerencias_mod_login"></div>
 
 								<div id="error_mod_login" class="errores">El Login del usuario es obligatorio.</div>
@@ -259,7 +258,7 @@
 								Mail Usuario
 							</td>
 							<td>
-								<input type="text" name="mod_mail" id="mod_mail" placeholder="Ingrese Mail del Usuario" onkeyup="espacios_mod_mail()">
+								<input type="email" name="mod_mail" id="mod_mail" placeholder="Ingrese Mail del Usuario" onkeyup="espacios_mail('modificar_usuario')" onblur="validar_modificar_usuario()">
 
 								<div id="error_mod_mail" class="errores">El mail del usuario es obligatorio.</div>
 								<div id="valida_minimo_mod_mail" class="errores">El mail del usuario no puede ser menor a 6 caracteres.</div>
@@ -276,7 +275,7 @@
 							<td>
 								<input type="hidden" name="mod_codigo_dependencia" id="mod_codigo_dependencia">
 								<input type="hidden" name="mod_ant_mod_nom_depe" id="mod_ant_mod_nom_depe">
-								<input type="text" name="mod_nombre_dependencia" id="mod_nombre_dependencia" placeholder="Ingrese Dependencia del Usuario" onkeyup="espacios_mod_dependencia()">
+								<input type="search" name="mod_nombre_dependencia" id="mod_nombre_dependencia" placeholder="Ingrese Dependencia del Usuario" onkeyup="espacios_formulario_usuarios('mod_nombre_dependencia')" onblur="validar_modificar_usuario()">
 								<div id="sugerencias_mod_dependencia"></div>
 
 								<div id="error_mod_dependencia" class="errores">La dependencia del usuario es obligatoria.</div>
@@ -381,7 +380,7 @@
 		
 		</div>
 		<div class="form center">
-			<input type="search" id="search_usuario" class="input_largo" placeholder="Ingrese Nombre de Usuario" >
+			<input type="search" id="search_usuario" class="input_largo" placeholder="Ingrese Nombre de Usuario" onkeyup="espacios_formulario_usuarios('search_usuario')">
 		</div>
 		<div id="desplegable_resultados"></div>
 

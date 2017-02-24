@@ -179,8 +179,22 @@ function main(){
 
 	/* Cierra sesion */
 	function destruir_sesion(){
-		alert("La sesión ha sido cerrada. Ingrese nuevamente usuario y contraseña.")
-		window.location.href='index.php';
+		$.ajax({	// Guardo registro de ingreso al sistema para auditoria
+			type: 'POST',
+			url: 'login/transacciones.php',
+			data: {
+				'transaccion' : 'cerrar_sesion'	
+			},			
+			success: function(resp1){
+				if(resp1=="true"){
+					alert("La sesión ha sido cerrada. Ingrese nuevamente usuario y contraseña.")
+					location.href='index.php';
+				}else{
+					alert(resp1)
+			//		break;
+				}
+			}
+		})	
 	}
 	/* Fin cierra sesion */
 
@@ -188,7 +202,7 @@ function main(){
 
 /************************************************************************/
 
-
+/*  Futuro desarrollo para cuando pidan tipo especial de contraseña
 function cambio_pass(){
     var usuario=$('#usuario').val();
     var pass1=$('#new_pass').val();
@@ -216,3 +230,4 @@ function cambio_pass(){
         $('#envia_pass').submit();
     }
 }
+*/

@@ -1,9 +1,14 @@
 /* Script para ventana modal - Tecla Esc */
-    window.addEventListener("keyup", function(event){
+    window.addEventListener("keydown", function(event){
         var codigo = event.keyCode || event.which;
         if (codigo == 27){
             cerrarVentanaCrearMunicipios();
             cerrarVentanaModificarMunicipios()
+        }
+        if(codigo== 8){ // Opcion para restringir que la tecla backspace da atras en el navegador.
+        	if (history.forward(1)) {
+				location.replace(history.forward(1));
+			}	
         }
     }, false);
 /* Fin script para ventana modal - Tecla Esc */
@@ -16,20 +21,7 @@ function limpia_formulario_agregar(){
 
 	$(".art").slideUp("slow");
 
-	$("#error_pais").slideUp("slow");
-	$("#error_pais_minimo").slideUp("slow");
-	$("#error_pais_maximo").slideUp("slow");
-	$("#error_pais_invalido").slideUp("slow");
-
-	$("#error_departamento").slideUp("slow");
-	$("#error_departamento_minimo").slideUp("slow");
-	$("#error_departamento_maximo").slideUp("slow");
-	$("#error_departamento_invalido").slideUp("slow");
-	
-	$("#error_municipio").slideUp("slow");
-	$("#error_municipio_minimo").slideUp("slow");
-	$("#error_municipio_maximo").slideUp("slow");
-	$("#error_municipio_invalido").slideUp("slow");
+	oculta_errores();
 
 	$("#pais").focus();
 }
@@ -38,146 +30,176 @@ function limpia_formulario_agregar(){
 /*Funciones para desplegar ventana modal municipios*/
 function abrirVentanaCrearMunicipios(){
 	$("#ventana").slideDown("slow");
+	$("#pais").focus();
 }
 function cerrarVentanaCrearMunicipios(){
 	$("#ventana").slideUp("slow");
 	$(".art").slideUp("slow");
 
-	$("#error_pais").slideUp("slow");
-	$("#error_pais_minimo").slideUp("slow");
-	$("#error_pais_maximo").slideUp("slow");
-	$("#error_pais_invalido").slideUp("slow");
+	oculta_errores();
 
-	$("#error_departamento").slideUp("slow");
-	$("#error_departamento_minimo").slideUp("slow");
-	$("#error_departamento_maximo").slideUp("slow");
-	$("#error_departamento_invalido").slideUp("slow");
-	
-	$("#error_municipio").slideUp("slow");
-	$("#error_municipio_minimo").slideUp("slow");
-	$("#error_municipio_maximo").slideUp("slow");
-	$("#error_municipio_invalido").slideUp("slow");
+	$("#search").focus();
 }
 /*Fin funciones para desplegar ventana modal municipios*/
 
 /*Script buscador - Administrador de Municipios*/
+var timerid="";
 $(function buscador_municipios(){
-	$('#search').focus();
-	
-	$('#search').keyup(function buscador_municipios(){
-		var envio = $('#search').val();
-		$('#logo').html('<h2>Buscador de Municipios</h2>');
-		$('#desplegable_resultados').html('<h2><img src="imagenes/loading.gif" alt="" /></h2>');
+	$('#search').focus();	
+	$('#search').on("input",function(e){ // Accion que se activa cuando se digita #search
+		$('#desplegable_resultados').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+		var envio = $(this).val();
+		
+		if($(this).data("lastval")!= envio){
+	    	$(this).data("lastval",envio);
+                    
+   			clearTimeout(timerid);
+   			timerid = setTimeout(function() {
+         		if(envio.length>2 && envio.length<50){		
+					$('#logo').html('<h2>Buscador de Municipios</h2>');
 
-		$.ajax({
-			type: 'POST',
-			url: 'admin_muni/buscador_municipios.php',
-			data: {
-				'search' : envio,
-				'desde_formulario' : '1'
-			},			
-			success: function(resp){
-				if(resp!=""){
-					$('#desplegable_resultados').html(resp);
-				}
-			}
-		})
+					$.ajax({
+						type: 'POST',
+						url: 'admin_muni/buscador_municipios.php',
+						data: {
+							'search' : envio
+						},			
+						success: function(resp){
+							if(resp!=""){
+								$('#desplegable_resultados').html(resp);
+							}
+						}
+					})			 		
+				}else{
+					$('#desplegable_resultados').html('');
+				} 
+				if(envio.length>50){
+					$('#desplegable_resultados').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
+				}  				 
+   			},1000);
+	    };
 	})
 })
 /*Fin script buscador - Administrador de Municipios*/
 /*Script para buscador de Pais - Formulario Agregar Nuevo Municipio */
-$(function buscador_pais(){
-	$('#pais').focus();
-	
-	$('#pais').keyup(function buscador_pais(){
-		var envio_continente=$("#continente").val();
-		var envio_pais = $('#pais').val();
+$("#pais").on("input",function(e){ // Accion que se activa cuando se digita #pais
+    $('#sugerencia_pais').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>"); 				
+	oculta_errores();
+	var envio_continente=$("#continente").val();
+    var envio_pais = $(this).val();
+    
+    if($(this).data("lastval")!= envio_pais){
+    	$(this).data("lastval",envio_pais);
+                
+		clearTimeout(timerid);
+		timerid = setTimeout(function() {
 
-		$.ajax({
-			type: 'POST',
-			url: 'admin_muni/buscador_municipios.php',
-			data: {
-				'search_pais' : envio_pais,
-				'search_continente': envio_continente,
-				'desde_formulario' : '1'
-			},			
-			success: function(resp){
-				if(resp!=""){
-					$('#sugerencia_pais').html(resp);
-				}
-			}
-		})
-	})
-})
+     		if(envio_pais.length>2 && envio_pais.length<50){
+				
+				$.ajax({
+					type: 'POST',
+					url: 'admin_muni/buscador_municipios.php',
+					data: {
+						'search_pais' : envio_pais,
+						'search_continente': envio_continente
+					},			
+					success: function(resp){
+						if(resp!=""){
+							$('#sugerencia_pais').html(resp);
+						}
+					}
+				})		 		
+			}else{
+				$('#sugerencia_pais').html('');
+			}	
+			if(envio_pais.length>50){
+				$('#sugerencia_pais').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
+			}  				 
+		},1000);
+    };
+});
 /*Fin script para buscador de Pais - Formulario Agregar Nuevo Municipio */
 /*Script para buscador de departamento - Formulario Agregar Nuevo Municipio */
-$(function buscador_departamento(){
-	$('#departamento').focus();
-	
-	$('#departamento').keyup(function buscador_departamento(){
-		var envio_pais=$("#pais").val();
-		var envio_departamento = $('#departamento').val();
+$("#departamento").on("input",function(e){ // Accion que se activa cuando se digita #departamento
+    $('#sugerencia_departamento').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>"); 				
+	oculta_errores();
+	var envio_pais=$("#pais").val();
+	var envio_departamento = $(this).val();
+    
+    if($(this).data("lastval")!= envio_departamento){
+    	$(this).data("lastval",envio_departamento);
+                
+		clearTimeout(timerid);
+		timerid = setTimeout(function() {
 
-		$.ajax({
-			type: 'POST',
-			url: 'admin_muni/buscador_municipios.php',
-			data: {
-				'search_departamento' : envio_departamento,
-				'search_pais2': envio_pais,
-				'desde_formulario' : '1'
-			},			
-			success: function(resp){
-				if(resp!=""){
-					$('#sugerencia_departamento').html(resp);
-				}
-			}
-		})
-	})
-})
+     		if(envio_departamento.length>2 && envio_departamento.length<50){
+				
+				$.ajax({
+					type: 'POST',
+					url: 'admin_muni/buscador_municipios.php',
+					data: {
+						'search_departamento' : envio_departamento,
+						'search_pais2': envio_pais
+					},			
+					success: function(resp){
+						if(resp!=""){
+							$('#sugerencia_departamento').html(resp);
+						}
+					}
+				}) 		
+			}else{
+				$('#sugerencia_departamento').html('');
+			}	
+			if(envio_departamento.length>50){
+				$('#sugerencia_departamento').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
+			}  				 
+		},1000);
+    };
+});
 /*Fin script para buscador de departamento - Formulario Agregar Nuevo Municipio */
 /*Script para buscador de municipio - Formulario Agregar Nuevo Municipio */
-$(function buscador_municipio(){
-	$('#municipio').focus();
+$("#municipio").on("input",function(e){ // Accion que se activa cuando se digita #municipio
+    $('#sugerencia_municipio').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>"); 				
+	oculta_errores();
+	var envio_municipio=$(this).val();
+	var envio_departamento = $('#departamento').val();
 	
-	$('#municipio').keyup(function buscador_municipio(){
-		var envio_municipio=$("#municipio").val();
-		var envio_departamento = $('#departamento').val();
+    if($(this).data("lastval")!= envio_municipio){
+    	$(this).data("lastval",envio_municipio);
+                
+		clearTimeout(timerid);
+		timerid = setTimeout(function() {
 
-		$.ajax({
-			type: 'POST',
-			url: 'admin_muni/buscador_municipios.php',
-			data: {
-				'search_departamento2' : envio_departamento,
-				'search_municipio': envio_municipio,
-				'desde_formulario' : '1'
-			},			
-			success: function(resp){
-				if(resp!=""){
-					$('#sugerencia_municipio').html(resp);
-				}
-			}
-		})
-	})
-})
+     		if(envio_municipio.length>2 && envio_municipio.length<50){
+				
+				$.ajax({
+					type: 'POST',
+					url: 'admin_muni/buscador_municipios.php',
+					data: {
+						'search_departamento2' : envio_departamento,
+						'search_municipio': envio_municipio
+					},			
+					success: function(resp){
+						if(resp!=""){
+							$('#sugerencia_municipio').html(resp);
+						}
+					}
+				})	
+			}else{
+				$('#sugerencia_municipio').html('');
+			}	
+			if(envio_municipio.length>50){
+				$('#sugerencia_municipio').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
+			}  				 
+		},1000);
+    };
+});
 /*Fin script para buscador de municipio - Formulario Agregar Nuevo Municipio */
 /* Script cargar pais - Formulario Agregar Nuevo Municipio */
 function cargar_pais(nombre_pais){
 	$(".art").slideUp("slow");
 
-	$("#error_pais").slideUp("slow");
-	$("#error_pais_minimo").slideUp("slow");
-	$("#error_pais_maximo").slideUp("slow");
-	$("#error_pais_invalido").slideUp("slow");
-
-	$("#error_departamento").slideUp("slow");
-	$("#error_departamento_minimo").slideUp("slow");
-	$("#error_departamento_maximo").slideUp("slow");
-	$("#error_departamento_invalido").slideUp("slow");
-	
-	$("#error_municipio").slideUp("slow");
-	$("#error_municipio_minimo").slideUp("slow");
-	$("#error_municipio_maximo").slideUp("slow");
-	$("#error_municipio_invalido").slideUp("slow");
+	oculta_errores();
 
 	$("#pais").val(nombre_pais);
 	$("#departamento").val("");
@@ -189,20 +211,7 @@ function cargar_pais(nombre_pais){
 function cargar_departamento(nombre_departamento){
 	$(".art").slideUp("slow");
 
-	$("#error_pais").slideUp("slow");
-	$("#error_pais_minimo").slideUp("slow");
-	$("#error_pais_maximo").slideUp("slow");
-	$("#error_pais_invalido").slideUp("slow");
-
-	$("#error_departamento").slideUp("slow");
-	$("#error_departamento_minimo").slideUp("slow");
-	$("#error_departamento_maximo").slideUp("slow");
-	$("#error_departamento_invalido").slideUp("slow");
-	
-	$("#error_municipio").slideUp("slow");
-	$("#error_municipio_minimo").slideUp("slow");
-	$("#error_municipio_maximo").slideUp("slow");
-	$("#error_municipio_invalido").slideUp("slow");
+	oculta_errores();
 
 	$("#departamento").val(nombre_departamento);
 	$("#municipio").val("");
@@ -213,6 +222,13 @@ function cargar_departamento(nombre_departamento){
 function error_municipio_ya_existe(){
 	$(".art").slideUp("slow");
 
+	oculta_errores();
+
+	$("#municipio_ya_existe").slideDown();
+}
+/* Fin script cargar municipio - Formulario Agregar Nuevo Municipio */
+/* Script para ocultar errores y continuar consulta - Formulario Agregar Nuevo Municipio */
+function oculta_errores(){
 	$("#error_pais").slideUp("slow");
 	$("#error_pais_minimo").slideUp("slow");
 	$("#error_pais_maximo").slideUp("slow");
@@ -222,15 +238,13 @@ function error_municipio_ya_existe(){
 	$("#error_departamento_minimo").slideUp("slow");
 	$("#error_departamento_maximo").slideUp("slow");
 	$("#error_departamento_invalido").slideUp("slow");
-	
+
 	$("#error_municipio").slideUp("slow");
 	$("#error_municipio_minimo").slideUp("slow");
 	$("#error_municipio_maximo").slideUp("slow");
 	$("#error_municipio_invalido").slideUp("slow");
-
-	$("#municipio_ya_existe").slideDown();
 }
-/* Fin script cargar municipio - Formulario Agregar Nuevo Municipio */
+/* Fin script para ocultar errores y continuar consulta - Formulario Agregar Nuevo Municipio */
 /* Script espacios pais - Formulario Agregar Nuevo Municipio */
 function espacios_pais(){
 	var str = $('#pais').val();	
@@ -308,6 +322,11 @@ function validar_agregar_municipio(){
 	var pais =$('#pais').val()
 	var departamento =$('#departamento').val()
 	var municipio =$('#municipio').val()
+
+	if($('#sugerencia_pais').is(":visible")){
+		alert("Un momento por favor, estamos realizando la busqueda.")
+		return false;
+	}
 
 	if(pais==""){
 		$("#error_pais").slideDown("slow");
@@ -454,13 +473,6 @@ $(function submit_agregar_municipio(){
 		if(submit_agregar_municipio==false){
 			return false;
 		}else if(submit_agregar_municipio==true){ // Realizar la creación del municipio
-		/*	var continente =$('#continente').val();
-			var pais =$('#pais').val();
-			var departamento =$('#departamento').val();
-			var municipio =$('#municipio').val();
-
-			var data = 'continente='+continente+'&pais='+pais+'&departamento='+departamento+'&municipio='+municipio;
-		*/
 			$.ajax({
 				url:'admin_muni/query_municipios.php',
 				type: 'POST',
@@ -517,7 +529,7 @@ function cargar_modifica_municipio(nombre_municipio,nombre_departamento,nombre_p
 	$("#error_mod_municipio_invalido").slideUp("slow");
 
 	abrirVentanaModificarMunicipios();
-	$("#mod_pais").focus();
+//	$("#mod_pais").focus();
 }
 
 /*Script para buscador de Pais - Formulario Modificar Municipio */
@@ -550,7 +562,7 @@ $(function buscador_mod_pais(){
 
 /*Script para buscador Departamento - Formulario Modificar Municipio */
 $(function buscador_mod_departamento(){
-	$('#mod_departamento').focus();
+//	$('#mod_departamento').focus();
 	
 	$('#mod_departamento').keyup(function buscador_mod_departamento(){
 		var envio_mod_departamento=$("#mod_departamento").val();
@@ -576,7 +588,7 @@ $(function buscador_mod_departamento(){
 /*Fin script para buscador Departamento - Formulario Modificar Municipio */
 /*Script para buscador municipio - Formulario Modificar Municipio */
 $(function buscador_mod_municipio(){
-	$('#mod_municipio').focus();
+//	$('#mod_municipio').focus();
 	
 	$('#mod_municipio').keyup(function buscador_mod_municipio(){
 		var envio_mod_municipio=$("#mod_municipio").val();
@@ -672,6 +684,24 @@ function cargar_mod_municipio(nombre_mod_municipio){
 	$("#mod_municipio").focus();
 }
 /* Fin script cargar municipio - Formulario Modificar Municipio */
+/* Script para ocultar errores y continuar consulta - Formulario Modificar Municipio */
+function oculta_mod_errores(){
+	$("#error_mod_pais").slideUp("slow");
+	$("#error_mod_pais_minimo").slideUp("slow");
+	$("#error_mod_pais_maximo").slideUp("slow");
+	$("#error_mod_pais_invalido").slideUp("slow");
+
+	$("#error_mod_departamento").slideUp("slow");
+	$("#error_mod_departamento_minimo").slideUp("slow");
+	$("#error_mod_departamento_maximo").slideUp("slow");
+	$("#error_mod_departamento_invalido").slideUp("slow");
+
+	$("#error_mod_municipio").slideUp("slow");
+	$("#error_mod_municipio_minimo").slideUp("slow");
+	$("#error_mod_municipio_maximo").slideUp("slow");
+	$("#error_mod_municipio_invalido").slideUp("slow");
+}
+/* Fin script para ocultar errores y continuar consulta - Formulario Modificar Municipio */
 /* Script espacios mod_pais - Formulario Modificar Municipio */
 function espacios_mod_pais(){
 	var str = $('#mod_pais').val();
@@ -932,3 +962,36 @@ $(function submit_modificar_municipio(){
 	});
 })
 /* Fin de validación que los campos de Formulario Modificar Municipio (Submit) */
+
+/* Funciones para guardar en base de datos auditoria de modificacion o creacion de usuarios */
+function auditoria(tipo_formulario,creado){
+	switch(tipo_formulario){
+		case'crear_municipio':
+			var trans = "creado";
+			break;
+		case'modificar_municipio':
+			var trans ="modificado";
+			break;	
+	}
+
+	$.ajax({	// Guardo registro de ingreso al sistema para auditoria
+		type: 'POST',
+		url: '../login/transacciones.php',
+		data: {
+			'transaccion' : tipo_formulario,
+			'creado' : 	creado
+		},			
+		success: function(resp1){
+			if(resp1=="true"){
+				alert("El Municipio ha sido "+trans+" correctamente");
+				volver();
+			}else{
+				alert(resp1)
+			}
+		}
+	})
+}
+function volver(){
+	window.location.href='../principal3.php'
+}		
+/* Fin funciones para guardar en base de datos auditoria de modificacion o creacion de usuarios */

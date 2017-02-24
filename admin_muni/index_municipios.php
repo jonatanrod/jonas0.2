@@ -1,4 +1,6 @@
-<?php require_once('../login/conexion2.php') ?>
+<?php 
+	require_once("../login/validar_inactividad.php");
+?>
 <!DOCTYPE html>
 <html >
 <head>
@@ -32,7 +34,7 @@
 						</tr>
 						<tr>
 							<td>País :</td>
-							<td><input type="text" value="Colombia" name="pais" id="pais" onkeyup="espacios_pais() ">
+							<td><input type="search" value="COLOMBIA" name="pais" id="pais" onkeyup="espacios_pais() ">
 								<div id="sugerencia_pais"></div>
 								<div id="error_pais" class="errores">El nombre del país es obligatorio</div>
 								<div id="error_pais_invalido" class="errores">Seleccione nombre de país válido</div>
@@ -42,7 +44,7 @@
 						</tr>
 						<tr>
 							<td>Departamento :</td>
-							<td><input type="text" placeholder="Digite Departamento" name="departamento" id="departamento" onkeyup="espacios_departamento()">
+							<td><input type="search" placeholder="Digite Departamento" name="departamento" id="departamento" onkeyup="espacios_departamento()">
 								<div id="sugerencia_departamento"></div>
 								<div id="error_departamento" class="errores">El nombre del departamento es obligatorio</div>
 								<div id="error_departamento_invalido" class="errores">Seleccione nombre de departamento válido</div>
@@ -52,7 +54,7 @@
 						</tr>
 						<tr>
 							<td>Municipio :</td>
-							<td><input type="text" placeholder="Digite Municipio" name="municipio" id="municipio" onkeyup="espacios_municipio()">
+							<td><input type="search" placeholder="Digite Municipio" name="municipio" id="municipio" onkeyup="espacios_municipio()">
 								<div id="sugerencia_municipio"></div>
 								<div id="error_municipio" class="errores">El nombre del municipio es obligatorio</div>
 								<div id="error_municipio" class="errores">El nombre del municipio es obligatorio</div>
@@ -134,24 +136,19 @@
 			</div>
 		</div>
 <!--Hasta aqui el div que contiene el formulario para modificar municipios-->
-
+<!-- Desde aqui el div que tiene el formulario principal -->
 		<div class="center" id="logo">
 			<img src="imagenes/logo5.png" width="100" alt="Jonas SGD" title="Logo Jonas">	
 			<h1 style="margin-top:-10px;">Configuración Paises, Departamentos y Municipios</h1>
-		
 		</div>
 		<div class="form center">
-			<!--<form action="" method="post" name="search_form" id="search_form">-->
-				<input type="text" id="search">
-			<!--</form>-->
+				<input type="search" id="search">
 		</div>
 		<div id="desplegable_resultados"></div>
-		<div id="error_ubicacion_contacto" class="errores">La ubicación del contacto que ha digitado no es 
-			válida. Este campo es obligatorio. En caso que no encuentre una ubicación correcta, comuníquese
-			por favor con el administrador del sistema.</div>
 		<div class="footer center">
 			Copyright 2015 - Reservados todos los derechos <br>
 			<a href="http://www.google.com.co">www.jonas.com.co</a>
 		</div>
+<!-- Hasta aqui el div que tiene el formulario principal -->
 </body>
 </html>

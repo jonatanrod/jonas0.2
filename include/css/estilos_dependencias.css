@@ -1,7 +1,10 @@
+/* La fuente Roboto Condensed ha sido importada en el archivo principal3.php y la hereda a admin_depe */
+/*@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed'); */
+
 body{
 	background-color: #F0F0F0; 
 	color: #666;
-/*	font-family: "Roboto Condensed", sans-serif; */
+	font-family: "Roboto Condensed", sans-serif; 
 }
 .readonly{
 	background: #F0F0F0;
@@ -115,7 +118,7 @@ body{
 	border-radius: 10px;
 	display: block;
 	margin-bottom: 2px;
-	margin-left: 30px;
+	margin-left: 50px;
 	padding: 5px;
 	width: auto;
 }
@@ -125,6 +128,7 @@ body{
 }
 .art a{
 	display: block;	
+	padding: 5;
 	text-decoration: none;
 }
 .art a:hover{

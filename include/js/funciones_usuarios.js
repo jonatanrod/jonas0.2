@@ -21,6 +21,7 @@ $(function buscador_usuarios(){
 	$("#search_usuario").focus();
 
 	$("#search_usuario").on("input",function(e){ // Accion que se activa cuando se digita #search_usuario
+		$('#desplegable_resultados').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
         var envio_usuario = $(this).val();
 	    
 	    if($(this).data("lastval")!= envio_usuario){
@@ -31,7 +32,6 @@ $(function buscador_usuarios(){
          		//alert("valor "+envio_usuario);
 
          		if(envio_usuario.length>2 && envio_usuario.length<50){		
-					$('#desplegable_resultados').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
 					$('#logo').html('<h2>Buscador de Usuarios</h2>');
 
 			        $.ajax({
@@ -51,9 +51,9 @@ $(function buscador_usuarios(){
 					$('#desplegable_resultados').html('');
 				} 
 				if(envio_usuario.length>50){
-					$('#desplegable_resultados').html('<h4>La busqueda debe tener de 50 caracteres maximo. Revise por favor</h4>');
+					$('#desplegable_resultados').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
 				}  				 
-   			},500);
+   			},1000);
 	    };
 	});
 });
@@ -67,17 +67,17 @@ $(function buscador_usuarios(){
 
 /* Script buscador identificacion - Formulario Agregar Nuevo Usuarios */
 $("#identificacion").on("input",function(e){ // Accion que se activa cuando se digita #identificacion
+    $('#sugerencias_identificacion').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>"); 				
+    oculta_errores();
     var envio_identificacion = $(this).val();
     
     if($(this).data("lastval")!= envio_identificacion){
     	$(this).data("lastval",envio_identificacion);
                 
-			clearTimeout(timerid);
-			timerid = setTimeout(function() {
-     		//alert("valor "+envio_identificacion);
+		clearTimeout(timerid);
+		timerid = setTimeout(function() {
 
      		if(envio_identificacion.length>2 && envio_identificacion.length<50){
-        		$('#sugerencias_identificacion').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>"); 				
         		 $.ajax({
 					type: 'POST',
 					url: 'admin_usuarios/buscador_usuarios.php',
@@ -90,98 +90,127 @@ $("#identificacion").on("input",function(e){ // Accion que se activa cuando se d
 							$('#sugerencias_identificacion').html(resp);
 						}
 					}
-				})	
-		 		
+				})			 		
 			}else{
 				$('#sugerencias_identificacion').html('');
 			}	
 			if(envio_identificacion.length>50){
-				$('#sugerencias_identificacion').html('<h4>La busqueda debe tener de 50 caracteres maximo. Revise por favor</h4>');
+				$('#sugerencias_identificacion').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
 			}  				 
-			},500);
+		},1000);
     };
 });
 /* Fin script buscador identificacion - Formulario Agregar Nuevo Usuarios */
 /* Script buscador nombre_completo - Formulario Agregar Nuevo Usuarios */
-$(function busca_nombre_completo(){	
-	
-	$('#nombre_completo').keyup(function busca_identificacion(){
-		var envio_nombre_completo = $('#nombre_completo').val();
-		$('#sugerencias_nombre_completo').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
-		if(envio_nombre_completo.length>2 && envio_nombre_completo.length<50){		
-			$.ajax({
-				type: 'POST',
-				url: 'admin_usuarios/buscador_usuarios.php',
-				data: {
-					'search_nombre_completo' : envio_nombre_completo,
-					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-				},			
-				success: function(resp){
-					if(resp!=""){
-						$('#sugerencias_nombre_completo').html(resp);
+$("#nombre_completo").on("input",function(e){ // Accion que se activa cuando se digita #identificacion
+	$('#sugerencias_nombre_completo').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+    oculta_errores();
+    var envio_nombre_completo = $(this).val();
+    
+    if($(this).data("lastval")!= envio_nombre_completo){
+    	$(this).data("lastval",envio_nombre_completo);
+                
+		clearTimeout(timerid);
+		timerid = setTimeout(function() {
+	 		//alert("valor "+envio_nombre_completo);
+
+	 		if(envio_nombre_completo.length>2 && envio_nombre_completo.length<50){
+	    		$.ajax({
+					type: 'POST',
+					url: 'admin_usuarios/buscador_usuarios.php',
+					data: {
+						'search_nombre_completo' : envio_nombre_completo,
+						'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+					},			
+					success: function(resp){
+						if(resp!=""){
+							$('#sugerencias_nombre_completo').html(resp);
+						}
 					}
-				}
-			})				 		
-		}else{
-			$('#sugerencias_nombre_completo').html('');
-		}
-	})
-})
+				})			 		
+			}else{
+				$('#sugerencias_nombre_completo').html('');
+			}	
+			if(envio_nombre_completo.length>50){
+				$('#sugerencias_nombre_completo').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
+			}  				 
+		},1000);
+    };
+});
 /* Fin script buscador nombre_completo - Formulario Agregar Nuevo Usuarios */
 /* Script buscador login - Formulario Agregar Nuevo Usuarios */
-$(function busca_login(){	
-	
-	$('#login').keyup(function busca_login(){
-		var envio_login = $('#login').val();
+$("#login").on("input",function(e){ // Accion que se activa cuando se digita #identificacion
+	$('#sugerencias_login').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+    oculta_errores();
+    var envio_login = $(this).val();
+    
+    if($(this).data("lastval")!= envio_login){
+    	$(this).data("lastval",envio_login);
+                
+		clearTimeout(timerid);
+		timerid = setTimeout(function() {
+	 		//alert("valor "+envio_login);
 
-		if(envio_login.length>2 && envio_login.length<50){		
-		$('#sugerencias_login').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
-
-			$.ajax({
-				type: 'POST',
-				url: 'admin_usuarios/buscador_usuarios.php',
-				data: {
-					'search_login' : envio_login,
-					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-				},			
-				success: function(resp){
-					if(resp!=""){
-						$('#sugerencias_login').html(resp);
+	 		if(envio_login.length>2 && envio_login.length<50){
+	    		$.ajax({
+					type: 'POST',
+					url: 'admin_usuarios/buscador_usuarios.php',
+					data: {
+						'search_login' : envio_login,
+						'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+					},			
+					success: function(resp){
+						if(resp!=""){
+							$('#sugerencias_login').html(resp);
+						}
 					}
-				}
-			})		 		
-		}else{
-			$('#sugerencias_login').html('');
-		}	
-	})
-})
+				})			 		
+			}else{
+				$('#sugerencias_login').html('');
+			}	
+			if(envio_login.length>50){
+				$('#sugerencias_login').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
+			}  				 
+		},1000);
+    };
+});
 /* Fin script buscador login - Formulario Agregar Nuevo Usuarios */
 /* Script buscador dependencia - Formulario Agregar Nuevo Usuarios */
-$(function busca_dependencia(){	
-	//$('#dependencia').focus();
-	
-	$('#dependencia').keyup(function busca_dependencia(){
-		var envio_dependencia = $('#dependencia').val();
+$("#dependencia").on("input",function(e){ // Accion que se activa cuando se digita #identificacion
+	$('#sugerencias_dependencia').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+    oculta_errores();
+    var envio_dependencia = $(this).val();
+    
+    if($(this).data("lastval")!= envio_dependencia){
+    	$(this).data("lastval",envio_dependencia);
+                
+		clearTimeout(timerid);
+		timerid = setTimeout(function() {
+	 		//alert("valor "+envio_dependencia);
 
-		if(envio_dependencia.length>2 && envio_dependencia.length<50){		
-			$.ajax({
-				type: 'POST',
-				url: 'admin_usuarios/buscador_usuarios.php',
-				data: {
-					'search_dependencia' : envio_dependencia,
-					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-				},			
-				success: function(resp){
-					if(resp!=""){
-						$('#sugerencias_dependencia').html(resp);
+	 		if(envio_dependencia.length>2 && envio_dependencia.length<50){
+	    		$.ajax({
+					type: 'POST',
+					url: 'admin_usuarios/buscador_usuarios.php',
+					data: {
+						'search_dependencia' : envio_dependencia,
+						'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+					},			
+					success: function(resp){
+						if(resp!=""){
+							$('#sugerencias_dependencia').html(resp);
+						}
 					}
-				}
-			})		 		
-		}else{
-			$('#sugerencias_dependencia').html('');
-		}
-	})
-})
+				})			 		
+			}else{
+				$('#sugerencias_dependencia').html('');
+			}	
+			if(envio_dependencia.length>50){
+				$('#sugerencias_dependencia').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
+			}  				 
+		},1000);
+    };
+});
 /* Fin script buscador dependencia - Formulario Agregar Nuevo Usuarios */
 
 /* Script validar si identificacion ya existe */
@@ -215,7 +244,26 @@ function cerrarVentanaCrearUsuarios(){
 
 	$(".art1").slideUp("slow");
 
-	$("#error_no_es_numero").slideUp("slow");
+	oculta_errores();
+
+	$("#identificacion").val("");
+	$("#nombre_completo").val("");
+	$("#login").val("");
+	$("#mail").val("");
+	$("#dependencia").val("");
+	$("#perfil").val("USUARIO");
+	$("#imagen").val("");
+
+	$("#estado").val("ACTIVO");
+	$("#usuario_nuevo").val("SI");
+	$("#nivel_seguridad").val("1");
+
+	$("#ventanilla_radicacion").val("NO");
+}
+/* Fin funciones para desplegar ventana modal Agregar Usuarios */
+/* Script para ocultar errores y continuar consulta - Formulario Agregar Usuario */
+function oculta_errores(){
+	//$("#error_no_es_numero").slideUp("slow");
 	$("#error_identificacion").slideUp("slow");
 	$("#valida_minimo_identificacion").slideUp("slow");
 	$("#valida_maximo_identificacion").slideUp("slow");
@@ -246,100 +294,109 @@ function cerrarVentanaCrearUsuarios(){
 
 	$("#error_imagen").slideUp("slow");
 	$("#error_imagen_invalida").slideUp("slow");	
-
-	$("#identificacion").val("");
-	$("#nombre_completo").val("");
-	$("#login").val("");
-	$("#mail").val("");
-	$("#dependencia").val("");
-	$("#perfil").val("USUARIO");
-	$("#imagen").val("");
-
-	$("#estado").val("ACTIVO");
-	$("#usuario_nuevo").val("SI");
-	$("#nivel_seguridad").val("1");
-
-	$("#ventanilla_radicacion").val("NO");
 }
-/* Fin funciones para desplegar ventana modal Agregar Usuarios */
+/* Fin script para ocultar errores y continuar consulta - Formulario Agregar Usuario */
+/* Funcion para restringir caraceres especiales en formulario Usuarios. */
+function espacios_formulario_usuarios(input){
+	switch(input){
+		case 'search_usuario':
+			var str = $('#search_usuario').val();	
+			break;
+		case 'identificacion':
+			var str = $('#identificacion').val();
+			if (isNaN(str)) {
+				$("#error_no_es_numero").slideDown("slow");
+			}else{
+				$("#error_no_es_numero").slideUp("slow");
+			}
+			break;
+		case 'nombre_completo':
+			var str = $('#nombre_completo').val();	
+			break;	
+		case 'login':
+			var str = $('#login').val();
+			break;	
+		case 'dependencia':
+			var str = $('#dependencia').val();
+			break;	
+		case 'mod_identificacion':
+			var str = $('#mod_identificacion').val();
 
-/* Script espacios identificacion - Formulario Agregar Nuevo Usuario */
-function espacios_identificacion(){
-	var str = $('#identificacion').val();
-	
-	str = str.replace('-','');	str = str.replace('°','');	str = str.replace('!','');
-	str = str.replace('|','');	str = str.replace('"','');	str = str.replace('$','');
-	str = str.replace('#','');	str = str.replace('%','');	str = str.replace('&','');
-	str = str.replace('=','');	str = str.replace('?','');	str = str.replace('¿','');
-	str = str.replace('¡','');	str = str.replace('(','');	str = str.replace(')','');
-	str = str.replace('{','');	str = str.replace('}','');	str = str.replace('[','');
-	str = str.replace(']','');	str = str.replace('.','');	str = str.replace(';','');
-	str = str.replace(':','');	str = str.replace('_','');	str = str.replace('~','');
-	str = str.replace('@','');	str = str.replace('´','');	str = str.replace("+",'');
-	str = str.replace("/","");	str = str.replace("*","");	str = str.replace("'","");
-	str = str.replace(',','');	str = str.replace('^','');	str = str.replace('<','');
-	str = str.replace('>','');	str = str.replace('  ','');
-
-	$('#identificacion').val(str);
-
-	if (isNaN(str)) {
-		$("#error_no_es_numero").slideDown("slow");
-	}else{
-		$("#error_no_es_numero").slideUp("slow");
+			if (isNaN(str)) {
+				$("#error_no_es_mod_numero").slideDown("slow");
+			}else{
+				$("#error_no_es_mod_numero").slideUp("slow");
+			}
+			break;
+		case 'mod_nombre_completo':
+			var str = $('#mod_nombre_completo').val();
+			break;	
+		case 'mod_login':
+			var str = $('#mod_login').val();
+			break;	
+		case 'mod_nombre_dependencia':
+			var str = $('#mod_nombre_dependencia').val();
+			break;		
 	}
+		str = str.replace('-',''); 	str = str.replace('°','');	str = str.replace('!','');
+		str = str.replace('|','');	str = str.replace('"','');	str = str.replace('$','');
+		str = str.replace('#','');	str = str.replace('%','');	str = str.replace('&','');
+		str = str.replace('=','');	str = str.replace('?','');	str = str.replace('¿','');
+		str = str.replace('¡','');	str = str.replace('(','');	str = str.replace(')','');
+		str = str.replace('{','');	str = str.replace('}','');	str = str.replace('[','');
+		str = str.replace(']','');	str = str.replace(';','');
+		str = str.replace(':','');	str = str.replace('_','');	str = str.replace('~','');
+		str = str.replace('@','');	str = str.replace('´','');	str = str.replace("+",'');
+		str = str.replace("/","");	str = str.replace("*","");	str = str.replace("'","");
+		str = str.replace(',','');	str = str.replace('^','');	str = str.replace('ñ','N');
+		str = str.replace('Ñ','N');	str = str.replace('á','A');	str = str.replace('é','E');
+		str = str.replace('í','I');	str = str.replace('ó','O');	str = str.replace('ú','U');
+		str = str.replace('Á','A');	str = str.replace('É','E');	str = str.replace('Í','I');
+		str = str.replace('Ó','O');	str = str.replace('Ú','U');	str = str.replace('<','');
+		str = str.replace('>','');	str = str.replace('  ','');
+
+	switch(input){
+		case 'search_usuario':
+			$('#search_usuario').val(str.toUpperCase());
+			break;
+		case 'identificacion':
+			$('#identificacion').val(str);
+			break;	
+		case 'nombre_completo':
+			$('#nombre_completo').val(str.toUpperCase());	
+			break;
+		case 'login':
+			$('#login').val(str.toUpperCase());
+			break;	
+		case 'dependencia':
+			$('#dependencia').val(str.toUpperCase());
+			break;	
+		case 'mod_identificacion':
+			$('#mod_identificacion').val(str);
+			break;	
+		case 'mod_nombre_completo':
+			$('#mod_nombre_completo').val(str.toUpperCase());
+			break;	
+		case 'mod_login':
+			$('#mod_login').val(str.toUpperCase());
+			break;
+		case 'mod_nombre_dependencia':
+			$('#mod_nombre_dependencia').val(str.toUpperCase());
+			break;		
+	}	
 }
-/* Fin script espacios identificacion - Formulario Agregar Nuevo Usuario */
-/* Script espacios nombre_completo - Formulario Agregar Nuevo Usuario */
-function espacios_nombre_completo(){
-	var str2 = $('#nombre_completo').val();
+/* Fin funcion para restringir caraceres especiales en formulario Usuarios. */
 
-	str2 = str2.replace('-',''); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
-	str2 = str2.replace('|','');	str2 = str2.replace('"','');	str2 = str2.replace('$','');
-	str2 = str2.replace('#','');	str2 = str2.replace('%','');	str2 = str2.replace('&','');
-	str2 = str2.replace('=','');	str2 = str2.replace('?','');	str2 = str2.replace('¿','');
-	str2 = str2.replace('¡','');	str2 = str2.replace('(','');	str2 = str2.replace(')','');
-	str2 = str2.replace('{','');	str2 = str2.replace('}','');	str2 = str2.replace('[','');
-	str2 = str2.replace(']','');	str2 = str2.replace('.','');	str2 = str2.replace(';','');
-	str2 = str2.replace(':','');	str2 = str2.replace('_','');	str2 = str2.replace('~','');
-	str2 = str2.replace('@','');	str2 = str2.replace('´','');	str2 = str2.replace("+",'');
-	str2 = str2.replace("/","");	str2 = str2.replace("*","");	str2 = str2.replace("'","");
-	str2 = str2.replace(',','');	str2 = str2.replace('^','');	str2 = str2.replace('ñ','N');
-	str2 = str2.replace('Ñ','N');	str2 = str2.replace('á','A');	str2 = str2.replace('é','E');
-	str2 = str2.replace('í','I');	str2 = str2.replace('ó','O');	str2 = str2.replace('ú','U');
-	str2 = str2.replace('Á','A');	str2 = str2.replace('É','E');	str2 = str2.replace('Í','I');
-	str2 = str2.replace('Ó','O');	str2 = str2.replace('Ú','U');	str2 = str2.replace('<','');
-	str2 = str2.replace('>','');	str2 = str2.replace('  ','');
-
-	$('#nombre_completo').val(str2.toUpperCase());
-}
-/* Fin script espacios nombre_completo - Formulario Agregar Nuevo Usuario */
-/* Script espacios login - Formulario Agregar Nuevo Usuario */
-function espacios_login(){
-	var str2 = $('#login').val();
-
-	str2 = str2.replace('-',''); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
-	str2 = str2.replace('|','');	str2 = str2.replace('"','');	str2 = str2.replace('$','');
-	str2 = str2.replace('#','');	str2 = str2.replace('%','');	str2 = str2.replace('&','');
-	str2 = str2.replace('=','');	str2 = str2.replace('?','');	str2 = str2.replace('¿','');
-	str2 = str2.replace('¡','');	str2 = str2.replace('(','');	str2 = str2.replace(')','');
-	str2 = str2.replace('{','');	str2 = str2.replace('}','');	str2 = str2.replace('[','');
-	str2 = str2.replace(']','');	str2 = str2.replace(';','');	str2 = str2.replace(':','');	
-	str2 = str2.replace('_','');	str2 = str2.replace('~','');	str2 = str2.replace('@','');	
-	str2 = str2.replace('´','');	str2 = str2.replace("+",'');	str2 = str2.replace("/","");	
-	str2 = str2.replace("*","");	str2 = str2.replace("'","");	str2 = str2.replace(',','');	
-	str2 = str2.replace('^','');	str2 = str2.replace('ñ','N');	str2 = str2.replace('Ñ','N');	
-	str2 = str2.replace('á','A');	str2 = str2.replace('é','E');	str2 = str2.replace('í','I');	
-	str2 = str2.replace('ó','O');	str2 = str2.replace('ú','U');	str2 = str2.replace('Á','A');	
-	str2 = str2.replace('É','E');	str2 = str2.replace('Í','I');	str2 = str2.replace('Ó','O');	
-	str2 = str2.replace('Ú','U');	str2 = str2.replace('<','');	str2 = str2.replace('>','');	
-	str2 = str2.replace('  ','');
-
-	$('#login').val(str2.toUpperCase());
-}
-/* Fin script espacios login - Formulario Agregar Nuevo Usuario */
 /* Script espacios mail - Formulario Agregar Nuevo Usuario */
-function espacios_mail(){
-	var str2 = $('#mail').val();
+function espacios_mail(tipo_form){
+	switch(tipo_form){
+		case 'agregar_usuario':
+			var str2 = $('#mail').val();
+			break;
+		case 'modificar_usuario':
+			var str2 = $('#mod_mail').val();
+		break;
+	}
 
 	str2 = str2.replace('ñ','N'); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
 	str2 = str2.replace('Ñ','N');	str2 = str2.replace('á','A');	str2 = str2.replace('é','E');
@@ -357,45 +414,20 @@ function espacios_mail(){
 	str2 = str2.replace(',','');	str2 = str2.replace('^','');	str2 = str2.replace('<','');	
 	str2 = str2.replace('>','');
 
-	$('#mail').val(str2.toUpperCase());
-}
-function validarEmail(mail) { // Verifica que el formato del input sea usuario@algunmail.com
-    expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if ( !expr.test(mail) ){
-    	$("#error_mail_formato").slideDown();
-    	$("#mail").focus();
-    	return false;
-    }else {	
-		$("#error_mail_formato").slideUp();
-  	}
+	switch(tipo_form){
+		case 'agregar_usuario':
+			$('#mail').val(str2.toUpperCase());
+			break;
+		case 'modificar_usuario':
+			$('#mod_mail').val(str2.toUpperCase());
+			break;
+	}
 }
 /* Fin script espacios mail - Formulario Agregar Nuevo Usuario */
-/* Script espacios nombre_completo - Formulario Agregar Nuevo Usuario */
-function espacios_dependencia(){
-	var str2 = $('#dependencia').val();
 
-	str2 = str2.replace('-',''); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
-	str2 = str2.replace('|','');	str2 = str2.replace('"','');	str2 = str2.replace('$','');
-	str2 = str2.replace('#','');	str2 = str2.replace('%','');	str2 = str2.replace('&','');
-	str2 = str2.replace('=','');	str2 = str2.replace('?','');	str2 = str2.replace('¿','');
-	str2 = str2.replace('¡','');	str2 = str2.replace('(','');	str2 = str2.replace(')','');
-	str2 = str2.replace('{','');	str2 = str2.replace('}','');	str2 = str2.replace('[','');
-	str2 = str2.replace(']','');	str2 = str2.replace('.','');	str2 = str2.replace(';','');
-	str2 = str2.replace(':','');	str2 = str2.replace('_','');	str2 = str2.replace('~','');
-	str2 = str2.replace('@','');	str2 = str2.replace('´','');	str2 = str2.replace("+",'');
-	str2 = str2.replace("/","");	str2 = str2.replace("*","");	str2 = str2.replace("'","");
-	str2 = str2.replace(',','');	str2 = str2.replace('^','');	str2 = str2.replace('ñ','N');
-	str2 = str2.replace('Ñ','N');	str2 = str2.replace('á','A');	str2 = str2.replace('é','E');
-	str2 = str2.replace('í','I');	str2 = str2.replace('ó','O');	str2 = str2.replace('ú','U');
-	str2 = str2.replace('Á','A');	str2 = str2.replace('É','E');	str2 = str2.replace('Í','I');
-	str2 = str2.replace('Ó','O');	str2 = str2.replace('Ú','U');	str2 = str2.replace('<','');
-	str2 = str2.replace('>','');	str2 = str2.replace('  ','');
-
-	$('#dependencia').val(str2.toUpperCase());
-}
-/* Fin script espacios dependencia - Formulario Agregar Nuevo Usuario */
 /* Script cargar campo dependencia - Formulario Agregar Usuarios */
 function carga_dependencia(codigo_dependencia, dependencia){
+	oculta_errores();
 	$("#codigo_dependencia").val(codigo_dependencia);
 	$("#dependencia").val(dependencia);
 	$('#error_perfil').slideUp('slow');
@@ -448,32 +480,22 @@ function valida_tipo_archivo(){
 	}
 }
 /* Fin funcion para validar tipo de archivo - Formulario Agregar Usuario */
-/*Funcion para insertar datos - Formulario Agregar Usuario*/
-function validar_agregar_usuario(){
-	
-	var identificacion =$('#identificacion').val()
-	var nombre_completo =$('#nombre_completo').val()
-	var login=$("#login").val();
-	var mail=$("#mail").val();
-	var dependencia=$("#dependencia").val();
-	var imagen=$("#imagen").val();
 
+/* Funcion validar identificacion para hacer submit */
+function validar_identificacion(){
+	var identificacion =$('#identificacion').val()
 	if(identificacion==""){
 		$("#error_identificacion").slideDown("slow");
 		$("#valida_minimo_identificacion").slideUp("slow");
 		$("#valida_maximo_identificacion").slideUp("slow");
 		$("#error_identificacion_ya_existe").slideUp("slow");
-
-		$("#identificacion").focus();
 		return false;
-	}else{
+	}else{	
 		if(identificacion.length<6){
 			$("#error_identificacion").slideUp("slow");
 			$("#valida_minimo_identificacion").slideDown("slow");
 			$("#valida_maximo_identificacion").slideUp("slow");
 			$("#error_identificacion_ya_existe").slideUp("slow");
-
-			$("#identificacion").focus();
 			return false;
 		}else{
 			if(identificacion.length>20){
@@ -481,8 +503,6 @@ function validar_agregar_usuario(){
 				$("#valida_minimo_identificacion").slideUp("slow");
 				$("#valida_maximo_identificacion").slideDown("slow");
 				$("#error_identificacion_ya_existe").slideUp("slow");
-
-				$("#identificacion").focus();
 				return false;
 			}else{
 				if($("#sugerencia_id").is(":visible")){
@@ -490,8 +510,6 @@ function validar_agregar_usuario(){
 					$("#valida_minimo_identificacion").slideUp("slow");
 					$("#valida_maximo_identificacion").slideUp("slow");
 					$("#error_identificacion_ya_existe").slideDown("slow");
-
-					$("#identificacion").focus();
 					return false;
 				}else{
 					if($("#error_no_es_numero").is(":visible")){
@@ -499,245 +517,286 @@ function validar_agregar_usuario(){
 						$("#valida_minimo_identificacion").slideUp("slow");
 						$("#valida_maximo_identificacion").slideUp("slow");
 						$("#error_identificacion_ya_existe").slideUp("slow");
-
-						$("#identificacion").focus();
 						return false;
 					}else{
 						$("#error_identificacion").slideUp("slow");
 						$("#valida_minimo_identificacion").slideUp("slow");
 						$("#valida_maximo_identificacion").slideUp("slow");
 						$("#error_identificacion_ya_existe").slideUp("slow");
+						return true;
+					}
+				}
+			}
+		}
+	}				
+}
+/* Fin funcion validar identificacion para hacer submit */
+/* Funcion validar nombre para hacer submit */
+function validar_nombre(){
+	var nombre_completo =$('#nombre_completo').val()
 
-						$("#nombre_completo").focus();
-						if(nombre_completo==""){
-							$("#error_nombre_completo").slideDown("slow");
-							$("#valida_minimo_nombre_completo").slideUp("slow");
-							$("#valida_maximo_nombre_completo").slideUp("slow");
-							$("#error_nombre_completo_ya_existe").slideUp("slow");
+	if(nombre_completo==""){
+		$("#error_nombre_completo").slideDown("slow");
+		$("#valida_minimo_nombre_completo").slideUp("slow");
+		$("#valida_maximo_nombre_completo").slideUp("slow");
+		$("#error_nombre_completo_ya_existe").slideUp("slow");
+		return false;					
+	}else{
+		if(nombre_completo.length<6){
+			$("#error_nombre_completo").slideUp("slow");
+			$("#valida_minimo_nombre_completo").slideDown("slow");
+			$("#valida_maximo_nombre_completo").slideUp("slow");
+			$("#error_nombre_completo_ya_existe").slideUp("slow");
+			return false;
+		}else{
+			if(nombre_completo.length>50){
+				$("#error_nombre_completo").slideUp("slow");
+				$("#valida_minimo_nombre_completo").slideUp("slow");
+				$("#valida_maximo_nombre_completo").slideDown("slow");
+				$("#error_nombre_completo_ya_existe").slideUp("slow");
+				return false;
+			}else{
+				if($("#sugerencia_nombre_completo").is(":visible")){
+					$("#error_nombre_completo").slideUp("slow");
+					$("#valida_minimo_nombre_completo").slideUp("slow");
+					$("#valida_maximo_nombre_completo").slideUp("slow");
+					$("#error_nombre_completo_ya_existe").slideDown("slow");
+					return false;
+				}else{
+					$("#error_nombre_completo").slideUp("slow");
+					$("#valida_minimo_nombre_completo").slideUp("slow");
+					$("#valida_maximo_nombre_completo").slideUp("slow");
+					$("#error_nombre_completo_ya_existe").slideUp("slow");
+					return true;
+				}
+			}
+		}
+	}			
+}
+/* Fin funcion validar nombre para hacer submit */
+/* Funcion validar login para hacer submit */
+function validar_login(){
+	var login=$("#login").val();
 
-							$("#nombre_completo").focus();	
-							return false;					
+	if(login==""){
+		$("#error_login").slideDown("slow");
+		$("#valida_minimo_login").slideUp("slow");
+		$("#valida_maximo_login").slideUp("slow");
+		$("#error_login_ya_existe").slideUp("slow");
+		return false;					
+	}else{
+		if(login.length<6){
+			$("#error_login").slideUp("slow");
+			$("#valida_minimo_login").slideDown("slow");
+			$("#valida_maximo_login").slideUp("slow");
+			$("#error_login_ya_existe").slideUp("slow");
+			return false;
+		}
+		else{
+			if(login.length>30){
+				$("#error_login").slideUp("slow");
+				$("#valida_minimo_login").slideUp("slow");
+				$("#valida_maximo_login").slideDown("slow");
+				$("#error_login_ya_existe").slideUp("slow");
+				return false;
+			}else{
+				if($("#sugerencia_login").is(":visible")){
+					$("#error_login").slideUp("slow");
+					$("#valida_minimo_login").slideUp("slow");
+					$("#valida_maximo_login").slideUp("slow");
+					$("#error_login_ya_existe").slideDown("slow");
+					return false;
+				}else{
+					$("#error_login").slideUp("slow");
+					$("#valida_minimo_login").slideUp("slow");
+					$("#valida_maximo_login").slideUp("slow");
+					$("#error_login_ya_existe").slideUp("slow");
+					return true;
+				}
+			}
+		}
+	}				
+}
+/* Fin funcion validar login para hacer submit */
+/* Funcion para validar email para hacer submit */
+function validar_correo_electronico(){
+	var mail=$("#mail").val();
+	if(mail==""){
+		$("#error_mail").slideDown("slow");
+		$("#valida_minimo_mail").slideUp("slow");
+		$("#valida_maximo_mail").slideUp("slow");
+		$("#error_mail_formato").slideUp("slow");
+		return false;
+	}else{
+		if(mail.length<6){
+			$("#error_mail").slideUp("slow");
+			$("#valida_minimo_mail").slideDown("slow");
+			$("#valida_maximo_mail").slideUp("slow");
+			$("#error_mail_formato").slideUp("slow");
+			return false;
+		}
+		else{
+			if(mail.length>30){
+				$("#error_mail").slideUp("slow");
+				$("#valida_minimo_mail").slideUp("slow");
+				$("#valida_maximo_mail").slideDown("slow");
+				$("#error_mail_formato").slideUp("slow");
+				return false;
+			}else{
+				$("#error_mail").slideUp("slow");
+				$("#valida_minimo_mail").slideUp("slow");
+				$("#valida_maximo_mail").slideUp("slow");
+				$("#error_mail_formato").slideUp("slow");
+				return true;
+			}
+		}
+	}									
+}
+/* Fin funcion para validar email para hacer submit */
+/* Funcion para validar formato de email (usuario@algunmail.com) */
+function validar_correo_electronico2(){
+	var mail=$("#mail").val();
+    expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	
+    if ( !expr.test(mail) ){
+    	$("#error_mail_formato").slideDown();
+    	$("#mail").focus();
+    	return false;
+    }else {	
+		$("#error_mail_formato").slideUp();
+		$("#error_mail").slideUp("slow");
+		$("#valida_minimo_mail").slideUp("slow");
+		$("#valida_maximo_mail").slideUp("slow");
+		return true;
+	}
+}
+/* Fin funcion para validar formato de email (usuario@algunmail.com) */
+/* Funcion para validar dependencia para hacer submit */
+function validar_dependencia(){
+	var dependencia=$("#dependencia").val();
+	if(dependencia==""){
+		$("#error_dependencia").slideDown("slow");
+		$("#valida_minimo_dependencia").slideUp("slow");
+		$("#valida_maximo_dependencia").slideUp("slow");
+		$("#error_dependencia_invalida").slideUp("slow");
+		$("#error_dependencia_inexistente").slideUp("slow");
+		return false;					
+	}else{
+		if(dependencia.length<6){
+			$("#error_dependencia").slideUp("slow");
+			$("#valida_minimo_dependencia").slideDown("slow");
+			$("#valida_maximo_dependencia").slideUp("slow");
+			$("#error_dependencia_invalida").slideUp("slow");
+			$("#error_dependencia_inexistente").slideUp("slow");
+			return false;
+		}
+		else{
+			if(dependencia.length>50){
+				$("#error_dependencia").slideUp();
+				$("#valida_minimo_dependencia").slideUp("slow");
+				$("#valida_maximo_dependencia").slideDown("slow");
+				$("#error_dependencia_invalida").slideUp("slow");
+				$("#error_dependencia_inexistente").slideUp("slow");
+				return false;
+			}else{
+				if($("#sugerencia_dependencia").is(":visible")){
+					$("#error_dependencia").slideUp("slow");
+					$("#valida_minimo_dependencia").slideUp("slow");
+					$("#valida_maximo_dependencia").slideUp("slow");
+					$("#error_dependencia_invalida").slideDown("slow");
+					$("#error_dependencia_inexistente").slideUp("slow");
+					return false;
+				}else{
+					if($("#error_dependencia_inexistente").is(":visible")){
+						$("#error_dependencia").slideUp();
+						$("#valida_minimo_dependencia").slideUp("slow");
+						$("#valida_maximo_dependencia").slideUp("slow");
+						$("#error_dependencia_invalida").slideUp("slow");
+						return false
+					}else{
+						if($("#codigo_dependencia").val()==""){
+							$("#error_dependencia").slideDown("slow");
+							return false
 						}else{
-							if(nombre_completo.length<6){
-								$("#error_nombre_completo").slideUp("slow");
-								$("#valida_minimo_nombre_completo").slideDown("slow");
-								$("#valida_maximo_nombre_completo").slideUp("slow");
-								$("#error_nombre_completo_ya_existe").slideUp("slow");
+							$("#error_dependencia").slideUp("slow");
+							$("#valida_minimo_dependencia").slideUp("slow");
+							$("#valida_maximo_dependencia").slideUp("slow");
+							$("#error_dependencia_invalida").slideUp("slow");
+							$("#error_dependencia_inexistente").slideUp("slow");
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}												
+}
+/* Fin funcion para validar dependencia para hacer submit */
+/* Funcion para validar perfil para hacer submit */
+function validar_perfil(){
+	var imagen=$("#imagen").val();
+	if($("#error_perfil").is(":visible")){
+		$("#perfil").focus();
+		return false;
+	}else{
+		if(imagen==""){
+			$("#error_imagen").slideDown("slow");
 
-								$("#nombre_completo").focus();
-								return false;
-							}
-							else{
-								if(nombre_completo.length>50){
-									$("#error_nombre_completo").slideUp("slow");
-									$("#valida_minimo_nombre_completo").slideUp("slow");
-									$("#valida_maximo_nombre_completo").slideDown("slow");
-									$("#error_nombre_completo_ya_existe").slideUp("slow");
+			$("#imagen").focus()
+			return false;
+		}else{
+			$("#error_imagen").slideUp("slow");
+			if($("#error_imagen_invalida").is(":visible")){
+				$("#error_imagen").slideUp("slow")
+				return false;
+			}else{
+				$("#error_imagen").slideUp("slow");
+				$("#error_imagen_invalida").slideUp("slow");
+				return true;																													return true;
+			}
+		}
+	}	
+}
+/* Fin funcion para validar perfil para hacer submit */
+/*Funcion para insertar datos - Formulario Agregar Usuario*/
+function validar_agregar_usuario(){
+	var validar_id =validar_identificacion();
 
-									$("#nombre_completo").focus();
-									return false;
-								}else{
-									if($("#sugerencia_nombre_completo").is(":visible")){
-										$("#error_nombre_completo").slideUp("slow");
-										$("#valida_minimo_nombre_completo").slideUp("slow");
-										$("#valida_maximo_nombre_completo").slideUp("slow");
-										$("#error_nombre_completo_ya_existe").slideDown("slow");
-
-										$("#nombre_completo").focus();
-										return false;
-									}else{
-										$("#error_nombre_completo").slideUp("slow");
-										$("#valida_minimo_nombre_completo").slideUp("slow");
-										$("#valida_maximo_nombre_completo").slideUp("slow");
-										$("#error_nombre_completo_ya_existe").slideUp("slow");
-
-										$("#login").focus();
-										if(login==""){
-											$("#error_login").slideDown("slow");
-											$("#valida_minimo_login").slideUp("slow");
-											$("#valida_maximo_login").slideUp("slow");
-											$("#error_login_ya_existe").slideUp("slow");
-
-											$("#login").focus();	
-											return false;					
-										}else{
-											if(login.length<6){
-												$("#error_login").slideUp("slow");
-												$("#valida_minimo_login").slideDown("slow");
-												$("#valida_maximo_login").slideUp("slow");
-												$("#error_login_ya_existe").slideUp("slow");
-
-												$("#login").focus();
-												return false;
-											}
-											else{
-												if(login.length>30){
-													$("#error_login").slideUp("slow");
-													$("#valida_minimo_login").slideUp("slow");
-													$("#valida_maximo_login").slideDown("slow");
-													$("#error_login_ya_existe").slideUp("slow");
-
-													$("#login").focus();
-													return false;
-												}else{
-													if($("#sugerencia_login").is(":visible")){
-														$("#error_login").slideUp("slow");
-														$("#valida_minimo_login").slideUp("slow");
-														$("#valida_maximo_login").slideUp("slow");
-														$("#error_login_ya_existe").slideDown("slow");
-
-														$("#login").focus();
-														return false;
-													}else{
-														$("#error_login").slideUp("slow");
-														$("#valida_minimo_login").slideUp("slow");
-														$("#valida_maximo_login").slideUp("slow");
-														$("#error_login_ya_existe").slideUp("slow");
-
-														$("#mail").focus();
-														if(mail==""){
-															$("#error_mail").slideDown("slow");
-															$("#valida_minimo_mail").slideUp("slow");
-															$("#valida_maximo_mail").slideUp("slow");
-															$("#error_mail_formato").slideUp("slow");
-
-															$("#mail").focus();
-															return false;
-														}else{
-															if(mail.length<6){
-																$("#error_mail").slideUp("slow");
-																$("#valida_minimo_mail").slideDown("slow");
-																$("#valida_maximo_mail").slideUp("slow");
-																$("#error_mail_formato").slideUp("slow");
-
-																$("#mail").focus();
-																return false;
-															}
-															else{
-																if(mail.length>30){
-																	$("#error_mail").slideUp("slow");
-																	$("#valida_minimo_mail").slideUp("slow");
-																	$("#valida_maximo_mail").slideDown("slow");
-																	$("#error_mail_formato").slideUp("slow");
-
-																	$("#mail").focus();
-																	return false;
-																}else{
-																	$("#error_mail").slideUp("slow");
-																	$("#valida_minimo_mail").slideUp("slow");
-																	$("#valida_maximo_mail").slideUp("slow");
-																	$("#error_mail_formato").slideUp("slow");
-
-																	var valida_mail = validarEmail(mail);
-																	if(valida_mail==false){
-																		return false;
-																	}else{ 
-																		$("#error_mail").slideUp("slow");
-																		$("#valida_minimo_mail").slideUp("slow");
-																		$("#valida_maximo_mail").slideUp("slow");
-																			
-																		$("#dependencia").focus();
-																		
-																		if(dependencia==""){
-																			$("#error_dependencia").slideDown("slow");
-																			$("#valida_minimo_dependencia").slideUp("slow");
-																			$("#valida_maximo_dependencia").slideUp("slow");
-																			$("#error_dependencia_invalida").slideUp("slow");
-																			$("#error_dependencia_inexistente").slideUp("slow");
-
-																			$("#dependencia").focus();	
-																			return false;					
-																		}else{
-																			if(dependencia.length<6){
-																				$("#error_dependencia").slideUp("slow");
-																				$("#valida_minimo_dependencia").slideDown("slow");
-																				$("#valida_maximo_dependencia").slideUp("slow");
-																				$("#error_dependencia_invalida").slideUp("slow");
-																				$("#error_dependencia_inexistente").slideUp("slow");
-
-																				$("#dependencia").focus();
-																				return false;
-																			}
-																			else{
-																				if(dependencia.length>50){
-																					$("#error_dependencia").slideUp();
-																					$("#valida_minimo_dependencia").slideUp("slow");
-																					$("#valida_maximo_dependencia").slideDown("slow");
-																					$("#error_dependencia_invalida").slideUp("slow");
-																					$("#error_dependencia_inexistente").slideUp("slow");
-
-																					$("#dependencia").focus();
-																					return false;
-																				}else{
-																					if($("#sugerencia_dependencia").is(":visible")){
-																						$("#error_dependencia").slideUp("slow");
-																						$("#valida_minimo_dependencia").slideUp("slow");
-																						$("#valida_maximo_dependencia").slideUp("slow");
-																						$("#error_dependencia_invalida").slideDown("slow");
-																						$("#error_dependencia_inexistente").slideUp("slow");
-
-																						$("#dependencia").focus();
-																						return false;
-																					}else{
-																						if($("#error_dependencia_inexistente").is(":visible")){
-																							$("#error_dependencia").slideUp();
-																							$("#valida_minimo_dependencia").slideUp("slow");
-																							$("#valida_maximo_dependencia").slideUp("slow");
-																							$("#error_dependencia_invalida").slideUp("slow");
-
-																							$("#dependencia").focus();
-																							return false
-																						}else{
-																							if($("#codigo_dependencia").val()==""){
-																								$("#error_dependencia").slideDown("slow");
-																								$("#dependencia").focus();
-																								return false
-																							}else{
-																								$("#error_dependencia").slideUp("slow");
-																								$("#valida_minimo_dependencia").slideUp("slow");
-																								$("#valida_maximo_dependencia").slideUp("slow");
-																								$("#error_dependencia_invalida").slideUp("slow");
-																								$("#error_dependencia_inexistente").slideUp("slow");
-																								
-																								$("#perfil").focus();
-
-																								if($("#error_perfil").is(":visible")){
-																									$("#perfil").focus();
-																									return false;
-																								}else{
-																									if(imagen==""){
-																										$("#error_imagen").slideDown("slow");
-
-																										$("#imagen").focus()
-																										return false;
-																									}else{
-																										$("#error_imagen").slideUp("slow");
-																										if($("#error_imagen_invalida").is(":visible")){
-																											$("#error_imagen").slideUp("slow")
-																											return false;
-																										}else{
-																											$("#error_imagen").slideUp("slow");
-																											$("#error_imagen_invalida").slideUp("slow");
-																											return true;																													return true;
-																										}
-																									}
-																								}		
-																							}		
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}	
-																}		
-															}
-														}
-													}	
-												}		
-											}			
-										}
-									}	
-								}
+	if(validar_id==false){
+		$("#identificacion").focus()
+		return false;
+	}else{
+		var validar_nom = validar_nombre();
+		if(validar_nom==false){
+			$("#nombre_completo").focus();
+			return false;
+		}else{
+			var validar_log=validar_login();
+			if(validar_log==false){
+				$("#login").focus();
+				return false;
+			}else{
+				var validar_mail=validar_correo_electronico();
+				if(validar_mail==false){
+					$("#mail").focus();
+					return false;
+				}else{
+					var validar_mail_formato=validar_correo_electronico2();
+					if(validar_mail_formato==false){
+						$("#mail").focus();
+						return false;
+					}else{
+						var validar_depe=validar_dependencia();
+						if(validar_depe==false){
+							$("#dependencia").focus();
+							return false;	
+						}else{
+							var validar_per=validar_perfil();
+							if(validar_per==false){
+								$("#perfil").focus();
+								return false;	
+							}else{
+								return true;
 							}
 						}
 					}
@@ -752,19 +811,9 @@ $(function submit_agregar_usuario(){
 		var submit_agregar_usuario = validar_agregar_usuario();
 		if(submit_agregar_usuario==false){
 			return false;
-		}else if(submit_agregar_usuario==true){ // Realizar la creación de Usuario
-				
-			$.ajax({
-				url:'admin_usuarios/query_usuarios.php',
-				type: 'POST',
-				data: 'data',
-				success: function(resp){
-					$('#formulario_agregar_usuario').submit(); // Realizar la creación del usuario
-					$("#contenido").load("admin_usuarios/index_usuarios.php");	
-				}
-			})
-		}else{
-			alert("No se puede agregar el usuario. Intente nuevamente")
+		}else{ // Realizar la creación de Usuario
+			$('#formulario_agregar_usuario').submit(); // Realizar la creación del usuario
+			$("#contenido").load("admin_usuarios/index_usuarios.php");	
 		}										
 	});
 })
@@ -791,36 +840,8 @@ function cerrarVentanaModificarUsuarios(){
 	$(".art1").slideUp("slow");
 
 	$("#error_no_es_mod_numero").slideUp("slow");
-	$("#error_mod_identificacion").slideUp("slow");
-	$("#valida_minimo_mod_identificacion").slideUp("slow");
-	$("#valida_maximo_mod_identificacion").slideUp("slow");
-	$("#error_mod_identificacion_ya_existe").slideUp("slow");
-	
-	$("#error_mod_nombre_completo").slideUp("slow");
-	$("#valida_minimo_mod_nombre_completo").slideUp("slow");
-	$("#valida_maximo_mod_nombre_completo").slideUp("slow");
-	$("#error_mod_nombre_completo_ya_existe").slideUp("slow");
+	oculta_mod_errores();
 
-	$("#error_mod_login").slideUp();
-	$("#valida_minimo_mod_login").slideUp("slow");
-	$("#valida_maximo_mod_login").slideUp("slow");
-	$("#error_mod_login_ya_existe").slideUp("slow");
-
-	$("#error_mod_mail").slideUp();
-	$("#valida_minimo_mod_mail").slideUp("slow");
-	$("#valida_maximo_mod_mail").slideUp("slow");
-	$("#error_mod_mail_formato").slideUp("slow");
-
-	$("#error_mod_dependencia").slideUp();
-	$("#valida_minimo_mod_dependencia").slideUp("slow");
-	$("#valida_maximo_mod_dependencia").slideUp("slow");
-	$("#error_mod_dependencia_invalida").slideUp("slow");
-	$("#error_mod_dependencia_inexistente").slideUp("slow");
-
-	$("#error_mod_perfil").slideUp("slow");	
-
-	$("#error_mod_imagen_invalida").slideUp("slow");	
-	
 	$("#mod_id_usuario").val("");
 	$("#ant_mod_identificacion").val("");
 	$("#mod_identificacion").val("");
@@ -884,35 +905,77 @@ function carga_mod_dependencia(codigo_mod_dependencia, mod_dependencia){
 	valida_mod_perfil();
 }
 /* Fin script cargar campo mod_dependencia - Formulario Modificar Usuarios */
-/* Script buscador identificacion - Formulario Modificar Nuevo Usuarios */
-$(function busca_mod_identificacion(){
-		
-	$('#mod_identificacion').keyup(function busca_mod_identificacion(){
-		var envio_mod_identificacion = $('#mod_identificacion').val();
-		var envio_ant_mod_id =$("#ant_mod_identificacion").val();
+/* Script para ocultar errores y continuar consulta - Formulario Agregar Usuario */
+function oculta_mod_errores(){
+	$("#error_mod_identificacion").slideUp("slow");
+	$("#valida_minimo_mod_identificacion").slideUp("slow");
+	$("#valida_maximo_mod_identificacion").slideUp("slow");
+	$("#error_mod_identificacion_ya_existe").slideUp("slow");
+	
+	$("#error_mod_nombre_completo").slideUp("slow");
+	$("#valida_minimo_mod_nombre_completo").slideUp("slow");
+	$("#valida_maximo_mod_nombre_completo").slideUp("slow");
+	$("#error_mod_nombre_completo_ya_existe").slideUp("slow");
 
-		if(envio_mod_identificacion.length>3){	
-		$('#sugerencias_mod_identificacion').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
-			$.ajax({
-				type: 'POST',
-				url: 'admin_usuarios/buscador_usuarios.php',
-				data: {
-					'search_mod_id' : envio_mod_identificacion,
-					'search_ant_mod_id' : envio_ant_mod_id,
-					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-				},			
-				success: function(resp){
-					if(resp!=""){
-						$('#sugerencias_mod_identificacion').html(resp);
+	$("#error_mod_login").slideUp("slow");
+	$("#valida_minimo_mod_login").slideUp("slow");
+	$("#valida_maximo_mod_login").slideUp("slow");
+	$("#error_mod_login_ya_existe").slideUp("slow");
+
+	$("#error_mod_mail").slideUp("slow");
+	$("#valida_minimo_mod_mail").slideUp("slow");
+	$("#valida_maximo_mod_mail").slideUp("slow");
+	$("#error_mod_mail_formato").slideUp("slow");
+
+	$("#error_mod_dependencia").slideUp();
+	$("#valida_minimo_mod_dependencia").slideUp("slow");
+	$("#valida_maximo_mod_dependencia").slideUp("slow");
+	$("#error_mod_dependencia_invalida").slideUp("slow");
+	$("#error_mod_dependencia_inexistente").slideUp("slow");
+
+	$("#error_mod_perfil").slideUp("slow");	
+
+	$("#error_mod_imagen_invalida").slideUp("slow");	
+}
+/* Script buscador identificacion - Formulario Modificar Nuevo Usuarios */		
+$("#mod_identificacion").on("input",function(e){ // Accion que se activa cuando se digita #mod_identificacion
+    $('#sugerencias_mod_identificacion').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+	oculta_mod_errores();
+	var envio_mod_identificacion = $(this).val();	
+	var envio_ant_mod_id =$("#ant_mod_identificacion").val();
+
+	if($(this).data("lastval")!= envio_mod_identificacion){
+    	$(this).data("lastval",envio_mod_identificacion);
+                
+		clearTimeout(timerid);
+		timerid = setTimeout(function() {
+     		if(envio_mod_identificacion.length>2 && envio_mod_identificacion.length<50){
+				$.ajax({
+					type: 'POST',
+					url: 'admin_usuarios/buscador_usuarios.php',
+					data: {
+						'search_mod_id' : envio_mod_identificacion,
+						'search_ant_mod_id' : envio_ant_mod_id,
+						'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+					},			
+					success: function(resp){
+						if(resp!=""){
+							$('#sugerencias_mod_identificacion').html(resp);
+						}
 					}
-				}
-			})	
-		}else{
-			$('#sugerencias_mod_identificacion').html('');
-		}
-	})
+				})		 		
+			}else{
+				$('#sugerencias_mod_identificacion').html('');
+				$('.errores').slideUp('slow');
+			}	
+			if(envio_mod_identificacion.length>50){
+				$('#sugerencias_mod_identificacion').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
+			}  				 
+		},1000);
+    };
 })
-function id_anterior(documento_usuario){
+
+function id_anterior(documento_usuario){ // Funcion que se activa cuando se digita el mismo numero de documento que tenía.
 	$('#mod_identificacion').val(documento_usuario);
 	$('#sugerencias_mod_identificacion').html('');
 	$('#error_mod_identificacion').slideUp('slow');
@@ -924,33 +987,43 @@ function id_anterior(documento_usuario){
 }
 /* Fin script buscador identificacion - Formulario Modificar Nuevo Usuarios */
 /* Script buscador nombre_completo - Formulario Modificar Nuevo Usuarios */
-$(function busca_mod_nombre_completo(){
-	
-	$('#mod_nombre_completo').keyup(function busca_mod_nombre_completo(){
-		var envio_mod_nombre_completo = $('#mod_nombre_completo').val();
-		var envio_ant_mod_nombre =$("#ant_mod_nombre_completo").val();
+$("#mod_nombre_completo").on("input",function(e){ // Accion que se activa cuando se digita #mod_nombre_completo
+    $('#sugerencias_mod_nombre_completo').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+	oculta_mod_errores();
+	var envio_mod_nombre_completo = $(this).val();	
+	var envio_ant_mod_nombre =$("#ant_mod_nombre_completo").val();
 
-		if(envio_mod_nombre_completo.length>3){	
-		$('#sugerencias_mod_nombre_completo').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
-			$.ajax({
-				type: 'POST',
-				url: 'admin_usuarios/buscador_usuarios.php',
-				data: {
-					'search_mod_nombre_completo' : envio_mod_nombre_completo,
-					'search_ant_mod_nom' : envio_ant_mod_nombre,
-					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-				},			
-				success: function(resp){
-					if(resp!=""){
-						$('#sugerencias_mod_nombre_completo').html(resp);
+	if($(this).data("lastval")!= envio_mod_nombre_completo){
+    	$(this).data("lastval",envio_mod_nombre_completo);
+                
+		clearTimeout(timerid);
+		timerid = setTimeout(function() {
+     		if(envio_mod_nombre_completo.length>2 && envio_mod_nombre_completo.length<50){
+				$.ajax({
+					type: 'POST',
+					url: 'admin_usuarios/buscador_usuarios.php',
+					data: {
+						'search_mod_nombre_completo' : envio_mod_nombre_completo,
+						'search_ant_mod_nom' : envio_ant_mod_nombre,
+						'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+					},			
+					success: function(resp){
+						if(resp!=""){
+							$('#sugerencias_mod_nombre_completo').html(resp);
+						}
 					}
-				}
-			})	
-		}else{
-			$('#sugerencias_mod_nombre_completo').html('');
-		}
-	})
+				})		 		
+			}else{
+				$('#sugerencias_mod_nombre_completo').html('');
+				$('.errores').slideUp('slow');
+			}	
+			if(envio_mod_nombre_completo.length>50){
+				$('#sugerencias_mod_nombre_completo').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
+			}  				 
+		},1000);
+    };
 })
+
 function nombre_anterior(mod_nombre_completo){
 	$('#mod_nombre_completo').val(mod_nombre_completo);
 	$('#sugerencias_mod_nombre_completo').html('');
@@ -963,35 +1036,44 @@ function nombre_anterior(mod_nombre_completo){
 }
 /* Fin script buscador nombre_completo - Formulario Modificar Nuevo Usuarios */
 /* Script buscador mod_login - Formulario Modificar Usuario */
-$(function busca_mod_login(){	
-	
-	$('#mod_login').keyup(function busca_mod_login(){
-		var envio_mod_login =$('#mod_login').val();
-		var envio_ant_mod_login=$('#ant_mod_login').val();
+$("#mod_login").on("input",function(e){ // Accion que se activa cuando se digita #mod_login
+    $('#sugerencias_mod_login').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+	oculta_mod_errores();
+	var envio_mod_login = $(this).val();	
+	var envio_ant_mod_login =$("#ant_mod_login").val();
 
-		if(envio_mod_login.length>1){
-		$('#sugerencias_mod_login').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+	if($(this).data("lastval")!= envio_mod_login){
+    	$(this).data("lastval",envio_mod_login);
+            
+		clearTimeout(timerid);
+		timerid = setTimeout(function() {
+     		if(envio_mod_login.length>2 && envio_mod_login.length<50){
 
-			$.ajax({
-				type: 'POST',
-				url: 'admin_usuarios/buscador_usuarios.php',
-				data: {
-					'search_mod_login' : envio_mod_login,
-					'search_ant_mod_login' : envio_ant_mod_login,
-					'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-				},			
-				success: function(resp){
-					if(resp!=""){
-						$('#sugerencias_mod_login').html(resp);
+				$.ajax({
+					type: 'POST',
+					url: 'admin_usuarios/buscador_usuarios.php',
+					data: {
+						'search_mod_login' : envio_mod_login,
+						'search_ant_mod_login' : envio_ant_mod_login,
+						'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+					},			
+					success: function(resp){
+						if(resp!=""){
+							$('#sugerencias_mod_login').html(resp);
+						}
 					}
-				}
-			})	
-		}else{
-			$('#sugerencias_mod_login').html('');			
-		}
-
-	})
+				})		 		
+			}else{
+				$('#sugerencias_mod_login').html('');
+				$('.errores').slideUp('slow');
+			}	
+			if(envio_mod_login.length>50){
+				$('#sugerencias_mod_login').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
+			}  				 
+		},1000);
+    };
 })
+
 function login_anterior(login){
 	$('#mod_login').val(login);
 	$('#sugerencias_mod_login').html('');
@@ -1004,27 +1086,43 @@ function login_anterior(login){
 }
 /* Fin script buscador mod_login - Formulario Modificar Usuario */
 /* Script buscador mod_dependencia - Formulario Modificar Usuarios */
-$(function busca_mod_dependencia(){	
-	//$('#mod_nombre_dependencia').focus();
-	
-	$('#mod_nombre_dependencia').keyup(function busca_mod_dependencia(){
-		var envio_mod_dependencia = $('#mod_nombre_dependencia').val();
-		var search_ant_mod_depe=$("#mod_ant_mod_nom_depe").val();
-		$.ajax({
-			type: 'POST',
-			url: 'admin_usuarios/buscador_usuarios.php',
-			data: {
-				'search_mod_dependencia' : envio_mod_dependencia,
-				'search_ant_mod_depe' : search_ant_mod_depe,
-				'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
-			},			
-			success: function(resp){
-				if(resp!=""){
-					$('#sugerencias_mod_dependencia').html(resp);
-				}
-			}
-		})	
-	})
+
+$("#mod_nombre_dependencia").on("input",function(e){ // Accion que se activa cuando se digita #mod_nombre_dependencia
+	$('#sugerencias_mod_dependencia').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+	oculta_mod_errores();
+	var envio_mod_dependencia = $(this).val();	
+	var search_ant_mod_depe =$("#mod_ant_mod_nom_depe").val();
+
+	if($(this).data("lastval")!= envio_mod_dependencia){
+    	$(this).data("lastval",envio_mod_dependencia);
+            
+		clearTimeout(timerid);
+		timerid = setTimeout(function() {
+     		if(envio_mod_dependencia.length>2 && envio_mod_dependencia.length<50){
+
+				$.ajax({
+					type: 'POST',
+					url: 'admin_usuarios/buscador_usuarios.php',
+					data: {
+						'search_mod_dependencia' : envio_mod_dependencia,
+						'search_ant_mod_depe' : search_ant_mod_depe,
+						'desde_formulario' : '1' // Envio variable para que no salga "Para agregar usuario haga click aqui"
+					},			
+					success: function(resp){
+						if(resp!=""){
+							$('#sugerencias_mod_dependencia').html(resp);
+						}
+					}
+				})		 		
+			}else{
+				$('#sugerencias_mod_dependencia').html('');
+				$('.errores').slideUp('slow');
+			}	
+			if(envio_mod_dependencia.length>50){
+				$('#sugerencias_mod_dependencia').html('<h4>La busqueda debe tener 50 caracteres maximo. Revise por favor</h4>');
+			}  				 
+		},1000);
+    };
 })
 /* Fin script buscador mod_dependencia - Formulario Modificar Usuarios */
 
@@ -1050,6 +1148,7 @@ function valida_mod_login_ya_existe(){
 function valida_mod_perfil(){
 	var mod_depe_codi = $("#mod_codigo_dependencia").val();
 	var mod_perfil=$("#mod_perfil").val();
+	var ant_mod_login=$("#ant_mod_nombre_completo").val();
 		
 	$("#depe_mod_perfil").html(mod_depe_codi);
 	$("#mod_perfil_p").html(mod_perfil);
@@ -1060,6 +1159,7 @@ function valida_mod_perfil(){
 		data: {
 			'search_mod_perfil_depe_codi' : mod_depe_codi,
 			'search_mod_perfil' : mod_perfil,
+			'ant_mod_login' : ant_mod_login,
 			'desde_formulario' : '1'
 		},
 		success: function(resp){
@@ -1067,143 +1167,38 @@ function valida_mod_perfil(){
 				$('#sugerencias_mod_perfil').html(resp);
 			}
 		}
-	})
-	
+	})	
 }
 /* Fin script que valida si el mod_perfil del usuario esta disponible en la dependencia - Formulario Modificar Usuario*/
-
-/* Script espacios mod_identificacion - Formulario Modificar Usuario */
-function espacios_mod_identificacion(){
-	var str = $('#mod_identificacion').val();
-	str = str.replace('-','');	str = str.replace('°','');	str = str.replace('!','');
-	str = str.replace('|','');	str = str.replace('"','');	str = str.replace('$','');
-	str = str.replace('#','');	str = str.replace('%','');	str = str.replace('&','');
-	str = str.replace('=','');	str = str.replace('?','');	str = str.replace('¿','');
-	str = str.replace('¡','');	str = str.replace('(','');	str = str.replace(')','');
-	str = str.replace('{','');	str = str.replace('}','');	str = str.replace('[','');
-	str = str.replace(']','');	str = str.replace('.','');	str = str.replace(';','');
-	str = str.replace(':','');	str = str.replace('_','');	str = str.replace('~','');
-	str = str.replace('@','');	str = str.replace('´','');	str = str.replace("+",'');
-	str = str.replace("/","");	str = str.replace("*","");	str = str.replace("'","");
-	str = str.replace(',','');	str = str.replace('^','');	str = str.replace('<','');
-	str = str.replace('>','');	str = str.replace('  ','');
-
-	if (isNaN(str)) {
-		$("#error_no_es_mod_numero").slideDown("slow");
+/* Funcion para validar tipo de archivo - Formulario Agregar Usuario */
+function valida_mod_tipo_archivo(){
+	var imagen = document.getElementById("imagen2").files;
+	
+	if(imagen.length==0){
+		//$("#error_imagen").slideDown("slow");
 	}else{
-		$("#error_no_es_mod_numero").slideUp("slow");
+		//$("#error_imagen").slideUp("slow");
+		for(x=0; x<imagen.length; x++){
+			if(imagen[x].type!= "image/png" && imagen[x].type!="image/jpg"  && imagen[x].type!="image/jpeg" && imagen[x].type!="image/gif"){
+				$("#error_mod_imagen_invalida").slideDown("slow");
+				return false;
+			}else{
+				$("#error_mod_imagen_invalida").slideUp("slow");
+			}
+		}
 	}
-	$('#mod_identificacion').val(str);
 }
-/* Fin script espacios mod_identificacion - Formulario Modificar Usuario */
-/* Script espacios mod_nombre_completo - Formulario Modificar Usuario */
-function espacios_mod_nombre_completo(){
-	var str2 = $('#mod_nombre_completo').val();
-
-	str2 = str2.replace('-',''); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
-	str2 = str2.replace('|','');	str2 = str2.replace('"','');	str2 = str2.replace('$','');
-	str2 = str2.replace('#','');	str2 = str2.replace('%','');	str2 = str2.replace('&','');
-	str2 = str2.replace('=','');	str2 = str2.replace('?','');	str2 = str2.replace('¿','');
-	str2 = str2.replace('¡','');	str2 = str2.replace('(','');	str2 = str2.replace(')','');
-	str2 = str2.replace('{','');	str2 = str2.replace('}','');	str2 = str2.replace('[','');
-	str2 = str2.replace(']','');	str2 = str2.replace('.','');	str2 = str2.replace(';','');
-	str2 = str2.replace(':','');	str2 = str2.replace('_','');	str2 = str2.replace('~','');
-	str2 = str2.replace('@','');	str2 = str2.replace('´','');	str2 = str2.replace("+",'');
-	str2 = str2.replace("/","");	str2 = str2.replace("*","");	str2 = str2.replace("'","");
-	str2 = str2.replace(',','');	str2 = str2.replace('^','');	str2 = str2.replace('ñ','N');
-	str2 = str2.replace('Ñ','N');	str2 = str2.replace('á','A');	str2 = str2.replace('é','E');
-	str2 = str2.replace('í','I');	str2 = str2.replace('ó','O');	str2 = str2.replace('ú','U');
-	str2 = str2.replace('Á','A');	str2 = str2.replace('É','E');	str2 = str2.replace('Í','I');
-	str2 = str2.replace('Ó','O');	str2 = str2.replace('Ú','U');	str2 = str2.replace('<','');
-	str2 = str2.replace('>','');	str2 = str2.replace('  ','');
-
-	$('#mod_nombre_completo').val(str2.toUpperCase());
-}
-/* Fin script espacios mod_nombre_completo - Formulario Modificar Usuario */
-/* Script espacios mod_login - Formulario Modificar Usuario */
-function espacios_mod_login(){
-	var str2 = $('#mod_login').val();
-
-	str2 = str2.replace('-',''); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
-	str2 = str2.replace('|','');	str2 = str2.replace('"','');	str2 = str2.replace('$','');
-	str2 = str2.replace('#','');	str2 = str2.replace('%','');	str2 = str2.replace('&','');
-	str2 = str2.replace('=','');	str2 = str2.replace('?','');	str2 = str2.replace('¿','');
-	str2 = str2.replace('¡','');	str2 = str2.replace('(','');	str2 = str2.replace(')','');
-	str2 = str2.replace('{','');	str2 = str2.replace('}','');	str2 = str2.replace('[','');
-	str2 = str2.replace(']','');	str2 = str2.replace(';','');	str2 = str2.replace(':','');	
-	str2 = str2.replace('_','');	str2 = str2.replace('~','');	str2 = str2.replace('@','');	
-	str2 = str2.replace('´','');	str2 = str2.replace("+",'');	str2 = str2.replace("/","");	
-	str2 = str2.replace("*","");	str2 = str2.replace("'","");	str2 = str2.replace(',','');	
-	str2 = str2.replace('^','');	str2 = str2.replace('ñ','N');	str2 = str2.replace('Ñ','N');	
-	str2 = str2.replace('á','A');	str2 = str2.replace('é','E');	str2 = str2.replace('í','I');	
-	str2 = str2.replace('ó','O');	str2 = str2.replace('ú','U');	str2 = str2.replace('Á','A');	
-	str2 = str2.replace('É','E');	str2 = str2.replace('Í','I');	str2 = str2.replace('Ó','O');	
-	str2 = str2.replace('Ú','U');	str2 = str2.replace('<','');	str2 = str2.replace('>','');	
-	str2 = str2.replace('  ','');
-
-	$('#mod_login').val(str2.toUpperCase());
-}
-/* Fin script espacios mod_login - Formulario Modificar Usuario */
-/* Script espacios mod_mail - Formulario Modificar Usuario */
-function espacios_mod_mail(){
-	var str2 = $('#mod_mail').val();
-
-	str2 = str2.replace('ñ','N');	str2 = str2.replace('Ñ','N');	str2 = str2.replace('á','A');	
-	str2 = str2.replace('é','E');	str2 = str2.replace('í','I');	str2 = str2.replace('ó','O');	
-	str2 = str2.replace('ú','U');	str2 = str2.replace('Á','A');	str2 = str2.replace('É','E');	
-	str2 = str2.replace('Í','I');	str2 = str2.replace('Ó','O');	str2 = str2.replace('Ú','U');	
-	str2 = str2.replace('  ','');
-
-	$('#mod_mail').val(str2.toUpperCase());
-}
-function validar_mod_email(mod_mail) {
-    expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if ( !expr.test(mod_mail) ){
-    	$("#error_mod_mail_formato").slideDown();
-    	$("#mod_mail").focus();
-    	return false;
-    }else {	
-		$("#error_mod_mail_formato").slideUp();
-  	}
-}
-/* Fin script espacios mod_mail - Formulario Modificar Usuario */
-/* Script espacios dependencia - Formulario Modificar Usuario */
-
-function espacios_mod_dependencia(){
-	var str2 = $('#mod_nombre_dependencia').val();
-
-	str2 = str2.replace('-',''); 	str2 = str2.replace('°','');	str2 = str2.replace('!','');
-	str2 = str2.replace('|','');	str2 = str2.replace('"','');	str2 = str2.replace('$','');
-	str2 = str2.replace('#','');	str2 = str2.replace('%','');	str2 = str2.replace('&','');
-	str2 = str2.replace('=','');	str2 = str2.replace('?','');	str2 = str2.replace('¿','');
-	str2 = str2.replace('¡','');	str2 = str2.replace('(','');	str2 = str2.replace(')','');
-	str2 = str2.replace('{','');	str2 = str2.replace('}','');	str2 = str2.replace('[','');
-	str2 = str2.replace(']','');	str2 = str2.replace('.','');	str2 = str2.replace(';','');
-	str2 = str2.replace(':','');	str2 = str2.replace('_','');	str2 = str2.replace('~','');
-	str2 = str2.replace('@','');	str2 = str2.replace('´','');	str2 = str2.replace("+",'');
-	str2 = str2.replace("/","");	str2 = str2.replace("*","");	str2 = str2.replace("'","");
-	str2 = str2.replace(',','');	str2 = str2.replace('^','');	str2 = str2.replace('ñ','N');
-	str2 = str2.replace('Ñ','N');	str2 = str2.replace('á','A');	str2 = str2.replace('é','E');
-	str2 = str2.replace('í','I');	str2 = str2.replace('ó','O');	str2 = str2.replace('ú','U');
-	str2 = str2.replace('Á','A');	str2 = str2.replace('É','E');	str2 = str2.replace('Í','I');
-	str2 = str2.replace('Ó','O');	str2 = str2.replace('Ú','U');	str2 = str2.replace('<','');
-	str2 = str2.replace('>','');	str2 = str2.replace('  ','');
-
-	$('#mod_nombre_dependencia').val(str2.toUpperCase());
-}
-/* Fin script espacios dependencia - Formulario Modificar Usuario */
-
-
-
+/* Fin funcion para validar tipo de archivo - Formulario Agregar Usuario */
 /* Script para validar campo mod_identificacion - Formulario Modificar Usuario */
-function validar_mod_identificacion(mod_identificacion){
+function validar_mod_identificacion(){
+	var mod_identificacion =$('#mod_identificacion').val();
+
 	if(mod_identificacion==""){
 		$("#error_mod_identificacion").slideDown("slow");
 		$("#valida_minimo_mod_identificacion").slideUp("slow");
 		$("#valida_maximo_mod_identificacion").slideUp("slow");
 		$("#error_mod_identificacion_ya_existe").slideUp("slow");
 
-		$("#mod_identificacion").focus();
 		return false;
 	}else{
 		if(mod_identificacion.length<6){
@@ -1212,7 +1207,6 @@ function validar_mod_identificacion(mod_identificacion){
 			$("#valida_maximo_mod_identificacion").slideUp("slow");
 			$("#error_mod_identificacion_ya_existe").slideUp("slow");
 
-			$("#mod_identificacion").focus();
 			return false;
 		}else{
 			if(mod_identificacion.length>20){
@@ -1221,7 +1215,6 @@ function validar_mod_identificacion(mod_identificacion){
 				$("#valida_maximo_mod_identificacion").slideDown("slow");
 				$("#error_mod_identificacion_ya_existe").slideUp("slow");
 
-				$("#mod_identificacion").focus();
 				return false;
 			}else{
 				if($("#sugerencia_mod_id").is(":visible")){
@@ -1230,7 +1223,6 @@ function validar_mod_identificacion(mod_identificacion){
 					$("#valida_maximo_mod_identificacion").slideUp("slow");
 					$("#error_mod_identificacion_ya_existe").slideDown("slow");
 
-					$("#mod_identificacion").focus();
 					return false;
 				}else{
 					if($("#error_no_es_mod_numero").is(":visible")){
@@ -1239,13 +1231,13 @@ function validar_mod_identificacion(mod_identificacion){
 						$("#valida_maximo_mod_identificacion").slideUp("slow");
 						$("#error_mod_identificacion_ya_existe").slideUp("slow");
 
-						$("#mod_identificacion").focus();
 						return false;
 					}else{
 						$("#error_mod_identificacion").slideUp("slow");
 						$("#valida_minimo_mod_identificacion").slideUp("slow");
 						$("#valida_maximo_mod_identificacion").slideUp("slow");
 						$("#error_mod_identificacion_ya_existe").slideUp("slow");
+
 						return true;
 					}
 				}
@@ -1257,14 +1249,15 @@ function validar_mod_identificacion(mod_identificacion){
 /* Fin script para validar campo mod_identificacion - Formulario Modificar Usuario */
 
 /* Script para validar campo mod_nombre_completo - Formulario Modificar Usuario */
-function validar_mod_nom_completo(mod_nombre_completo){
+function validar_mod_nom_completo(){
+	var mod_nombre_completo=$("#mod_nombre_completo").val();
+
 	if(mod_nombre_completo==""){
 		$("#error_mod_nombre_completo").slideDown("slow");
 		$("#valida_minimo_mod_nombre_completo").slideUp("slow");
 		$("#valida_maximo_mod_nombre_completo").slideUp("slow");
 		$("#error_mod_nombre_completo_ya_existe").slideUp("slow");
 
-		$("#mod_nombre_completo").focus();	
 		return false;					
 	}else{
 		if(mod_nombre_completo.length<6){
@@ -1273,16 +1266,14 @@ function validar_mod_nom_completo(mod_nombre_completo){
 			$("#valida_maximo_mod_nombre_completo").slideUp("slow");
 			$("#error_mod_nombre_completo_ya_existe").slideUp("slow");
 
-			$("#mod_nombre_completo").focus();
 			return false;
 		}else{
-			if(mod_nombre_completo.length>30){
+			if(mod_nombre_completo.length>50){
 				$("#error_mod_nombre_completo").slideUp("slow");
 				$("#valida_minimo_mod_nombre_completo").slideUp("slow");
 				$("#valida_maximo_mod_nombre_completo").slideDown("slow");
 				$("#error_mod_nombre_completo_ya_existe").slideUp("slow");
 
-				$("#mod_nombre_completo").focus();
 				return false;
 			}else{
 				if($("#sugerencia_mod_nom").is(":visible")){
@@ -1291,13 +1282,13 @@ function validar_mod_nom_completo(mod_nombre_completo){
 					$("#valida_maximo_mod_nombre_completo").slideUp("slow");
 					$("#error_mod_nombre_completo_ya_existe").slideDown("slow");
 
-					$("#mod_nombre_completo").focus();
 					return false;
 				}else{
 					$("#error_mod_nombre_completo").slideUp("slow");
 					$("#valida_minimo_mod_nombre_completo").slideUp("slow");
 					$("#valida_maximo_mod_nombre_completo").slideUp("slow");
 					$("#error_mod_nombre_completo_ya_existe").slideUp("slow");
+
 					return true;
 				}
 			}
@@ -1307,15 +1298,16 @@ function validar_mod_nom_completo(mod_nombre_completo){
 /* Fin script para validar campo mod_nombre_completo - Formulario Modificar Usuario */
 
 /* Script para validar campo mod_login - Formulario Modificar Usuario */
-function validar_modif_login(mod_login){
-	if(mod_login==""){
-	$("#error_mod_login").slideDown("slow");
-	$("#valida_minimo_mod_login").slideUp("slow");
-	$("#valida_maximo_mod_login").slideUp("slow");
-	$("#error_mod_login_ya_existe").slideUp("slow");
+function validar_modif_login(){
+	var mod_login=$("#mod_login").val();
 
-	$("#mod_login").focus();	
-	return false;					
+	if(mod_login==""){
+		$("#error_mod_login").slideDown("slow");
+		$("#valida_minimo_mod_login").slideUp("slow");
+		$("#valida_maximo_mod_login").slideUp("slow");
+		$("#error_mod_login_ya_existe").slideUp("slow");
+
+		return false;					
 	}else{
 		if(mod_login.length<6){
 			$("#error_mod_login").slideUp("slow");
@@ -1323,7 +1315,6 @@ function validar_modif_login(mod_login){
 			$("#valida_maximo_mod_login").slideUp("slow");
 			$("#error_mod_login_ya_existe").slideUp("slow");
 
-			$("#mod_login").focus();
 			return false;
 		}
 		else{
@@ -1333,7 +1324,6 @@ function validar_modif_login(mod_login){
 				$("#valida_maximo_mod_login").slideDown("slow");
 				$("#error_mod_login_ya_existe").slideUp("slow");
 
-				$("#mod_login").focus();
 				return false;
 			}else{
 				if($("#sugerencia_mod_login").is(":visible")){
@@ -1342,13 +1332,13 @@ function validar_modif_login(mod_login){
 					$("#valida_maximo_mod_login").slideUp("slow");
 					$("#error_mod_login_ya_existe").slideDown("slow");
 
-					$("#mod_login").focus();
 					return false;
 				}else{
 					$("#error_mod_login").slideUp("slow");
 					$("#valida_minimo_mod_login").slideUp("slow");
 					$("#valida_maximo_mod_login").slideUp("slow");
 					$("#error_mod_login_ya_existe").slideUp("slow");
+
 					return true;
 				}
 			}
@@ -1357,14 +1347,15 @@ function validar_modif_login(mod_login){
 }	
 /* Fin script para validar campo mod_login - Formulario Modificar Usuario */
 /* Script para validar campo mod_mail - Formulario Modificar Usuario */
-function validar_modif_email(mod_mail){
+function validar_modif_email(){
+	var mod_mail=$("#mod_mail").val();
+
 	if(mod_mail==""){
 		$("#error_mod_mail").slideDown("slow");
 		$("#valida_minimo_mod_mail").slideUp("slow");
 		$("#valida_maximo_mod_mail").slideUp("slow");
 		$("#error_mod_mail_formato").slideUp("slow");
 
-		$("#mod_mail").focus();
 		return false;
 	}else{
 		if(mod_mail.length<6){
@@ -1373,7 +1364,6 @@ function validar_modif_email(mod_mail){
 			$("#valida_maximo_mod_mail").slideUp("slow");
 			$("#error_mod_mail_formato").slideUp("slow");
 
-			$("#mod_mail").focus();
 			return false;
 		}else{
 			if(mod_mail.length>30){
@@ -1382,7 +1372,6 @@ function validar_modif_email(mod_mail){
 				$("#valida_maximo_mod_mail").slideDown("slow");
 				$("#error_mod_mail_formato").slideUp("slow");
 
-				$("#mod_mail").focus();
 				return false;
 			}else{
 				$("#error_mod_mail").slideUp("slow");
@@ -1390,24 +1379,37 @@ function validar_modif_email(mod_mail){
 				$("#valida_maximo_mod_mail").slideUp("slow");
 				$("#error_mod_mail_formato").slideUp("slow");
 
-				var valida_mod_mail = validar_mod_email(mod_mail);
-				if(valida_mod_mail==false){
-					return false;
-				}else{ 
-					$("#error_mod_mail").slideUp("slow");
-					$("#valida_minimo_mod_mail").slideUp("slow");
-					$("#valida_maximo_mod_mail").slideUp("slow");
-						
-					$("#mod_nombre_dependencia").focus();
-					return true;
-				}
+				return true
 			}
 		}
 	}
 }	
 /* Fin script para validar campo mod_mail - Formulario Modificar Usuario */
+/* Script para validar formato mod_mail - Formulario Modificar Usuario */
+function validar_modif_email2(){
+	var mod_mail=$("#mod_mail").val();
+	
+    expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	
+    if ( !expr.test(mod_mail) ){
+    	$("#error_mod_mail_formato").slideDown();
+    	$("#mod_mail").focus();
+    	return false;
+    }else {	
+		$("#error_mod_mail_formato").slideUp();
+		$("#error_mod_mail").slideUp("slow");
+		$("#valida_minimo_mod_mail").slideUp("slow");
+		$("#valida_maximo_mod_mail").slideUp("slow");
+
+		return true;
+	}
+}
+/* Script para validar formato mod_mail - Formulario Modificar Usuario */
+
 /* Script para validar campo mod_dependencia - Formulario Modificar Usuario */
-function validar_modif_dep(mod_depe){			
+function validar_modif_dep(){			
+	var mod_depe=$("#mod_nombre_dependencia").val();
+
 	if(mod_depe==""){
 		$("#error_mod_dependencia").slideDown("slow");
 		$("#valida_minimo_mod_dependencia").slideUp("slow");
@@ -1415,7 +1417,6 @@ function validar_modif_dep(mod_depe){
 		$("#error_mod_dependencia_invalida").slideUp("slow");
 		$("#error_mod_dependencia_inexistente").slideUp("slow");
 
-		$("#mod_dependencia").focus();	
 		return false;					
 	}else{
 		if(mod_depe.length<6){
@@ -1425,7 +1426,6 @@ function validar_modif_dep(mod_depe){
 			$("#error_mod_dependencia_invalida").slideUp("slow");
 			$("#error_mod_dependencia_inexistente").slideUp("slow");
 
-			$("#mod_dependencia").focus();
 			return false;
 		}else{
 			if(mod_depe.length>50){
@@ -1435,7 +1435,6 @@ function validar_modif_dep(mod_depe){
 				$("#error_mod_dependencia_invalida").slideUp("slow");
 				$("#error_mod_dependencia_inexistente").slideUp("slow");
 
-				$("#mod_dependencia").focus();
 				return false;
 			}else{
 				if($("#sugerencia_mod_dependencia").is(":visible")){
@@ -1445,7 +1444,6 @@ function validar_modif_dep(mod_depe){
 					$("#error_mod_dependencia_invalida").slideDown("slow");
 					$("#error_mod_dependencia_inexistente").slideUp("slow");
 
-					$("#mod_dependencia").focus();
 					return false;
 				}else{
 					if($("#error_mod_dependencia_inexistente").is(":visible")){
@@ -1454,7 +1452,6 @@ function validar_modif_dep(mod_depe){
 						$("#valida_maximo_mod_dependencia").slideUp("slow");
 						$("#error_mod_dependencia_invalida").slideUp("slow");
 
-						$("#mod_dependencia").focus();
 						return false
 					}else{
 						$("#error_mod_dependencia").slideUp();
@@ -1463,7 +1460,7 @@ function validar_modif_dep(mod_depe){
 						$("#error_mod_dependencia_invalida").slideUp("slow");
 						$("#error_mod_dependencia_inexistente").slideUp("slow");
 
-						$("#mod_perfil").focus();
+						return true;
 					}
 				}		
 			}
@@ -1471,52 +1468,61 @@ function validar_modif_dep(mod_depe){
 	}			
 }
 /* Fin script para validar campo mod_dependencia - Formulario Modificar Usuario */
+/* Funcion para validar mod_perfil para hacer submit */
+function validar_mod_perfil(){
+	if($("#error_mod_perfil").is(":visible")){
+		return false;
+	}else{
+		if($("#error_imagen_invalida").is(":visible")){
+			return false;
+		}else{
+			$("#error_mod_imagen_invalida").slideUp("slow");
+			return true;																													return true;
+		}		
+	}	
+}
+/* Fin funcion para validar mod_perfil para hacer submit */
 
 /* Funcion para modificar Usuarios */
 function validar_modificar_usuario(){
-	var mod_identificacion =$('#mod_identificacion').val();
-	var validar_mod_id = validar_mod_identificacion(mod_identificacion);
-
-	var mod_nombre_completo=$("#mod_nombre_completo").val();
-	var validar_mod_nombre_completo= validar_mod_nom_completo(mod_nombre_completo);
+	var validar_mod_id = validar_mod_identificacion();
 	
-	var mod_login=$("#mod_login").val();
-	var validar_mod_login= validar_modif_login(mod_login);
-	
-
-	var mod_mail=$("#mod_mail").val();
-	var validar_mod_email= validar_modif_email(mod_mail);
-	
-	var mod_depe=$("#mod_nombre_dependencia").val();
-	var validar_modif_depe=validar_modif_dep(mod_depe);
-
 	if(validar_mod_id==false){
 		$("#mod_identificacion").focus()
 		return false;
 	}else{
+		var validar_mod_nombre_completo= validar_mod_nom_completo();
 		if(validar_mod_nombre_completo==false){
 			$("#mod_nombre_completo").focus();
 			return false;
 		}else{
-			
+			var validar_mod_login= validar_modif_login();
 			if(validar_mod_login==false){
 				$("#mod_login").focus();
 				return false;
 			}else{
+				var validar_mod_email= validar_modif_email();
 				if(validar_mod_email==false){
-					$("#mod_email").focus();
+					$("#mod_mail").focus();
 					return false;
 				}else{
-					if(validar_modif_depe==false){
-						$("#mod_nombre_dependencia").focus();
+					var validar_formato_email=validar_modif_email2();
+					if(validar_formato_email==false){
+						$("#mod_mail").focus();
 						return false;
 					}else{
-						if($("#error_mod_perfil").is(":visible")){
-							$("#mod_perfil").focus();
+						var validar_modif_depe=validar_modif_dep();
+						if(validar_modif_depe==false){
+							$("#mod_nombre_dependencia").focus();
 							return false;
 						}else{
-							return true;
-							
+							var validar_modif_perfil=validar_mod_perfil();
+							if(validar_modif_perfil==false){
+								$("#mod_perfil").focus();
+								return false
+							}else{
+								return true;
+							}
 						}
 					}
 				}
@@ -1530,24 +1536,43 @@ $(function submit_modificar_usuario(){
 		var submit_modificar_usuario = validar_modificar_usuario();
 		if(submit_modificar_usuario==false){
 			return false;
-		}else if(submit_modificar_usuario==true){ // Realizar la modificacion de Usuario
-			alert("Ya estoy actualizando");
-			/*	
-			$.ajax({
-				url:'admin_usuarios/query_usuarios.php',
-				type: 'POST',
-				data: 'data',
-				success: function(resp){
-					$('#formulario_modificar_usuario').submit(); // Realizar la modificacion del usuario
-					$("#contenido").load("admin_usuarios/index_usuarios.php");	
-				}
-			})
-			*/
-		}else{
-			alert("No se puede modificar el usuario. Intente nuevamente")
+		}else{ // Realizar la modificacion de Usuario
+			$('#formulario_modificar_usuario').submit(); // Realizar la modificacion del usuario
+			$("#contenido").load("admin_usuarios/index_usuarios.php");		
 		}										
 	});
 })
+/* Funciones para guardar en base de datos auditoria de modificacion o creacion de usuarios */
+function auditoria(tipo_formulario,login){
+	switch(tipo_formulario){
+		case'crear_usuario':
+		var trans = "creado";
+			break;
+		case'modificar_usuario':
+		var trans ="modificado";
+			break;	
+	}
+	$.ajax({	// Guardo registro de ingreso al sistema para auditoria
+		type: 'POST',
+		url: '../login/transacciones.php',
+		data: {
+			'transaccion' : tipo_formulario,
+			'creado' : 	login
+		},			
+		success: function(resp1){
+			if(resp1=="true"){
+				alert("El Usuario ha sido "+trans+" correctamente");
+				volver();
+			}else{
+				alert(resp1)
+			}
+		}
+	})
+}
+function volver(){
+	window.location.href='../principal3.php'
+}		
+/* Fin funciones para guardar en base de datos auditoria de modificacion o creacion de usuarios */
 
 /************************************************************************************************************/
 /* Fin Modificar Usuarios ***********************************************************************************/
@@ -1580,8 +1605,22 @@ function modificar_pass_usuario(){
 					'pass':pass2 
 				},
 				success: function(resp){
-					alert(resp)
-					window.location.href='principal3.php';
+					$.ajax({	// Guardo registro de ingreso al sistema para auditoria
+						type: 'POST',
+						url: 'login/transacciones.php',
+						data: {
+							'transaccion' : 'cambio_pass'	
+						},			
+						success: function(resp1){
+							if(resp1=="true"){
+								alert(resp)
+								location.href='principal3.php';			
+							}else{
+								alert(resp1)
+						//		break;
+							}
+						}
+					})	
 				}
 			})	
 		}

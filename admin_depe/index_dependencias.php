@@ -1,11 +1,12 @@
-<?php require_once('../login/conexion2.php') ?>
+<?php 
+	require_once("../login/validar_inactividad.php");
+	//require_once('../login/conexion2.php') 
+?>
 <!DOCTYPE html>
 <html >
 <head>
 	<meta charset="UTF-8">
 	<title>Buscador de Dependencias</title>
-	<!--<link href="http://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type ="text/css">-->
-	<!--<script type="text/javascript" src="include/js/jquery.js"></script>-->
 	<script type="text/javascript" src="include/js/funciones_dependencias.js"></script>
 	<link rel="stylesheet" href="include/css/estilos_dependencias.css">
 </head>
@@ -22,8 +23,9 @@
 						<tr>
 							<td class="input_text">Codigo de la Dependencia (Letra o Numero) :</td>
 							<td>
-							<input type="hidden" name ="tipo_formulario" id="tipo_formulario" value="1"><!--Valor 1 equivale a "Formulario de Agregar Municipios" en query_dependencias.php-->
-								<input type="text" placeholder="Digite Codigo Dependencia Alfanumerico" name="codigo_dependencia" id="codigo_dependencia" onkeyup="espacios_codigo_dependencia()" onblur="validar_grabar_dependencia()" maxlength="3" >
+							<input type="hidden" name ="tipo_formulario" id="tipo_formulario" value="crear_dependencia"><!-- Tipo de formulario para query_dependencias.php -->
+								<input type="search" placeholder="Digite Codigo Dependencia Alfanumerico" name="codigo_dependencia" id="codigo_dependencia" onkeyup="espacios_codigo_dependencia()" onblur="validar_grabar_dependencia()" maxlength="3" >
+								<div id="sugerencia_codigo_dependencia"></div>
 								
 								<div id="codigo_dependencia_ya_existe" class="errores">El codigo de la dependencia ya existe, no es posible crear una nueva dependencia con éste código</div>								
 								<div id="error_codigo_dependencia" class="errores">El codigo de la dependencia es obligatoria</div>
@@ -33,7 +35,7 @@
 						<tr>
 							<td class="input_text">Nombre de la Dependencia :</td>
 							<td>
-								<input type="text" placeholder="Digite Nombre de la dependencia" name="nombre_dependencia" id="nombre_dependencia" onkeyup="espacios_nombre_dependencia()" onblur="validar_grabar_dependencia()">
+								<input type="search" placeholder="Digite Nombre de la dependencia" name="nombre_dependencia" id="nombre_dependencia" onkeyup="espacios_formulario_dependencia('nombre_dependencia')" onblur="validar_grabar_dependencia()">
 								<div id="sugerencia_nombre_dependencia" class="sugerencia"></div>
 								<div id="nombre_dependencia_ya_existe" class="errores">El nombre de la dependencia ya existe, no es posible crear una nueva dependencia con éste nombre</div>								
 								<div id="error_nombre_dependencia" class="errores">El nombre de la dependencia es obligatoria</div>
@@ -44,7 +46,7 @@
 						<tr>
 							<td class="input_text">Dependencia Padre :</td>
 							<td>
-								<input type="text" placeholder="Digite Dependencia Padre (Si tiene)" name="dependencia_padre" id="dependencia_padre" onkeyup="espacios_dependencia_padre()" >							
+								<input type="search" placeholder="Digite Dependencia Padre (Si tiene)" name="dependencia_padre" id="dependencia_padre" onkeyup="espacios_formulario_dependencia('dependencia_padre')" >							
 								<div id="sugerencia_dependencia_padre" class="sugerencia"></div>
 								<div id="error_nombre_dependencia_padre" class="errores">El nombre de la dependencia padre no existe en la base de datos. Intente otro nombre</div>
 								<div id="error_nombre_dependencia_padre2" class="errores">Por favor seleccione una dependencia padre válida</div>
@@ -68,11 +70,10 @@
 				<form action="admin_depe/query_dependencias.php" method="post" id ="formulario_modificar_dependencia" name ="formulario_modificar_dependencia" >
 					<table>
 						<tr>
-							<input type="hidden" name ="id_dependencia" id="id_dependencia">
-							<input type="hidden" name ="tipo_formulario"id="tipo_formulario" value="2"><!--Valor 2 equivale a "Formulario de Modificación Dependencias" en query_dependencias.php-->
-							<input type="hidden" name ="antiguo_mod_padre" id="antiguo_mod_padre">
-
 							<td class="input_text">Codigo de la Dependencia (Letra o Numero) :</td>
+								<input type="hidden" name ="id_dependencia" id="id_dependencia">
+								<input type="hidden" name ="tipo_formulario" id="tipo_formulario" value="modificar_dependencia"><!--Tipo de formulario para query_dependencias.php-->
+								<input type="hidden" name ="antiguo_mod_padre" id="antiguo_mod_padre">
 							<td>
 								<input type="text" name="mod_codigo_dependencia" id="mod_codigo_dependencia" title="Este campo no se puede modificar" class="readonly" readonly >
 							</td>
@@ -80,19 +81,19 @@
 						<tr>
 							<td class="input_text">Nombre de la Dependencia :</td>
 							<td>
-								<input type="text" placeholder="Digite Nombre de la dependencia" name="mod_nombre_dependencia" id="mod_nombre_dependencia" onkeyup="espacios_mod_nombre_dependencia()">
+								<input type="search" placeholder="Digite Nombre de la dependencia" name="mod_nombre_dependencia" id="mod_nombre_dependencia" onkeyup="espacios_formulario_dependencia('mod_nombre_dependencia')" onblur="validar_modificar_dependencia()">
 								<input type="hidden" name="antiguo_nombre_dependencia" id="antiguo_nombre_dependencia">
 								<div id="sugerencia_mod_nombre_dependencia" class="sugerencia"></div>
 								<div id="mod_dependencia_ya_existe" class="errores">El nombre de la dependencia ya existe, no es posible modificar una nueva dependencia asignando éste nombre</div>								
-								<div id="error_mod_nombre_dependencia" class="errores">El nombre de la dependencia es obligatoria</div>
+								<div id="error_mod_nombre_dependencia" class="errores">El nombre de la dependencia es obligatorio</div>
 								<div id="valida_minimo_mod_nombre" class="errores">El nombre de la dependencia no puede ser menor a 6 caracteres (numeros o letras)</div>
-								<div id="valida_maximo_mod_nombre" class="errores">El nombre de la dependencia no puede ser mayor a 40 caracteres (numeros o letras)</div>
+								<div id="valida_maximo_mod_nombre" class="errores">El nombre de la dependencia no puede ser mayor a 50 caracteres (numeros o letras)</div>
 							</td>
 						</tr>
 						<tr>
 							<td class="input_text">Dependencia Padre :</td>
 							<td>
-								<input type="text" placeholder="Digite Dependencia Padre (Si tiene)" name="mod_dependencia_padre" id="mod_dependencia_padre" onkeyup="espacios_mod_dependencia_padre()" >							
+								<input type="search" placeholder="Digite Dependencia Padre (Si tiene)" name="mod_dependencia_padre" id="mod_dependencia_padre" onkeyup="espacios_formulario_dependencia('mod_dependencia_padre')" onblur="validar_modificar_dependencia()">							
 								<div id="sugerencia_dependencia_mod_padre" class="sugerencia"></div>
 								<div id="error_nombre_mod_dependencia_padre" class="errores">El nombre de la dependencia no existe en la base de datos. Intente otro nombre</div>
 								<div id="error_nombre_mod_dependencia_padre2" class="errores">Por favor seleccione una dependencia padre válida</div>
@@ -126,7 +127,7 @@
 			
 		</div>
 		<div class="form center">
-				<input type="text" id="search_dependencias">
+				<input type="search" id="search_dependencias">
 		</div>
 		<div id="desplegable_resultados"></div>
 		<div id="error_dependencias" class="errores">La dependencia que ha digitado no se encuentra en la base de datos.

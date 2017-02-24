@@ -45,19 +45,19 @@
 						<ul id="boton_menu" class="children">
 						<?php 
 							if ($perfil=='ADMINISTRADOR_SISTEMA'){ // Solo muestra CRUD usuarios si el perfil es  Administrador del sistema  ?>
-							<li id="admin_usuarios" onclick="carga_administrador_usuarios()"><a href="#">
-							<span class="icon-users"></span> Usuarios y Perfiles</a></li>
-						<?php } ?>
+								<li id="admin_usuarios" onclick="carga_administrador_usuarios()"><a href="#">
+								<span class="icon-users"></span> Usuarios y Perfiles</a></li>
 
-							<li id="admin_dependencias" onclick="carga_administrador_dependencias()" ><a href="#"><span class="icon-tree"></span> Dependencias</a></li>
-							<!--
-							<li><a href="#"><span class="icon-tools"></span> Configuración de Envíos</a></li>
-							<li><a href="#"><span class="icon-cogs"></span> Configuración de Devoluciones</a></li>
-							-->
-							<li id="admin_municipios" onclick="carga_administrador_municipios()"><a href="#"><span class="icon-globe"></span> Configuración Países-Departamentos-Municipios</a></li>
-							<!--
-							<li><a href="#"><span class="icon-thumbs-up"></span> Generar Paz y Salvo Jonas</a></li>
-							-->
+								<li id="admin_dependencias" onclick="carga_administrador_dependencias()" ><a href="#"><span class="icon-tree"></span> Dependencias</a></li>
+								<!--
+								<li><a href="#"><span class="icon-tools"></span> Configuración de Envíos</a></li>
+								<li><a href="#"><span class="icon-cogs"></span> Configuración de Devoluciones</a></li>
+								-->
+								<li id="admin_municipios" onclick="carga_administrador_municipios()"><a href="#"><span class="icon-globe"></span> Configuración Países-Departamentos-Municipios</a></li>
+								<!--
+								<li><a href="#"><span class="icon-thumbs-up"></span> Generar Paz y Salvo Jonas</a></li>
+								-->
+						<?php } ?>
 						</ul>
 					</li>
 					<!-- Comento desde aqui porque no se ha desarrollado | Johnnatan Rodriguez 11 Abril
@@ -68,7 +68,11 @@
 						<a href="#"><span class="icon-user"></span></a>
 						<ul class="children">
 							<li><a href="#"><span class="icon-child"><span class="titulo_submenu"> Modificar Datos de Usuario</span></span></a></li>
+							
+						// Esta parte ya esta desarrollada pero la guardo como guía de proximos desarrollos //
 							<li><a href="#"><span class="icon-circle-with-cross"><span class="titulo_submenu"> Cerrar Sesión</span></span></a></li>
+						// Fin ya desarrollada 																//
+
 						</ul>
 					</li>
 					Hasta aqui comento porque no se ha desarrollado

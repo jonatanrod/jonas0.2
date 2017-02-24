@@ -6,7 +6,6 @@
 
 	$query="update usuarios set pass=trim(md5('$new_pass')), usuario_nuevo='NO' where id_usuario='$id_usuario'";
 
-
 	//$insertar = pg_query($query) or die("No se realizó la actualizacion");
 	if (pg_query($conectado,$query)) {
 		echo "Se ha actualizado la contraseña correctamente.";

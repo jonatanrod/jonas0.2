@@ -159,27 +159,27 @@ body{
 	border-radius: 8px;
 }
 .tooltip {
-    position: relative;
-    display: inline-block;
     border-bottom: 1px dotted black;
+    display: inline-block;
+    position: relative;
 }
 
 .tooltip .tooltiptext {
+    background-color: black;
+    border-radius: 6px;
+    color: #FFFFFF;
+    font-size: 12px;
+    padding: 5px 10;
+    text-align: center;
     visibility: hidden;
     width: auto;
-    background-color: black;
-    color: #FFFFFF;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 10;
-    font-size: 12px;
     
     /* Posicion del tooltip */
-    position: absolute;
-    z-index: 1;
-    top: 100%;
     left: 25%;
     margin-left: -60px;
+    position: absolute;
+    top: 100%;
+    z-index: 1;
 }
 .tooltip:hover .tooltiptext {
     visibility: visible;
@@ -192,7 +192,7 @@ body{
 	box-shadow: 0 0 10px rgba(0,0,0,0.3);
 	color: #FFFFFF;
 	display: none;
-	float: center;
+	/*float: center;*/
 	font-size: 12px;
 	height: auto;
 	padding: 5px;
@@ -217,10 +217,10 @@ body{
 		height: 100%; /*Si height es 100% hace la animacion de display hacia abajo*/
 	}
 	#ventana .formulario{
-		left: 2%;
-		text-align: center;
 		height: 70%;
+		left: 2%;
 		right: 2%;
+		text-align: center;
 		top: 20%;
 		width: auto;
 
@@ -229,8 +229,8 @@ body{
 		height: 100%; /*Si height es 100% hace la animacion de display hacia abajo*/
 	}
 	#ventana2 .form{
-		left: 2%;
 		height: 70%;
+		left: 2%;
 		right: 2%;
 		top: 20%;
 		width: auto;

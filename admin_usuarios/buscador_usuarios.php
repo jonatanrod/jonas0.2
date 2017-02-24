@@ -10,14 +10,6 @@
 	require_once('../include/genera_fecha.php');
 	require_once('../login/conexion2.php');
 
-		$permiso_administrador = 1;/*Falta por definir el permiso en usuarios
-		Lo pongo temporalmente 1 pero hay que definirlo.*/
-		if(isset($_POST['desde_formulario'])){
-			$desde_formulario = $_POST['desde_formulario']; 
-		}
-		else{
-			$desde_formulario=1;
-		}
 /*Isset ajax consulta sugerencias - Principal Usuarios */	
 		$search_usuario ='';
 		if(isset($_POST['search_usuario'])){
@@ -31,7 +23,13 @@
 		order by u.nombre_completo limit 10";
 
 		$fila_usuario = pg_query($conectado,$consulta_usuario);
-
+		if($fila_usuario==false){ // Valida si la tabla dependencias existe en la base de datos
+			echo '<script>
+				alert("No pude conectarme a la tabla D de la base de datos 1, revisa la base de datos por favor");
+				window.location.href="principal3.php"
+			</script>';	
+		}
+		
 	/*Calcula el numero de registros que genera la consulta anterior.*/
 		$registros_usuario= pg_num_rows($fila_usuario);
 
@@ -58,7 +56,7 @@
 						$ventanilla_radicacion = $linea['ventanilla_radicacion'];
 
 						$fecha_modificacion=$linea['fecha_modificacion'];//Fecha que tiene registro en base de datos
-						$fecha_creacion = $b->traducefecha($fecha_modificacion);//Trduce la fecha en formato "Domingo 15 de Mayo de 2016"
+						$fecha_creacion = $b->traducefecha($fecha_modificacion);//Traduce la fecha en formato "Domingo 15 de Mayo de 2016"
 							
 						echo "<div class='art";
 							if ($num_fila%2==0) echo " fila2"; //si el resto de la división es 0 pongo un color
@@ -85,12 +83,8 @@
 					}
 				}while ($fila_usuario=pg_fetch_assoc($fila_usuario));
 			}else{
-				if($permiso_administrador==1){ // Se usa variable para que no salga "Para agregar usuario haga click aqui"
-					echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo usuario haga click 
-					<a href='javascript:abrirVentanaCrearUsuarios();'>aqui</a></p>";
-				}else{
-					echo"<script>$('#error_usuarios').slideDown('slow');</script>";
-				}	
+				echo "<h2> No se han encontrado resultados</h2><p>Si desea ingresar un nuevo usuario haga click
+				<a href='javascript:abrirVentanaCrearUsuarios();'>aqui</a></p>";		
 			}
 		}
 /* Fin que ajax - sugerencias Principal Usuarios */	
@@ -100,21 +94,14 @@
 		if(isset($_POST['search_identificacion'])){
 			$search_identificacion = $_POST['search_identificacion'];
 
-		$consulta_identificacion="SELECT * FROM usuarios u inner join dependencias d 
-		on u.codigo_dependencia=d.codigo_dependencia 
-		WHERE UPPER(documento_usuario) LIKE UPPER('%".$search_identificacion."%') 
-		order by u.nombre_completo limit 10";
+			$consulta_identificacion="SELECT * FROM usuarios u inner join dependencias d 
+			on u.codigo_dependencia=d.codigo_dependencia 
+			WHERE UPPER(documento_usuario) LIKE UPPER('%".$search_identificacion."%') 
+			order by u.nombre_completo limit 10";
 
-		$fila_identificacion = pg_query($conectado,$consulta_identificacion);
+			$fila_identificacion = pg_query($conectado,$consulta_identificacion);
 	/*Calcula el numero de registros que genera la consulta anterior.*/
-		$registros_identificacion= pg_num_rows($fila_identificacion);
-	/* Quita los errores que se visualizan en formulario*/
-		echo'<script>
-			$("#error_identificacion").slideUp("slow");
-			$("#valida_minimo_identificacion").slideUp("slow");
-			$("#valida_maximo_identificacion").slideUp("slow");
-			$("#error_identificacion_ya_existe").slideUp("slow");					
-		</script>';	
+			$registros_identificacion= pg_num_rows($fila_identificacion);
 
 	/*Recorre el array generado e imprime uno a uno los resultados.*/	
 			if($registros_identificacion>0 && $search_identificacion!=''){
@@ -128,10 +115,10 @@
 						$login = $linea['login'];
 						$estado = $linea['estado'];
 						$nombre_completo = $linea['nombre_completo'];
-						$usuario_nuevo = $linea['usuario_nuevo'];
+					//	$usuario_nuevo = $linea['usuario_nuevo'];
 						$documento_usuario = $linea['documento_usuario'];
-						$sesion = $linea['sesion'];
-						$fecha_sesion = $linea['fecha_sesion'];
+					//	$sesion = $linea['sesion'];
+					//	$fecha_sesion = $linea['fecha_sesion'];
 						$nivel_seguridad = $linea['nivel_seguridad'];
 						$mail_usuario = $linea['mail_usuario'];
 						$id_usuario = $linea['id_usuario'];
@@ -209,7 +196,7 @@
 						$login = $linea['login'];
 						$estado = $linea['estado'];
 						$nombre_completo = $linea['nombre_completo'];
-						$usuario_nuevo = $linea['usuario_nuevo'];
+				//		$usuario_nuevo = $linea['usuario_nuevo'];
 						$documento_usuario = $linea['documento_usuario'];
 						$sesion = $linea['sesion'];
 						$fecha_sesion = $linea['fecha_sesion'];
@@ -291,10 +278,8 @@
 						$login = $linea['login'];
 						$estado = $linea['estado'];
 						$nombre_completo = $linea['nombre_completo'];
-						$usuario_nuevo = $linea['usuario_nuevo'];
+				//		$usuario_nuevo = $linea['usuario_nuevo'];
 						$documento_usuario = $linea['documento_usuario'];
-						$sesion = $linea['sesion'];
-						$fecha_sesion = $linea['fecha_sesion'];
 						$nivel_seguridad = $linea['nivel_seguridad'];
 						$mail_usuario = $linea['mail_usuario'];
 						$id_usuario = $linea['id_usuario'];
@@ -628,7 +613,7 @@
 		or UPPER(nombre_completo) LIKE UPPER('%".$search_mod_nombre_completo."%') order by u.nombre_completo limit 10";
 
 	/* Si el nombre a modificar es el mismo que tenía, quita los errores */
-			if($search_mod_nombre_completo==$search_ant_mod_nom){
+			if(strtoupper($search_mod_nombre_completo)==$search_ant_mod_nom){
 				echo"<script>
 					$('.art1').slideUp('slow');
 					$('#sugerencia_mod_nom').slideUp('slow');
@@ -676,7 +661,7 @@
 						echo "'>"; 
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
 
-							if($search_ant_mod_nom==$nombre_completo){
+							if(strtoupper($search_ant_mod_nom)==$nombre_completo){
 								echo "<a href=\"javascript:nombre_anterior('$nombre_completo')\">";
 							}else{
 								echo "<a href=\"javascript:valida_mod_nombre_completo_ya_existe()\">";
@@ -719,7 +704,7 @@
 		order by u.nombre_completo limit 10";
 
 	/* Si el nombre a modificar es el mismo que tenía, quita los errores */
-			if($search_mod_login==$search_ant_mod_login){
+			if(strtoupper($search_mod_login)==$search_ant_mod_login){
 				echo"<script>
 					$('.art1').slideUp('slow');
 					$('#sugerencias_mod_login').slideUp('slow');
@@ -756,10 +741,10 @@
 						$login = $linea['login'];
 						$estado = $linea['estado'];
 						$nombre_completo = $linea['nombre_completo'];
-						$usuario_nuevo = $linea['usuario_nuevo'];
+					//	$usuario_nuevo = $linea['usuario_nuevo'];
 						$documento_usuario = $linea['documento_usuario'];
-						$sesion = $linea['sesion'];
-						$fecha_sesion = $linea['fecha_sesion'];
+					//	$sesion = $linea['sesion'];
+					//	$fecha_sesion = $linea['fecha_sesion'];
 						$nivel_seguridad = $linea['nivel_seguridad'];
 						$mail_usuario = $linea['mail_usuario'];
 						$id_usuario = $linea['id_usuario'];
@@ -777,7 +762,7 @@
 	/*Aqui defino cuál va a ser el comportamiento al dar clic sobre el resultado obtenido desde el "a href"*/;
 							echo "<a href=\"javascript:valida_mod_login_ya_existe()\">";
 
-							if($search_ant_mod_login==$login){
+							if(strtoupper($login)==$search_ant_mod_login){
 								echo "<a href=\"javascript:login_anterior('$login')\">";
 							}else{
 								echo "<a href=\"javascript:valida_mod_login_ya_existe()\">";
@@ -895,6 +880,7 @@
 		if(isset($_POST['search_mod_perfil_depe_codi'])){
 			$search_mod_perfil = $_POST['search_mod_perfil'];
 			$search_mod_perfil_depe_codi = $_POST['search_mod_perfil_depe_codi'];
+			$ant_mod_login_perfil = $_POST['ant_mod_login'];
 
 		$consulta_mod_perfil="select * from usuarios where perfil='".$search_mod_perfil."'
 		and	codigo_dependencia ='".$search_mod_perfil_depe_codi."' and estado='ACTIVO'";
@@ -916,12 +902,15 @@
 				echo "<script>	
 						$('#error_mod_perfil').slideUp('slow');
 					</script>";				
+				}elseif($ant_mod_login_perfil==$nombre_usuario_mod_perfil){
+					echo"<script>
+						$('#error_mod_perfil').slideUp('slow');
+					</script>";		
 				}elseif ($search_mod_perfil=='USUARIO') {
 					echo "<script>	
 						$('#error_mod_perfil').slideUp('slow');
 					</script>";	
-				}
-				else{
+				}else{
 					echo "<script>	
 						$('#error_mod_perfil').slideDown('slow');
 					</script>";
@@ -933,6 +922,45 @@
 			}	
 		}
 /* Fin ajax consulta si mod_perfil del usuario esta disponible en la dependencia - Formulario Agregar Usuarios */
+		if(isset($_POST['search_perfil_depe_codi'])){
+			$search_perfil = $_POST['search_perfil'];
+			$search_perfil_depe_codi = $_POST['search_perfil_depe_codi'];
+
+		$consulta_perfil="select * from usuarios where perfil='".$search_perfil."'
+		and	codigo_dependencia ='".$search_perfil_depe_codi."' and estado='ACTIVO'";
+		
+		$fila_perfil = pg_query($conectado,$consulta_perfil);
+		$linea = pg_fetch_array($fila_perfil);
+
+		$nombre_usuario_perfil = $linea['nombre_completo'];
+
+		echo "<script>
+			$('#user_perfil').html('$nombre_usuario_perfil');
+		</script>";
+
+	/* Calcula el numero de registros que genera la consulta anterior. */
+		$registros_perfil= pg_num_rows($fila_perfil);
+
+			if($registros_perfil>0){
+				if($search_perfil=='USUARIO'){
+					echo "<script>	
+						$('#error_perfil').slideUp('slow');
+					</script>";
+				}elseif ($search_perfil=='AUXILIAR_ARCHIVO') {
+					echo "<script>	
+						$('#error_perfil').slideUp('slow');
+					</script>";				
+				}else{
+					echo "<script>	
+							$('#error_perfil').slideDown('slow');
+						</script>";	
+				}
+			}else{
+				echo "<script>	
+					$('#error_perfil').slideUp('slow');
+				</script>";	
+			}	
+		}
 ?>
 </body>
 </html>
