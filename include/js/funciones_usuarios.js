@@ -1473,7 +1473,7 @@ function validar_mod_perfil(){
 	if($("#error_mod_perfil").is(":visible")){
 		return false;
 	}else{
-		if($("#error_imagen_invalida").is(":visible")){
+		if($("#error_mod_imagen_invalida").is(":visible")){
 			return false;
 		}else{
 			$("#error_mod_imagen_invalida").slideUp("slow");

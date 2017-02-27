@@ -21,7 +21,7 @@ var timerid="";
 $('#search_dependencias').focus();
 	
 $('#search_dependencias').on("input",function(e){ // Accion que se activa cuando se digita #search_dependencias
-	$('#desplegable_resultados').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>");
+	$('#desplegable_resultados').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100' class='imagen_logo'><br>Cargando...</h3></center>");
 	var envio_dependencia = $(this).val();
 		
 	if ($(this).data("lastval")!=envio_dependencia) {
@@ -90,7 +90,7 @@ function cerrarVentanaCrearDependencia(){
 
 /*Script para buscar dependencia desde campo codigo Formulario Agregar Nueva Dependencia*/
 $("#codigo_dependencia").on("input",function(e){ // Accion que se activa cuando se digita #codigo_dependencia
-    $('#sugerencia_codigo_dependencia').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>"); 				
+    $('#sugerencia_codigo_dependencia').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100' class='imagen_logo'><br>Cargando...</h3></center>"); 				
     var codi = $(this).val();
     
     if($(this).data("lastval")!= codi){
@@ -125,7 +125,7 @@ $("#codigo_dependencia").on("input",function(e){ // Accion que se activa cuando 
 
 /*Script para buscar dependencia desde campo "Nombre de la Dependencia" del Formulario Agregar Nueva Dependencia*/
 $("#nombre_dependencia").on("input",function(e){ // Accion que se activa cuando se digita #nombre_dependencia
-    $('#sugerencia_nombre_dependencia').html("<center><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>"); 				
+    $('#sugerencia_nombre_dependencia').html("<center class='imagen_logo'><h3><img src='imagenes/logo.gif' alt='Cargando...' width='100'><br>Cargando...</h3></center>"); 				
     var nom_depe = $(this).val();
     
     if($(this).data("lastval")!= nom_depe){
@@ -207,6 +207,9 @@ function espacios_formulario_dependencia(input){
 			break;
 		case 'mod_dependencia_padre':
 			var str = $('#mod_dependencia_padre').val();			
+			break;	
+		case 'search_dependencias':
+			var str = $('#search_dependencias').val();
 			break;		
 	}
 		str = str.replace('-',''); 	str = str.replace('°','');	str = str.replace('!','');
@@ -239,7 +242,10 @@ function espacios_formulario_dependencia(input){
 		case 'mod_dependencia_padre':
 			$('#mod_dependencia_padre').val(str.toUpperCase());			
 			break;	
-		}					
+		case 'search_dependencias':
+			$('#search_dependencias').val(str.toUpperCase());	
+			break;			
+		}	
 }
 
 function espacios_codigo_dependencia(){
@@ -370,11 +376,16 @@ function validar_grabar_dependencia(){
 }
 $(function submit_agregar_dependencia(){
 	$('#bEnviar_depe').click(function submit_agregar_dependencia(){
+		if($('.imagen_logo').is(":visible")){
+			alert("Espere porfa")
+		}else{
+			alert("Siga pues")
+		}
 		var submit_agregar_dependencia = validar_grabar_dependencia();
 		if(submit_agregar_dependencia==false){
 			return false;
 		}else if(submit_agregar_dependencia==true){
-			$('#formulario_agregar_dependencia').submit(); // Realizar la creación de la Dependencia
+		//	$('#formulario_agregar_dependencia').submit(); // Realizar la creación de la Dependencia
 		}else{
 			alert("No se puede agregar la dependencia. Intente nuevamente")
 		}										
@@ -612,6 +623,7 @@ function validar_modificar_dependencia(){
 }					
 $(function submit_modificar_dependencia(){
 	$('#enviar_mod_dependencia').click(function submit_modificar_dependencia(){
+		
 		if(validar_modificar_dependencia()==false){
 			return false;
 		}else{

@@ -8,7 +8,7 @@
 <!--Esta es la parte que se visualiza en la pestaña del navegador-->
 		<title>Ingreso al SGD JONAS</title>
 <!--Esta es el href a los archivos que necesito para usar jquery, css-->
-	<link rel="stylesheet" href="include/css/estilos_login.css"> 
+<!-- quito version ejercito	<link rel="stylesheet" href="include/css/estilos_login.css">  -->
 	<script type="text/javascript" src="include/js/jquery.js"></script>
 	<script type="text/javascript" src="include/js/funciones_login.js"></script>
 </head>
@@ -22,21 +22,22 @@
  ?>	
 	<div id="general">
 		<div class="form">
-			<img src="imagenes/encabezado_transparente.png" id="logo_principal">
-			<h1>Software de Gestión Documental</h1>
+<!-- quito version ejercito			
+			<img src="imagenes/encabezado_transparente.png" id="logo_principal"> 
+			<h1>Software de Gestión Documental</h1>	-->
 			<hr>
-			<form action="principal3.php" method="POST" id ="formulario_login" name ="formulario_login" autocomplete="off">
+			<form id ="formulario_login" name ="formulario_login" autocomplete="off">
 				<table>
 					<tr>
 						<td width="100%">
 							<center>
 								<div>
-									<img src="imagenes/iconos/icono_user.png" class="icono">
+<!-- quito version ejercito									<img src="imagenes/iconos/icono_user.png" class="icono"> -->
 									<input type="text" name="user" id="user" class="textbox"
 									 placeholder="Ingrese Usuario" onkeyup="upper_user()" maxlength='18'>
 								 </div>
 								 <div>
-								 	<img src="imagenes/iconos/icono_lock.png" class="icono">
+<!-- quito version ejercito								 	<img src="imagenes/iconos/icono_lock.png" class="icono"> -->
 									<input type="password" name="pass" id="pass" class="textbox" onkeyup="if (event.keyCode==13){entra(); return false;}"
 									 placeholder="Ingrese Contraseña" >
 								 </div>

@@ -127,7 +127,7 @@
 			
 		</div>
 		<div class="form center">
-				<input type="search" id="search_dependencias">
+				<input type="search" id="search_dependencias" onkeyup="espacios_formulario_dependencia('search_dependencias')">
 		</div>
 		<div id="desplegable_resultados"></div>
 		<div id="error_dependencias" class="errores">La dependencia que ha digitado no se encuentra en la base de datos.
